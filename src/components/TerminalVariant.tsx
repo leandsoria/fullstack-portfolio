@@ -630,9 +630,13 @@ function TermChip({ active, c, children, onClick }) {
 function TermWorkCard({ w, c, layout, n }) {
   const [ref, inView] = useInView();
   return (
-    <article
+    <a
       ref={ref}
       data-cursor
+      href={`https://${w.url}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${w.client} — ${w.title}`}
       className="term-work-card"
       style={{
         gridColumn: layout.col,
@@ -691,9 +695,9 @@ function TermWorkCard({ w, c, layout, n }) {
       <div className="term-work-card__foot">
         <span>{w.role.toLowerCase()}</span>
         <span className="term-work-card__foot-metric">{w.metric}</span>
-        <span>→ case study</span>
+        <span>↗ visit site</span>
       </div>
-    </article>
+    </a>
   );
 }
 

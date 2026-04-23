@@ -33,6 +33,22 @@ export const CREDENTIALS = [
 
 export const WORK = [
   {
+    id: "impact",
+    index: "03",
+    client: "Impact Analytics",
+    title: "Marketing platform for an enterprise AI company",
+    summary: "Translated a complex B2B AI product into a clear marketing story. Webflow CMS architected for non-technical marketers to ship weekly.",
+    year: "2024",
+    role: "Front-end Lead",
+    agency: "Marketwake",
+    url: "impactanalytics.co",
+    stack: ["Webflow", "JS", "Figma"],
+    category: "B2B SaaS · AI",
+    metric: "Marketing ships weekly",
+    swatch: "linear-gradient(135deg,#1a1d28 0%,#2a3349 50%,#5b6a8f 100%)",
+    featured: true,
+  },
+  {
     id: "fuller",
     index: "01",
     client: "Fuller Group",
@@ -47,7 +63,6 @@ export const WORK = [
     award: "RealTrends — Best Website Design 2022",
     metric: "RealTrends Best Design 2022",
     swatch: "linear-gradient(135deg,#2a2420 0%,#4a3f35 45%,#8a7862 100%)",
-    featured: true,
   },
   {
     id: "greene-isen",
@@ -63,21 +78,6 @@ export const WORK = [
     category: "Luxury Real Estate",
     metric: "Two markets, one system",
     swatch: "linear-gradient(135deg,#1a2420 0%,#2d3a34 50%,#607065 100%)",
-  },
-  {
-    id: "impact",
-    index: "03",
-    client: "Impact Analytics",
-    title: "Marketing platform for an enterprise AI company",
-    summary: "Translated a complex B2B AI product into a clear marketing story. Webflow CMS architected for non-technical marketers to ship weekly.",
-    year: "2024",
-    role: "Front-end Lead",
-    agency: "Marketwake",
-    url: "impactanalytics.co",
-    stack: ["Webflow", "JS", "Figma"],
-    category: "B2B SaaS · AI",
-    metric: "Marketing ships weekly",
-    swatch: "linear-gradient(135deg,#1a1d28 0%,#2a3349 50%,#5b6a8f 100%)",
   },
   {
     id: "sayers",
