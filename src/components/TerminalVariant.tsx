@@ -91,23 +91,9 @@ function TerminalVariant() {
   const filtered = stackFilter ? WORK.filter(w => w.stack.includes(stackFilter)) : WORK;
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: "relative",
-        width: "100%", height: "100%",
-        background: c.bg, color: c.fg,
-        fontFamily: termStyles.fontBody,
-        overflow: "auto",
-        transition: "background .35s ease, color .35s ease",
-        // subtle grid background
-        backgroundImage: `linear-gradient(${c.line} 1px, transparent 1px), linear-gradient(90deg, ${c.line} 1px, transparent 1px)`,
-        backgroundSize: "64px 64px",
-        backgroundPosition: "0 0, 0 0",
-      }}
-    >
-      <ScrollProgress containerRef={containerRef} color={c.accent} thickness={1} />
-      <ScopedCursor containerRef={containerRef} color={c.fg} size={10} />
+    <div ref={containerRef} className="term-shell">
+      <ScrollProgress containerRef={containerRef} color="var(--ls-accent)" thickness={1} />
+      <ScopedCursor containerRef={containerRef} color="var(--ls-fg)" size={10} />
 
       {/* Top chrome */}
       <header className="term-header">
@@ -175,15 +161,6 @@ function TerminalVariant() {
       {cmdkOpen && <CmdK c={c} onClose={() => setCmdkOpen(false)} scrollTo={scrollTo} setFilter={setStackFilter} />}
     </div>
   );
-}
-
-function kbd(c) {
-  return {
-    fontFamily: termStyles.fontMono, fontSize: 10,
-    padding: "1px 6px", borderRadius: 3,
-    background: c.kbdBg, color: c.fg,
-    border: `1px solid ${c.line}`,
-  };
 }
 
 function CmdK({ c, onClose, scrollTo, setFilter }) {
@@ -970,7 +947,6 @@ export { TermSectionHeader };
 export { TermStatCell };
 export { CountUp };
 export { CmdK };
-export { kbd };
 export { termStyles };
 export { useScrollProgressEl };
 export { useScrollTrack };

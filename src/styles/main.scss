@@ -21,6 +21,7 @@
 // refactored from inline styles to BEM classes. Keep this block sorted
 // alphabetically so new additions have an obvious home.
 
+@use 'layout/shell';
 @use 'layout/header';
 @use 'layout/nav';
 @use 'layout/footer';

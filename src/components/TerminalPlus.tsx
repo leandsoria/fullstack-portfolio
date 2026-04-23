@@ -207,21 +207,9 @@ function TerminalVariantV2() {
   ];
 
   return (
-    <div
-      ref={containerRef}
-      style={{
-        position: "relative",
-        width: "100%", height: "100%",
-        background: c.bg, color: c.fg,
-        fontFamily: termStyles.fontBody,
-        overflow: "auto",
-        transition: `background 350ms ${TERM_EASE}, color 350ms ${TERM_EASE}`,
-        backgroundImage: `linear-gradient(${c.line} 1px, transparent 1px), linear-gradient(90deg, ${c.line} 1px, transparent 1px)`,
-        backgroundSize: "64px 64px",
-      }}
-    >
-      <ScrollProgress containerRef={containerRef} color={c.accent} thickness={1} />
-      <ScopedCursor containerRef={containerRef} color={c.fg} size={10} />
+    <div ref={containerRef} className="term-shell">
+      <ScrollProgress containerRef={containerRef} color="var(--ls-accent)" thickness={1} />
+      <ScopedCursor containerRef={containerRef} color="var(--ls-fg)" size={10} />
 
       <header className="term-header">
         <div className="term-header__row">

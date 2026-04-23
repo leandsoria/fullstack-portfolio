@@ -1,0 +1,31 @@
+@use '../abstracts/mixins' as *;
+
+// App shell — the scroll container that wraps the entire site. Lenis
+// drives smooth-scroll against this element; sections live inside it.
+//
+// Markup:
+//   <div ref={containerRef} class="term-shell">
+//     <ScrollProgress … />
+//     <ScopedCursor … />
+//     <header class="term-header">…</header>
+//     …sections…
+//     <footer class="term-footer …">…</footer>
+//   </div>
+
+.term-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--ls-bg);
+  color: var(--ls-fg);
+  font-family: var(--ls-font-body);
+  overflow: auto;
+  transition: background 350ms var(--ls-ease), color 350ms var(--ls-ease);
+
+  // Subtle graph-paper grid backdrop. Two linear-gradients composed so
+  // we get both vertical and horizontal hairlines in the line color.
+  background-image:
+    linear-gradient(var(--ls-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ls-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
