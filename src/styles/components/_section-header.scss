@@ -1,0 +1,50 @@
+@use '../abstracts/mixins' as *;
+
+// Reusable section header: tiny section number on the left, display-type
+// label, optional mono-font meta on the right.
+//
+// Markup:
+//   <div class="term-section-header">
+//     <div class="term-section-header__left">
+//       <span class="term-section-header__num">§02</span>
+//       <h2 class="term-section-header__label">about</h2>
+//     </div>
+//     <span class="term-section-header__meta">4 featured · 12 total</span>
+//   </div>
+
+.term-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ls-line);
+
+  &__left {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  &__num {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__label {
+    font-family: var(--ls-font-display);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  &__meta {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+    letter-spacing: 0.08em;
+  }
+}

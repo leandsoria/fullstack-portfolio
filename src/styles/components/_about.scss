@@ -1,0 +1,172 @@
+@use '../abstracts/mixins' as *;
+
+// About section — two-column body + 5-cell stats row.
+//
+// Scroll-fill H2 uses gradient background-clipped to text so the text
+// fills progressively as the element enters the viewport. The JS hook
+// supplies the percentage through `--fill` on inline style.
+//
+// Markup:
+//   <section class="term-about">
+//     <div class="container">
+//       <div class="term-section-header">…</div>
+//       <div class="term-about__body">
+//         <div class="term-about__fill-wrap">
+//           <h2 class="term-about__fill" style="--fill: 42%">…</h2>
+//         </div>
+//         <div class="term-about__prose">
+//           <p>…</p>
+//           <p>…</p>
+//         </div>
+//       </div>
+//       <div class="term-about__stats">
+//         <TermStatCell>…</TermStatCell> * 5
+//       </div>
+//     </div>
+//   </section>
+
+@keyframes term-about-sweep {
+  0%   { transform: translateX(-102%); }
+  100% { transform: translateX(102%); }
+}
+
+.term-about {
+  padding: 100px var(--ls-gutter);
+  border-bottom: 1px solid var(--ls-line);
+
+  // Scroll-triggered in-view fade/slide — hook flips --in between 0 and 1
+  // via inline style (the component already does opacity/translateY inline;
+  // we keep that pattern and just carry the outer padding/border here).
+
+  &__body {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  // Scroll-fill headline: the JS hook sets `--fill` (0% → 100%) and the
+  // gradient background is clipped to the text for a left-to-right ink-in.
+  &__fill {
+    font-family: var(--ls-font-display);
+    font-weight: 500;
+    font-size: 44px;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin: 0;
+    max-width: 560px;
+    text-wrap: pretty;
+    color: var(--ls-dim); // fallback if background-clip unsupported
+    background-image: linear-gradient(
+      90deg,
+      var(--ls-fg) 0%,
+      var(--ls-fg) var(--fill, 0%),
+      var(--ls-dim) var(--fill, 0%),
+      var(--ls-dim) 100%
+    );
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: none;
+  }
+
+  &__prose {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 15px;
+    line-height: 1.65;
+
+    > p { margin: 0; }
+  }
+
+  // ── Stats row ──────────────────────────────────────────────────────────
+  &__stats {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--ls-line);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+// Individual stat cell. Hover background swap + two sweep overlays
+// (intro sweep fires once on scroll-in; hover sweep re-keys per enter).
+.term-stat {
+  padding: 20px;
+  background: var(--ls-panel);
+  position: relative;
+  overflow: hidden;
+  transition: background var(--ls-dur-fast) var(--ls-ease);
+
+  // All cells but the last carry a right divider.
+  &:not(:last-child) { border-right: 1px solid var(--ls-line); }
+
+  &:hover { background: var(--ls-kbd-bg); }
+
+  &__sweep,
+  &__sweep-hover {
+    position: absolute;
+    inset: 0;
+    transform: translateX(-102%);
+    pointer-events: none;
+    // Gradient uses color-mix against the foreground so light/dark both work.
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--ls-fg) 7%, transparent) 45%,
+      color-mix(in srgb, var(--ls-fg) 13%, transparent) 50%,
+      color-mix(in srgb, var(--ls-fg) 7%, transparent) 55%,
+      transparent 100%
+    );
+  }
+
+  // Intro sweep — drive via `.is-sweeping` (component toggles the class
+  // when statsIn && sweepOn). Stagger is applied via inline animationDelay.
+  &__sweep.is-sweeping {
+    animation: term-about-sweep 1100ms var(--ls-ease) forwards;
+  }
+
+  // Hover sweep — rendered only while hovered, re-keyed each enter.
+  &__sweep-hover {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--ls-fg) 10%, transparent) 45%,
+      color-mix(in srgb, var(--ls-fg) 19%, transparent) 50%,
+      color-mix(in srgb, var(--ls-fg) 10%, transparent) 55%,
+      transparent 100%
+    );
+    animation: term-about-sweep 750ms var(--ls-ease) forwards;
+  }
+
+  &__label {
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  &__value {
+    font-family: var(--ls-font-display);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+  }
+
+  &__meta {
+    font-size: 12px;
+    color: var(--ls-dim);
+    margin-top: 6px;
+    position: relative;
+  }
+}

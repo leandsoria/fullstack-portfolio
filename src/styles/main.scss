@@ -25,7 +25,8 @@
 @use 'layout/nav';
 @use 'layout/footer';
 @use 'components/hero';
-// @use 'components/about';
+@use 'components/section-header';
+@use 'components/about';
 // @use 'components/work';
 // @use 'components/services';
 // @use 'components/process';

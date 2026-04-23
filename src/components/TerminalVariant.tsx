@@ -476,69 +476,50 @@ function TermAbout({ c }) {
   }, [statsIn]);
 
   return (
-    <section data-section="about" data-screen-label="02 About" ref={ref} style={{
-      padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
-      opacity: inView ? 1 : 0, transform: `translateY(${inView ? 0 : 16}px)`,
-      transition: "opacity .7s, transform .7s",
-    }}>
+    <section
+      data-section="about"
+      data-screen-label="02 About"
+      ref={ref}
+      className="term-about"
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: `translateY(${inView ? 0 : 16}px)`,
+        transition: "opacity .7s, transform .7s",
+      }}
+    >
       <div className="container">
-      <TermSectionHeader c={c} n="02" label="about" />
-      <div style={{
-        marginTop: 40, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48,
-      }}>
-        <div>
-          {/* Scroll-fill H2 */}
-          <h2
-            ref={fillRef}
-            aria-label="I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice."
-            style={{
-              fontFamily: termStyles.fontDisplay, fontWeight: 500,
-              fontSize: 44, letterSpacing: "-0.025em", lineHeight: 1.1,
-              margin: 0, maxWidth: 560, textWrap: "pretty",
-              color: c.dim, // fallback
-              backgroundImage: `linear-gradient(90deg, ${c.fg} 0%, ${c.fg} ${fillProgress * 100}%, ${c.dim} ${fillProgress * 100}%, ${c.dim} 100%)`,
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              transition: "none",
-            }}
-          >
-            I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice.
-          </h2>
+        <TermSectionHeader c={c} n="02" label="about" />
+        <div className="term-about__body">
+          <div>
+            <h2
+              ref={fillRef}
+              className="term-about__fill"
+              style={{ ['--fill' as any]: `${fillProgress * 100}%` }}
+              aria-label="I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice."
+            >
+              I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice.
+            </h2>
+          </div>
+          <div className="term-about__prose">
+            <p>
+              Five years in production front-end. Past: Team Lead of 15 engineers at
+              Luxury Presence. Current: independent — two engagements per quarter for
+              clients who care how the site ages.
+            </p>
+            <p>
+              My work lives at the intersection of front-end engineering and operational
+              content systems. Fast on day one, maintainable on day three hundred. The
+              brief is always both.
+            </p>
+          </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, fontSize: 15, lineHeight: 1.65 }}>
-          <p style={{ margin: 0 }}>
-            Five years in production front-end. Past: Team Lead of 15 engineers at
-            Luxury Presence. Current: independent — two engagements per quarter for
-            clients who care how the site ages.
-          </p>
-          <p style={{ margin: 0 }}>
-            My work lives at the intersection of front-end engineering and operational
-            content systems. Fast on day one, maintainable on day three hundred. The
-            brief is always both.
-          </p>
-        </div>
-      </div>
 
-      {/* trust row with initial count-up + sweep, per-item hover sweep */}
-      <div
-        ref={statsRef}
-        style={{
-          marginTop: 64, display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 0,
-          border: `1px solid ${c.line}`, borderRadius: 8, overflow: "hidden",
-          position: "relative",
-        }}
-      >
-        <style>{`
-          @keyframes termStatSweep {
-            0%   { transform: translateX(-102%); }
-            100% { transform: translateX(102%); }
-          }
-        `}</style>
-        {CREDENTIALS.map((cr, i) => (
-          <TermStatCell key={i} cr={cr} i={i} c={c} sweepOn={sweepOn} statsIn={statsIn} />
-        ))}
-      </div>
+        {/* trust row with initial count-up + sweep, per-item hover sweep */}
+        <div ref={statsRef} className="term-about__stats">
+          {CREDENTIALS.map((cr, i) => (
+            <TermStatCell key={i} cr={cr} i={i} c={c} sweepOn={sweepOn} statsIn={statsIn} />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -554,81 +535,31 @@ function TermStatCell({ cr, i, c, sweepOn, statsIn }) {
   };
   const onLeave = () => setHover(false);
   return (
-    <div
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      style={{
-        padding: "20px 20px",
-        borderRight: i < CREDENTIALS.length - 1 ? `1px solid ${c.line}` : "none",
-        background: hover ? c.kbdBg : c.panel,
-        position: "relative", overflow: "hidden",
-        transition: `background 200ms cubic-bezier(0.2,0.8,0.2,1)`,
-      }}
-    >
-      {/* intro sweep — fires once on scroll-into-view */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: `linear-gradient(90deg, transparent 0%, ${c.fg}12 45%, ${c.fg}22 50%, ${c.fg}12 55%, transparent 100%)`,
-        transform: "translateX(-102%)",
-        animation: sweepOn ? `termStatSweep 1100ms cubic-bezier(0.2,0.8,0.2,1) ${i * 100}ms forwards` : "none",
-        pointerEvents: "none",
-      }}/>
-      {/* hover sweep — isolated to this cell; re-keyed on each enter */}
-      {hover && (
-        <div key={hoverKey} style={{
-          position: "absolute", inset: 0,
-          background: `linear-gradient(90deg, transparent 0%, ${c.fg}18 45%, ${c.fg}30 50%, ${c.fg}18 55%, transparent 100%)`,
-          transform: "translateX(-102%)",
-          animation: `termStatSweep 750ms cubic-bezier(0.2,0.8,0.2,1) forwards`,
-          pointerEvents: "none",
-        }}/>
-      )}
-      <div style={{
-        fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10,
-        position: "relative",
-      }}>
-        {cr.label}
-      </div>
-      <div style={{
-        fontFamily: termStyles.fontDisplay, fontWeight: 500,
-        fontSize: 28, letterSpacing: "-0.02em", lineHeight: 1,
-        fontVariantNumeric: "tabular-nums",
-        position: "relative",
-      }}>
+    <div className="term-stat" onMouseEnter={onEnter} onMouseLeave={onLeave}>
+      {/* intro sweep — fires once on scroll-into-view, staggered by index */}
+      <div
+        className={`term-stat__sweep${sweepOn ? " is-sweeping" : ""}`}
+        style={{ animationDelay: `${i * 100}ms` }}
+      />
+      {/* hover sweep — re-keyed on each enter to restart the animation */}
+      {hover && <div key={hoverKey} className="term-stat__sweep-hover" />}
+      <div className="term-stat__label">{cr.label}</div>
+      <div className="term-stat__value">
         <CountUp value={cr.value} active={statsIn} />
       </div>
-      <div style={{ fontSize: 12, color: c.dim, marginTop: 6, position: "relative" }}>{cr.meta}</div>
+      <div className="term-stat__meta">{cr.meta}</div>
     </div>
   );
 }
 
 function TermSectionHeader({ c, n, label, meta }) {
   return (
-    <div style={{
-      display: "flex", justifyContent: "space-between", alignItems: "baseline",
-      paddingBottom: 12, borderBottom: `1px solid ${c.line}`,
-    }}>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 16 }}>
-        <span style={{
-          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-          letterSpacing: "0.1em", textTransform: "uppercase",
-        }}>§{n}</span>
-        <h2 style={{
-          fontFamily: termStyles.fontDisplay, fontWeight: 500,
-          fontSize: 28, letterSpacing: "-0.02em", margin: 0,
-        }}>
-          {label}
-        </h2>
+    <div className="term-section-header">
+      <div className="term-section-header__left">
+        <span className="term-section-header__num">§{n}</span>
+        <h2 className="term-section-header__label">{label}</h2>
       </div>
-      {meta && (
-        <span style={{
-          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-          letterSpacing: "0.08em",
-        }}>
-          {meta}
-        </span>
-      )}
+      {meta && <span className="term-section-header__meta">{meta}</span>}
     </div>
   );
 }
