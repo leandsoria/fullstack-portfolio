@@ -84,6 +84,8 @@
     height: 6px;
     border-radius: 50%;
     margin-right: 8px;
+    border: 1px solid var(--ls-dim);
+    transition: background .8s ease, border .8s ease, opacity .8s ease;
 
     &--current  { background: var(--ls-fg); }
     &--pending  { border: 1px solid var(--ls-dim); }

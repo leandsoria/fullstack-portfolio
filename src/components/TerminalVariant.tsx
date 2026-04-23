@@ -456,14 +456,32 @@ function TermAbout({ c }) {
         <TermSectionHeader c={c} n="02" label="about" />
         <div className="term-about__body">
           <div>
-            <h2
-              ref={fillRef}
-              className="term-about__fill"
-              style={{ ['--fill' as any]: `${fillProgress * 100}%` }}
-              aria-label="I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice."
-            >
-              I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice.
-            </h2>
+            {(() => {
+              const fillText = "I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice.";
+              const words = fillText.split(" ");
+              return (
+                <h2
+                  ref={fillRef}
+                  className="term-about__fill"
+                  aria-label={fillText}
+                >
+                  {words.map((w, i) => {
+                    // Each word owns a 1/N slice of the global 0→1 progress.
+                    // clamp((p * N) - i, 0, 1) = local fill for word i.
+                    const local = Math.max(0, Math.min(1, fillProgress * words.length - i));
+                    return (
+                      <React.Fragment key={i}>
+                        <span
+                          className="term-about__fill-word"
+                          style={{ ['--fill' as any]: `${local * 100}%` }}
+                        >{w}</span>
+                        {i < words.length - 1 && " "}
+                      </React.Fragment>
+                    );
+                  })}
+                </h2>
+              );
+            })()}
           </div>
           <div className="term-about__prose">
             <p>

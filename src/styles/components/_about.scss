@@ -45,8 +45,11 @@
     gap: 48px;
   }
 
-  // Scroll-fill headline: the JS hook sets `--fill` (0% → 100%) and the
-  // gradient background is clipped to the text for a left-to-right ink-in.
+  // Scroll-fill headline. The JS hook measures element-in-viewport
+  // progress (0 → 1) and splits it across N word spans, setting a
+  // per-word `--fill` (0% → 100%). Each span carries the gradient
+  // locally so the ink-in moves word by word rather than sweeping
+  // across the whole paragraph as one bar.
   &__fill {
     font-family: var(--ls-font-display);
     font-weight: 500;
@@ -56,7 +59,13 @@
     margin: 0;
     max-width: 560px;
     text-wrap: pretty;
-    color: var(--ls-dim); // fallback if background-clip unsupported
+    color: var(--ls-dim); // fallback for the non-fill parts
+  }
+
+  &__fill-word {
+    // display:inline keeps words wrapping naturally; background-clip:
+    // text applied per-span means the gradient is scoped to that word's
+    // own box, giving each word its own independent left-to-right reveal.
     background-image: linear-gradient(
       90deg,
       var(--ls-fg) 0%,
@@ -67,7 +76,6 @@
     -webkit-background-clip: text;
             background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: none;
   }
 
   &__prose {
