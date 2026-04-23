@@ -89,7 +89,7 @@ const personLd = {
       email: 'mailto:hello@leandrosoria.dev',
       address: { '@type': 'PostalAddress', addressLocality: 'Buenos Aires', addressCountry: 'AR' },
       sameAs: [
-        'https://www.linkedin.com/in/leandrosoria',
+        'https://www.linkedin.com/in/leandro-d-soria/',
         'https://github.com/leandsoria',
       ],
       knowsAbout: ['React', 'Next.js', 'TypeScript', 'HubSpot CMS', 'Webflow', 'WordPress', 'Sanity', 'Astro', 'Tailwind CSS'],

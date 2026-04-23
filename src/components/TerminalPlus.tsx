@@ -752,8 +752,8 @@ function TerminalMobile() {
           fontFamily: termStyles.fontMono, fontSize: 12,
         }}>
           {[
-            ["linkedin", "/in/leandrosoria"],
-            ["github",   "@leandrosoria"],
+            ["linkedin", "/in/leandro-d-soria"],
+            ["github",   "@leandsoria"],
             ["read.cv",  "leandrosoria"],
             ["intro",    "cal.com/leandrosoria/30"],
           ].map(([k, v], i, arr) => (
@@ -899,8 +899,8 @@ function TermFooterV2({ c, scrollTo }: any) {
             ["Writing", () => scrollTo?.("writing")],
           ]}/>
           <FooterCol title="elsewhere" items={[
-            ["LinkedIn /in/leandrosoria",  null],
-            ["GitHub @leandrosoria",       null],
+            ["LinkedIn /in/leandro-d-soria",  null],
+            ["GitHub @leandsoria",           null],
             ["Read.cv/leandrosoria",       null],
             ["Cal.com/leandrosoria/30",    null],
           ]}/>

@@ -865,8 +865,8 @@ function TermContact({ c }) {
             <div className="term-contact__card-head">direct channels</div>
             {[
               ["email",    PROFILE.email],
-              ["linkedin", "/in/leandrosoria"],
-              ["github",   "@leandrosoria"],
+              ["linkedin", "/in/leandro-d-soria"],
+              ["github",   "@leandsoria"],
               ["read.cv",  "leandrosoria"],
               ["intro",    "cal.com/leandrosoria/30"],
             ].map(([k, v]) => (
