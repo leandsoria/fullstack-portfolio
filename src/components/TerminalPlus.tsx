@@ -899,10 +899,10 @@ function TermFooterV2({ c, scrollTo }: any) {
             ["Writing", () => scrollTo?.("writing")],
           ]}/>
           <FooterCol title="elsewhere" items={[
-            ["LinkedIn /in/leandro-d-soria",  null],
-            ["GitHub @leandsoria",           null],
-            ["Read.cv/leandrosoria",       null],
-            ["Cal.com/leandrosoria/30",    null],
+            ["LinkedIn /in/leandro-d-soria", "https://www.linkedin.com/in/leandro-d-soria/"],
+            ["GitHub @leandsoria",           "https://github.com/leandsoria"],
+            ["Read.cv/leandrosoria",         null],
+            ["Cal.com/leandrosoria/30",      null],
           ]}/>
           <FooterCol title="colophon" items={[
             ["Inter · JetBrains Mono", null],
@@ -935,23 +935,48 @@ function TermFooterV2({ c, scrollTo }: any) {
   );
 }
 
+// Each item is [label, action]:
+//   action = string   → external URL, renders <a target="_blank">
+//   action = function → onClick handler, renders <button>
+//   action = null     → non-interactive display
 function FooterCol({ title, items }) {
   return (
     <div className="term-footer-col">
       <div className="term-footer-col__title">{title}</div>
       <div className="term-footer-col__items">
-        {items.map(([label, onClick], i) => (
-          <div key={i}>
-            <button
-              data-cursor
-              onClick={onClick || undefined}
-              className="term-footer-col__btn"
-              data-clickable={onClick ? "true" : "false"}
-            >
-              {label}
-            </button>
-          </div>
-        ))}
+        {items.map(([label, action], i) => {
+          const isUrl = typeof action === "string";
+          const isHandler = typeof action === "function";
+          const clickable = isUrl || isHandler;
+          if (isUrl) {
+            return (
+              <div key={i}>
+                <a
+                  data-cursor
+                  href={action}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="term-footer-col__btn"
+                  data-clickable="true"
+                >
+                  {label}
+                </a>
+              </div>
+            );
+          }
+          return (
+            <div key={i}>
+              <button
+                data-cursor
+                onClick={isHandler ? action : undefined}
+                className="term-footer-col__btn"
+                data-clickable={clickable ? "true" : "false"}
+              >
+                {label}
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
