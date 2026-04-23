@@ -40,3 +40,13 @@ input  { font-family: inherit; }
 
 /* The terminal JSX targets [data-cursor] for the custom cursor hover state — no CSS needed here,
    but we mark the body as 'inherited cursor' to keep the browser caret neutral. */
+
+/* Layout primitive: every section uses <section><div class="container">…</div></section>.
+   Keeps the section full-width (borders, backgrounds stretch to the edge) while the content
+   is capped at 1440px and centered. Sections keep their own outer padding; the container has
+   no horizontal padding so it aligns with the section's gutter. */
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+}
