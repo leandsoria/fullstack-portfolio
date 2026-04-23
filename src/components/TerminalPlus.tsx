@@ -284,10 +284,18 @@ function TerminalVariantV2() {
             <div className="term-header__status">
               <span className="term-status">
                 <span className="term-status__dot" />
-                available-q3-26
+                {/* Two labels — CSS swaps them at the mobile breakpoint. */}
+                <span className="term-status__full">available-q3-26</span>
+                <span className="term-status__short">q3-26</span>
               </span>
               <button data-cursor onClick={toggleTheme} className="term-theme-toggle">
-                {theme === "dark" ? "dark" : "light"}
+                {/* Desktop: text label. Mobile: glyph (◐ dark / ◑ light). */}
+                <span className="term-theme-toggle__label">
+                  {theme === "dark" ? "dark" : "light"}
+                </span>
+                <span className="term-theme-toggle__icon" aria-hidden="true">
+                  {theme === "dark" ? "◐" : "◑"}
+                </span>
               </button>
               {/* Hamburger — mobile only; opens the dropdown below. */}
               <button

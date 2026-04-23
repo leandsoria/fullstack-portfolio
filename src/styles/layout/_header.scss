@@ -91,7 +91,8 @@
   border: 1px solid var(--ls-line);
 }
 
-// Availability badge with a green pulse dot.
+// Availability badge with a green pulse dot. On mobile the long label
+// collapses to the short quarter code ("available-q3-26" → "q3-26").
 .term-status {
   display: inline-flex;
   align-items: center;
@@ -104,21 +105,40 @@
     background: var(--ls-success);
     margin-right: 8px;
   }
+
+  &__full  { display: inline; }
+  &__short { display: none; }
+
+  @media (max-width: 767px) {
+    &__full  { display: none; }
+    &__short { display: inline; }
+  }
 }
 
 // Theme toggle pill. Theme state is driven by useTheme in shared.tsx which
 // sets [data-theme] on <html>; this class only styles the affordance.
+// Desktop: shows the text label ("dark" / "light").
+// Mobile: shows a glyph icon (◐ dark / ◑ light) to save horizontal space.
 .term-theme-toggle {
   @include button-reset;
   padding: 2px 8px;
   border: 1px solid var(--ls-line);
   border-radius: 4px;
   color: var(--ls-dim);
+  line-height: 1;
   transition: border-color var(--ls-dur-fast) var(--ls-ease),
               color var(--ls-dur-fast) var(--ls-ease);
 
   &:hover {
     border-color: var(--ls-line-strong);
     color: var(--ls-fg);
+  }
+
+  &__label { display: inline; }
+  &__icon  { display: none; font-size: 14px; }
+
+  @media (max-width: 767px) {
+    &__label { display: none; }
+    &__icon  { display: inline-flex; align-items: center; }
   }
 }
