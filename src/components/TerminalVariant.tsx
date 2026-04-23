@@ -266,38 +266,19 @@ function AnimatedH1({ c }) {
   ];
   let idx = 0;
   return (
-    <h1 style={{
-      fontFamily: termStyles.fontDisplay, fontWeight: 500,
-      fontSize: "clamp(56px, 7.5vw, 128px)",
-      lineHeight: 1.0, letterSpacing: "-0.035em",
-      margin: 0, textWrap: "balance",
-      fontFeatureSettings: "'ss01','cv11'",
-    }}>
-      <style>{`
-        @keyframes h1WordIn {
-          0%   { opacity: 0; transform: translateY(0.4em); filter: blur(14px); }
-          60%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-        .term-h1-word {
-          display: inline-block;
-          opacity: 0;
-          animation: h1WordIn 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          will-change: opacity, transform, filter;
-        }
-      `}</style>
+    <h1 className="term-h1">
       {lines.map((line, li) => (
-        <span key={li} style={{ display: "block" }}>
+        <span key={li} className="term-h1__line">
           {line.map((w, wi) => {
             const delay = idx * 90;
             idx++;
             const isAmp = w === "&";
             return (
               <React.Fragment key={wi}>
-                <span className="term-h1-word" style={{
-                  animationDelay: `${delay}ms`,
-                  color: isAmp ? c.dim : "inherit",
-                }}>{w}</span>
+                <span
+                  className={`term-h1__word${isAmp ? " term-h1__word--muted" : ""}`}
+                  style={{ animationDelay: `${delay}ms` }}
+                >{w}</span>
                 {wi < line.length - 1 && " "}
               </React.Fragment>
             );
@@ -310,115 +291,59 @@ function AnimatedH1({ c }) {
 
 function TermHero({ c }) {
   return (
-    <section data-section="hero" data-screen-label="01 Hero" style={{
-      padding: "80px 24px 100px",
-      borderBottom: `1px solid ${c.line}`,
-      minHeight: "85vh",
-    }}>
-      <div className="container" style={{
-        display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 60,
-        alignItems: "start",
-      }}>
-      <div>
-        <div style={{
-          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-          letterSpacing: "0.04em", marginBottom: 32,
-          display: "flex", gap: 12, alignItems: "center",
-          opacity: 0, animation: "termFadeIn 500ms cubic-bezier(0.2,0.8,0.2,1) 100ms forwards",
-        }}>
-          <style>{`@keyframes termFadeIn { to { opacity: 1; } }`}</style>
-          <span style={{
-            padding: "3px 8px", borderRadius: 4, background: c.panel,
-            border: `1px solid ${c.line}`, color: c.fg,
-          }}>SENIOR</span>
-          <span>/ contractor / team-lead</span>
+    <section data-section="hero" data-screen-label="01 Hero" className="term-hero">
+      <div className="container term-hero__grid">
+        <div className="term-hero__left">
+          <div className="term-hero__eyebrow">
+            <span className="term-hero__tag">SENIOR</span>
+            <span>/ contractor / team-lead</span>
+          </div>
+          <AnimatedH1 c={c} />
+          <p className="term-hero__lede">
+            Building production websites for international brands.
+            Five years, a hundred-plus sites, and a standard that doesn&apos;t bend.
+          </p>
+          <div className="term-hero__ctas">
+            <button data-cursor className="term-hero__cta term-hero__cta--primary">
+              View selected work
+              <span className="term-hero__cta-arrow">→</span>
+            </button>
+            <button data-cursor className="term-hero__cta term-hero__cta--ghost">
+              Book an intro call
+            </button>
+          </div>
         </div>
-        <AnimatedH1 c={c} />
-        <p style={{
-          marginTop: 32, maxWidth: 520, fontSize: 17, lineHeight: 1.55, color: c.fg,
-          opacity: 0, animation: "termFadeIn 700ms cubic-bezier(0.2,0.8,0.2,1) 900ms forwards",
-        }}>
-          Building production websites for international brands.
-          Five years, a hundred-plus sites, and a standard that doesn't bend.
-        </p>
-        <div style={{
-          marginTop: 32, display: "flex", gap: 12,
-          opacity: 0, animation: "termFadeIn 600ms cubic-bezier(0.2,0.8,0.2,1) 1100ms forwards",
-        }}>
-          <button data-cursor style={{
-            all: "unset", cursor: "pointer",
-            padding: "10px 18px", background: c.fg, color: c.bg,
-            borderRadius: 6, fontSize: 13, fontWeight: 500,
-            display: "inline-flex", alignItems: "center", gap: 8,
-          }}>
-            View selected work
-            <span style={{ fontFamily: termStyles.fontMono, fontSize: 11, opacity: 0.6 }}>→</span>
-          </button>
-          <button data-cursor style={{
-            all: "unset", cursor: "pointer",
-            padding: "10px 18px", border: `1px solid ${c.lineStrong}`,
-            borderRadius: 6, fontSize: 13,
-            display: "inline-flex", alignItems: "center", gap: 8,
-          }}>
-            Book an intro call
-          </button>
-        </div>
-      </div>
 
-      {/* Right: system meta card */}
-      <div style={{
-        border: `1px solid ${c.line}`, borderRadius: 8, overflow: "hidden",
-        background: c.panel, fontFamily: termStyles.fontMono, fontSize: 12,
-        alignSelf: "start", marginTop: 60,
-        opacity: 0, animation: "termFadeIn 500ms cubic-bezier(0.2,0.8,0.2,1) 600ms forwards",
-      }}>
-        <style>{`
-          @keyframes termRowIn {
-            0%   { opacity: 0; transform: translateX(-14px); filter: blur(4px); }
-            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
-          }
-          .term-sys-value {
-            display: inline-block;
-            opacity: 0;
-            animation: termRowIn 520ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            will-change: opacity, transform, filter;
-          }
-        `}</style>
-        <div style={{
-          padding: "10px 14px", borderBottom: `1px solid ${c.line}`,
-          display: "flex", justifyContent: "space-between",
-          color: c.dim, fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase",
-        }}>
-          <span>system / status</span>
-          <span>· live</span>
-        </div>
-        <div style={{ padding: 8 }}>
-          {[
-            ["name",       PROFILE.name],
-            ["role",       "Senior FE Engineer"],
-            ["secondary",  "CMS Architect"],
-            ["location",   "Buenos Aires, AR"],
-            ["time_zone",  "GMT-3"],
-            ["experience", "5+ years"],
-            ["shipped",    "100+ sites"],
-            ["leadership", "15 engineers @ Luxury Presence"],
-            ["recognition","RealTrends Best Design 2022"],
-            ["certified",  "HubSpot Implementation Partner"],
-            ["status",     "available Q3 2026 · 2 slots"],
-          ].map(([k, v], i) => (
-            <div key={k} style={{
-              display: "grid", gridTemplateColumns: "110px 1fr", gap: 12,
-              padding: "6px 8px", borderRadius: 4,
-            }}>
-              <span style={{ color: c.dim }}>{k}</span>
-              <span
-                className="term-sys-value"
-                style={{ color: c.fg, animationDelay: `${800 + i * 70}ms` }}
-              >{v}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+        {/* Right: system meta card */}
+        <aside className="term-hero__sys">
+          <div className="term-hero__sys-head">
+            <span>system / status</span>
+            <span>· live</span>
+          </div>
+          <div className="term-hero__sys-rows">
+            {[
+              ["name",       PROFILE.name],
+              ["role",       "Senior FE Engineer"],
+              ["secondary",  "CMS Architect"],
+              ["location",   "Buenos Aires, AR"],
+              ["time_zone",  "GMT-3"],
+              ["experience", "5+ years"],
+              ["shipped",    "100+ sites"],
+              ["leadership", "15 engineers @ Luxury Presence"],
+              ["recognition","RealTrends Best Design 2022"],
+              ["certified",  "HubSpot Implementation Partner"],
+              ["status",     "available Q3 2026 · 2 slots"],
+            ].map(([k, v], i) => (
+              <div key={k} className="term-hero__sys-row">
+                <span className="term-hero__sys-key">{k}</span>
+                <span
+                  className="term-hero__sys-val"
+                  style={{ animationDelay: `${800 + i * 70}ms` }}
+                >{v}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
       </div>
     </section>
   );

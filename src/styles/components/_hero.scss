@@ -1,0 +1,196 @@
+@use '../abstracts/mixins' as *;
+
+// Hero (section#hero) — two-column layout:
+//   left:  eyebrow tag + AnimatedH1 + lede copy + CTA pair
+//   right: "system / status" meta card
+//
+// Markup:
+//   <section class="term-hero">
+//     <div class="container term-hero__grid">
+//       <div class="term-hero__left">
+//         <div class="term-hero__eyebrow">
+//           <span class="term-hero__tag">SENIOR</span>
+//           <span>/ contractor / team-lead</span>
+//         </div>
+//         <h1 class="term-h1">…AnimatedH1…</h1>
+//         <p class="term-hero__lede">…</p>
+//         <div class="term-hero__ctas">
+//           <button class="term-hero__cta term-hero__cta--primary">…</button>
+//           <button class="term-hero__cta term-hero__cta--ghost">…</button>
+//         </div>
+//       </div>
+//       <aside class="term-hero__sys">
+//         <div class="term-hero__sys-head">…</div>
+//         <div class="term-hero__sys-rows">
+//           <div class="term-hero__sys-row">
+//             <span class="term-hero__sys-key">name</span>
+//             <span class="term-hero__sys-val">…</span>
+//           </div>
+//         </div>
+//       </aside>
+//     </div>
+//   </section>
+
+// ── Shared fade-in keyframe (eyebrow, lede, CTAs, sys card) ──────────────
+@keyframes term-hero-fade-in {
+  to { opacity: 1; }
+}
+
+// Per-row reveal for AnimatedH1 words and sys-card rows.
+@keyframes term-hero-word-in {
+  0%   { opacity: 0; transform: translateY(0.4em); filter: blur(14px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes term-hero-row-in {
+  0%   { opacity: 0; transform: translateX(-14px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+.term-hero {
+  padding: 80px var(--ls-gutter) 100px;
+  border-bottom: 1px solid var(--ls-line);
+  min-height: 85vh;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  // ── Left column ────────────────────────────────────────────────────────
+  &__eyebrow {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+    letter-spacing: 0.04em;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    opacity: 0;
+    animation: term-hero-fade-in 500ms var(--ls-ease) 100ms forwards;
+  }
+
+  &__tag {
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--ls-panel);
+    border: 1px solid var(--ls-line);
+    color: var(--ls-fg);
+  }
+
+  &__lede {
+    margin-top: 32px;
+    max-width: 520px;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ls-fg);
+    opacity: 0;
+    animation: term-hero-fade-in 700ms var(--ls-ease) 900ms forwards;
+  }
+
+  &__ctas {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    opacity: 0;
+    animation: term-hero-fade-in 600ms var(--ls-ease) 1100ms forwards;
+  }
+
+  &__cta {
+    @include button-reset;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    &--primary {
+      background: var(--ls-fg);
+      color: var(--ls-bg);
+      font-weight: 500;
+    }
+
+    &--ghost {
+      border: 1px solid var(--ls-line-strong);
+    }
+  }
+
+  &__cta-arrow {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    opacity: 0.6;
+  }
+
+  // ── Right column: system/status card ───────────────────────────────────
+  &__sys {
+    border: 1px solid var(--ls-line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--ls-panel);
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+    align-self: start;
+    margin-top: 60px;
+    opacity: 0;
+    animation: term-hero-fade-in 500ms var(--ls-ease) 600ms forwards;
+  }
+
+  &__sys-head {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ls-line);
+    display: flex;
+    justify-content: space-between;
+    color: var(--ls-dim);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__sys-rows { padding: 8px; }
+
+  &__sys-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+    padding: 6px 8px;
+    border-radius: 4px;
+  }
+
+  &__sys-key { color: var(--ls-dim); }
+
+  &__sys-val {
+    display: inline-block;
+    color: var(--ls-fg);
+    opacity: 0;
+    animation: term-hero-row-in 520ms var(--ls-ease) forwards;
+    will-change: opacity, transform, filter;
+  }
+}
+
+// ── H1 (AnimatedH1) — display type with staggered word reveal ───────────
+.term-h1 {
+  font-family: var(--ls-font-display);
+  font-weight: 500;
+  font-size: clamp(56px, 7.5vw, 128px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0;
+  text-wrap: balance;
+  font-feature-settings: 'ss01', 'cv11';
+
+  &__line { display: block; }
+
+  &__word {
+    display: inline-block;
+    opacity: 0;
+    animation: term-hero-word-in 900ms var(--ls-ease) forwards;
+    will-change: opacity, transform, filter;
+
+    &--muted { color: var(--ls-dim); }
+  }
+}
