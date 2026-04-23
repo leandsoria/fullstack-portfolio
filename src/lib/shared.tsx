@@ -179,7 +179,7 @@ export const STACK = [
   },
   {
     cat: "CMS",
-    items: ["HubSpot CMS", "Webflow", "WordPress", "Sanity", "Contentful", "Breakdance"],
+    items: ["HubSpot CMS", "Webflow", "WordPress", "Sanity", "Shopify", "Breakdance"],
   },
   {
     cat: "Infrastructure",
