@@ -210,9 +210,24 @@ export const NAV = [
 // All unique stacks across work, for the filter chips
 export const ALL_STACKS = Array.from(new Set(WORK.flatMap(w => w.stack))).sort();
 
-// Theme hook — dark default, light optional. Scoped per-variant via a ref.
+// Theme hook — dark default, light optional.
+//
+// Besides tracking theme as React state (so the `c` palette object still
+// works for the lingering inline styles), this hook writes the active
+// theme to `<html data-theme="dark|light">`. Every CSS rule that reads
+// `[data-theme='light']` (see src/styles/abstracts/_tokens.scss) flips
+// without a React re-render.
+//
+// As the inline-styles-to-BEM migration progresses, components will drop
+// their `c` references one by one; eventually `useTheme` only needs the
+// DOM side-effect.
 export function useTheme(initial = "dark") {
   const [theme, setTheme] = React.useState(initial);
+  React.useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.dataset.theme = theme;
+    }
+  }, [theme]);
   return [theme, () => setTheme(t => t === "dark" ? "light" : "dark"), setTheme];
 }
 
