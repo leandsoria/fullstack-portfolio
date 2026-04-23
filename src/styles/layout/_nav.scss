@@ -1,0 +1,61 @@
+@use '../abstracts/mixins' as *;
+
+// Primary nav — the row of section tabs inside .term-header__row--nav.
+//
+// Markup:
+//   <div class="container term-nav">
+//     <button class="term-nav__link [--active]">
+//       <span class="term-nav__link-index">01</span>
+//       index
+//     </button>
+//     …
+//     <button class="term-nav__search">⌘K search</button>
+//   </div>
+
+.term-nav {
+  display: flex;
+  gap: 0;
+  font-family: var(--ls-font-mono);
+  font-size: 12px;
+
+  &__link {
+    @include button-reset;
+    padding: 12px 16px;
+    color: var(--ls-dim);
+    border-bottom: 1px solid transparent;
+    letter-spacing: 0.02em;
+    transition: color var(--ls-dur-fast) var(--ls-ease),
+                border-color var(--ls-dur-fast) var(--ls-ease);
+
+    &:hover {
+      color: var(--ls-fg);
+    }
+
+    &--active {
+      color: var(--ls-fg);
+      border-bottom-color: var(--ls-fg);
+    }
+  }
+
+  // The small "01" prefix before the label; dimmer than the label itself.
+  &__link-index {
+    color: var(--ls-dim);
+    margin-right: 8px;
+  }
+
+  // Right-aligned search trigger. marginLeft:auto in flex.
+  &__search {
+    @include button-reset;
+    margin-left: auto;
+    padding: 12px 16px;
+    color: var(--ls-dim);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color var(--ls-dur-fast) var(--ls-ease);
+
+    &:hover {
+      color: var(--ls-fg);
+    }
+  }
+}

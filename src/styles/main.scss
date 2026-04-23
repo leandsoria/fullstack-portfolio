@@ -21,8 +21,8 @@
 // refactored from inline styles to BEM classes. Keep this block sorted
 // alphabetically so new additions have an obvious home.
 
-// @use 'layout/header';
-// @use 'layout/nav';
+@use 'layout/header';
+@use 'layout/nav';
 // @use 'layout/footer';
 // @use 'components/hero';
 // @use 'components/about';

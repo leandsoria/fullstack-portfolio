@@ -228,7 +228,10 @@ export function useTheme(initial = "dark") {
       document.documentElement.dataset.theme = theme;
     }
   }, [theme]);
-  return [theme, () => setTheme(t => t === "dark" ? "light" : "dark"), setTheme];
+  const toggle = () => setTheme(t => t === "dark" ? "light" : "dark");
+  // `as const` makes TS infer the tuple shape [string, () => void, Dispatch]
+  // instead of a union-element array, so consumers get the right type per slot.
+  return [theme, toggle, setTheme] as const;
 }
 
 // IntersectionObserver based "has entered" boolean, for subtle fade-ups.

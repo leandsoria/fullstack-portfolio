@@ -110,84 +110,55 @@ function TerminalVariant() {
       <ScopedCursor containerRef={containerRef} color={c.fg} size={10} />
 
       {/* Top chrome */}
-      <header style={{
-        position: "sticky", top: 0, zIndex: 30,
-        background: c.bg,
-        borderBottom: `1px solid ${c.line}`,
-      }}>
+      <header className="term-header">
         {/* Row 1: meta */}
-        <div style={{
-          padding: "10px 24px",
-          borderBottom: `1px solid ${c.line}`,
-        }}>
-          <div className="container" style={{
-            display: "grid", gridTemplateColumns: "1fr auto 1fr",
-            fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-            alignItems: "center",
-          }}>
-          <div style={{ display: "flex", gap: 16 }}>
-            <span style={{ color: c.fg }}>leandrosoria.dev</span>
-            <span>/ portfolio</span>
-            <span>/ v03</span>
-          </div>
-          <div style={{ display: "flex", gap: 10 }}>
-            <kbd style={kbd(c)}>⌘</kbd>
-            <kbd style={kbd(c)}>K</kbd>
-            <span style={{ color: c.dim }}>to navigate</span>
-          </div>
-          <div style={{ textAlign: "right", display: "flex", justifyContent: "flex-end", gap: 16 }}>
-            <span>
-              <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: "#7fd37f", marginRight: 8 }}/>
-              available-q3-26
-            </span>
-            <button
-              data-cursor
-              onClick={toggleTheme}
-              style={{
-                all: "unset", cursor: "pointer",
-                padding: "2px 8px", border: `1px solid ${c.line}`, borderRadius: 4,
-              }}
-            >{theme === "dark" ? "dark" : "light"}</button>
-          </div>
+        <div className="term-header__row">
+          <div className="container term-header__meta">
+            <div className="term-header__breadcrumb">
+              <span>leandrosoria.dev</span>
+              <span>/ portfolio</span>
+              <span>/ v03</span>
+            </div>
+            <div className="term-header__hint">
+              <kbd className="term-kbd">⌘</kbd>
+              <kbd className="term-kbd">K</kbd>
+              <span>to navigate</span>
+            </div>
+            <div className="term-header__status">
+              <span className="term-status">
+                <span className="term-status__dot" />
+                available-q3-26
+              </span>
+              <button
+                data-cursor
+                onClick={toggleTheme}
+                className="term-theme-toggle"
+              >{theme === "dark" ? "dark" : "light"}</button>
+            </div>
           </div>
         </div>
         {/* Row 2: tabs */}
-        <div style={{
-          padding: "0 24px",
-        }}>
-          <div className="container" style={{
-            display: "flex", gap: 0,
-            fontFamily: termStyles.fontMono, fontSize: 12,
-          }}>
-          {NAV.map((n, i) => (
+        <div className="term-header__row term-header__row--nav">
+          <div className="container term-nav">
+            {NAV.map((n, i) => (
+              <button
+                key={n.id}
+                data-cursor
+                onClick={() => scrollTo(n.id)}
+                className={`term-nav__link${active === n.id ? " term-nav__link--active" : ""}`}
+              >
+                <span className="term-nav__link-index">{String(i+1).padStart(2,"0")}</span>
+                {n.label.toLowerCase()}
+              </button>
+            ))}
             <button
-              key={n.id}
               data-cursor
-              onClick={() => scrollTo(n.id)}
-              style={{
-                all: "unset", cursor: "pointer",
-                padding: "12px 16px",
-                color: active === n.id ? c.fg : c.dim,
-                borderBottom: active === n.id ? `1px solid ${c.fg}` : "1px solid transparent",
-                transition: "color .15s, border-color .15s",
-                letterSpacing: "0.02em",
-              }}
+              onClick={() => setCmdkOpen(true)}
+              className="term-nav__search"
             >
-              <span style={{ color: c.dim, marginRight: 8 }}>{String(i+1).padStart(2,"0")}</span>
-              {n.label.toLowerCase()}
+              <span>⌘K</span>
+              <span>search</span>
             </button>
-          ))}
-          <button
-            data-cursor
-            onClick={() => setCmdkOpen(true)}
-            style={{
-              all: "unset", cursor: "pointer", marginLeft: "auto",
-              padding: "12px 16px", color: c.dim, display: "flex", alignItems: "center", gap: 8,
-            }}
-          >
-            <span>⌘K</span>
-            <span>search</span>
-          </button>
           </div>
         </div>
       </header>
