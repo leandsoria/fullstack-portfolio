@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 
-const SITE_URL = 'https://fullstack-portfolio.vercel.app'; // Update to custom domain when live
+const SITE_URL = 'https://leandrosoria.dev';
 
 const inter = localFont({
   src: [

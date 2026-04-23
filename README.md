@@ -2,7 +2,7 @@
 
 Terminal-variant portfolio, ported 1:1 from the React prototype to Next.js 15.
 
-Live: _deploy pending — will be `https://fullstack-portfolio.vercel.app`_
+Live: https://leandrosoria.dev
 
 ## Stack
 
@@ -78,8 +78,8 @@ npx vercel                 # first time — links the repo
 git push                   # then every push auto-deploys
 ```
 
-Before first deploy: in `src/app/layout.tsx`, `src/app/robots.ts`, `src/app/sitemap.ts`, change
-`SITE_URL` from `fullstack-portfolio.vercel.app` to your custom domain.
+`SITE_URL` is set to `https://leandrosoria.dev` in `src/app/layout.tsx`, `src/app/robots.ts`,
+and `src/app/sitemap.ts`. Change it if deploying under a different domain.
 
 ## Credit
 
