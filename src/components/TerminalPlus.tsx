@@ -78,112 +78,57 @@ const PROCESS_STEPS = [
 
 function TermProcess({ c }) {
   return (
-    <section data-section="process" data-screen-label="05 Process" style={{
-      padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
-    }}>
+    <section data-section="process" data-screen-label="05 Process" className="term-process">
       <div className="container">
-      <TermSectionHeader c={c} n="05" label="how i work" meta="4 phases · ~5 weeks typical" />
-      <div style={{
-        marginTop: 32, display: "grid", gridTemplateColumns: "220px 1fr", gap: 40,
-      }}>
-        {/* left legend */}
-        <div style={{
-          position: "sticky", top: 120, alignSelf: "start",
-          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-          letterSpacing: "0.08em", lineHeight: 1.8,
-        }}>
-          <div style={{ color: c.fg, marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.14em" }}>
-            process.map
-          </div>
-          <div>
-            <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: c.fg, marginRight: 8 }}/>
-            current step
-          </div>
-          <div>
-            <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", border: `1px solid ${c.dim}`, marginRight: 8 }}/>
-            pending
-          </div>
-          <div>
-            <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: c.dim, marginRight: 8, opacity: 0.4 }}/>
-            complete
-          </div>
+        <TermSectionHeader c={c} n="05" label="how i work" meta="4 phases · ~5 weeks typical" />
+        <div className="term-process__body">
+          <aside className="term-process__legend">
+            <div className="term-process__legend-title">process.map</div>
+            <div className="term-process__legend-row">
+              <span className="term-process__legend-dot term-process__legend-dot--current" />
+              current step
+            </div>
+            <div className="term-process__legend-row">
+              <span className="term-process__legend-dot term-process__legend-dot--pending" />
+              pending
+            </div>
+            <div className="term-process__legend-row">
+              <span className="term-process__legend-dot term-process__legend-dot--complete" />
+              complete
+            </div>
+          </aside>
+
+          <ol className="term-process__steps">
+            <div className="term-process__guide" />
+            {PROCESS_STEPS.map((s, i) => {
+              const [ref, shown] = useReveal(i * 90);
+              const isLast = i === PROCESS_STEPS.length - 1;
+              return (
+                <li
+                  key={s.n}
+                  ref={ref}
+                  data-cursor
+                  className={`term-process__step${isLast ? " term-process__step--last" : ""}`}
+                  style={revealStyle(shown, 10)}
+                >
+                  <span className="term-process__marker">{s.n}</span>
+                  <div className="term-process__card">
+                    <div className="term-process__card-head">
+                      <div className="term-process__card-title">{s.title}</div>
+                      <span className="term-process__card-status">{s.status}</span>
+                    </div>
+                    <p className="term-process__card-body">{s.body}</p>
+                    <div className="term-process__card-pills">
+                      {s.deliverables.map(d => (
+                        <span key={d} className="term-process__card-pill">{d}</span>
+                      ))}
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
-
-        {/* steps */}
-        <ol style={{
-          listStyle: "none", padding: 0, margin: 0, position: "relative",
-        }}>
-          {/* guide line */}
-          <div style={{
-            position: "absolute", left: 20, top: 8, bottom: 8,
-            width: 1, background: c.line,
-          }}/>
-          {PROCESS_STEPS.map((s, i) => {
-            const [ref, shown] = useReveal(i * 90);
-            return (
-              <li
-                key={s.n}
-                ref={ref}
-                data-cursor
-                style={{
-                  position: "relative", paddingLeft: 60,
-                  paddingBottom: i === PROCESS_STEPS.length - 1 ? 0 : 40,
-                  ...revealStyle(shown, 10),
-                }}
-              >
-                {/* marker */}
-                <span style={{
-                  position: "absolute", left: 12, top: 6,
-                  width: 18, height: 18, borderRadius: "50%",
-                  background: c.bg,
-                  border: `1px solid ${c.lineStrong}`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontFamily: termStyles.fontMono, fontSize: 9, color: c.fg,
-                }}>{s.n}</span>
-
-                <div style={{
-                  border: `1px solid ${c.line}`, borderRadius: 10,
-                  background: c.panel, padding: "20px 24px",
-                  transition: `border-color 200ms ${TERM_EASE}`,
-                }}>
-                  <div style={{
-                    display: "flex", justifyContent: "space-between", alignItems: "baseline",
-                    marginBottom: 8,
-                  }}>
-                    <div style={{
-                      fontFamily: termStyles.fontDisplay, fontWeight: 500,
-                      fontSize: 24, letterSpacing: "-0.02em",
-                    }}>{s.title}</div>
-                    <span style={{
-                      fontFamily: termStyles.fontMono, fontSize: 10, color: c.fg,
-                      letterSpacing: "0.08em", textTransform: "uppercase",
-                      padding: "3px 8px", borderRadius: 3,
-                      background: c.kbdBg, border: `1px solid ${c.line}`,
-                    }}>
-                      {s.status}
-                    </span>
-                  </div>
-                  <p style={{ fontSize: 14, lineHeight: 1.6, color: c.fg, margin: 0, maxWidth: 640 }}>
-                    {s.body}
-                  </p>
-                  <div style={{
-                    marginTop: 14, display: "flex", flexWrap: "wrap", gap: 6,
-                    fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-                    letterSpacing: "0.06em",
-                  }}>
-                    {s.deliverables.map(d => (
-                      <span key={d} style={{
-                        padding: "2px 8px", borderRadius: 3,
-                        border: `1px solid ${c.line}`, background: c.bg,
-                      }}>{d}</span>
-                    ))}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
       </div>
     </section>
   );
