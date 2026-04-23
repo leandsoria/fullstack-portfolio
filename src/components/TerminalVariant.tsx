@@ -748,66 +748,38 @@ function TermWorkCard({ w, c, layout, n }) {
 // ── SERVICES
 function TermServices({ c }) {
   return (
-    <section data-section="services" data-screen-label="04 Services" style={{
-      padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
-    }}>
+    <section data-section="services" data-screen-label="04 Services" className="term-services">
       <div className="container">
-      <TermSectionHeader c={c} n="04" label="what I build" meta="4 engagements" />
-      <div style={{
-        marginTop: 32, display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)", gap: 16,
-      }}>
-        {SERVICES.map((s, i) => {
-          const [ref, inView] = useInView();
-          return (
-            <div key={s.n} ref={ref} style={{
-              padding: "28px 28px 24px",
-              border: `1px solid ${c.line}`, borderRadius: 10,
-              background: c.panel,
-              opacity: inView ? 1 : 0, transform: `translateY(${inView ? 0 : 14}px)`,
-              transition: `opacity .6s ${i*0.06}s, transform .6s ${i*0.06}s`,
-            }}>
-              <div style={{
-                display: "flex", justifyContent: "space-between", alignItems: "baseline",
-                marginBottom: 14,
-              }}>
-                <span style={{
-                  fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-                  letterSpacing: "0.1em",
-                }}>
-                  /service/{s.n}
-                </span>
-                <span style={{
-                  fontFamily: termStyles.fontMono, fontSize: 10, color: c.fg,
-                  padding: "2px 8px", border: `1px solid ${c.line}`, borderRadius: 3,
-                  background: c.kbdBg, letterSpacing: "0.08em",
-                }}>
-                  active
-                </span>
+        <TermSectionHeader c={c} n="04" label="what I build" meta="4 engagements" />
+        <div className="term-services__grid">
+          {SERVICES.map((s, i) => {
+            const [ref, inView] = useInView();
+            return (
+              <div
+                key={s.n}
+                ref={ref}
+                className="term-services__card"
+                style={{
+                  opacity: inView ? 1 : 0,
+                  transform: `translateY(${inView ? 0 : 14}px)`,
+                  transition: `opacity .6s ${i * 0.06}s, transform .6s ${i * 0.06}s`,
+                }}
+              >
+                <div className="term-services__card-head">
+                  <span className="term-services__card-n">/service/{s.n}</span>
+                  <span className="term-services__card-badge">active</span>
+                </div>
+                <h3 className="term-services__card-title">{s.title}</h3>
+                <p className="term-services__card-body">{s.body}</p>
+                <div className="term-services__card-pills">
+                  {s.deliverables.map(d => (
+                    <span key={d} className="term-services__card-pill">{d}</span>
+                  ))}
+                </div>
               </div>
-              <h3 style={{
-                fontFamily: termStyles.fontDisplay, fontWeight: 500,
-                fontSize: 24, letterSpacing: "-0.02em", margin: 0, lineHeight: 1.15,
-              }}>{s.title}</h3>
-              <p style={{ fontSize: 14, lineHeight: 1.6, color: c.fg, marginTop: 12, marginBottom: 0 }}>
-                {s.body}
-              </p>
-              <div style={{
-                marginTop: 18, display: "flex", flexWrap: "wrap", gap: 6,
-                fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-                letterSpacing: "0.06em",
-              }}>
-                {s.deliverables.map(d => (
-                  <span key={d} style={{
-                    padding: "3px 8px", borderRadius: 3,
-                    border: `1px solid ${c.line}`, background: c.bg,
-                  }}>{d}</span>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

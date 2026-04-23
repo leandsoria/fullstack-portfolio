@@ -1,0 +1,103 @@
+@use '../abstracts/mixins' as *;
+
+// Services section — 2-column grid of service cards with scroll-in fade.
+//
+// Markup:
+//   <section class="term-services">
+//     <div class="container">
+//       <div class="term-section-header">…</div>
+//       <div class="term-services__grid">
+//         <div class="term-services__card">  <!-- inline opacity/translateY -->
+//           <div class="term-services__card-head">
+//             <span class="term-services__card-n">/service/01</span>
+//             <span class="term-services__card-badge">active</span>
+//           </div>
+//           <h3 class="term-services__card-title">…</h3>
+//           <p class="term-services__card-body">…</p>
+//           <div class="term-services__card-pills">
+//             <span class="term-services__card-pill">…</span>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </section>
+
+.term-services {
+  padding: 100px var(--ls-gutter);
+  border-bottom: 1px solid var(--ls-line);
+
+  &__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  &__card {
+    padding: 28px 28px 24px;
+    border: 1px solid var(--ls-line);
+    border-radius: 10px;
+    background: var(--ls-panel);
+    // Scroll-in opacity/transform supplied inline per card (staggered).
+  }
+
+  &__card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+  }
+
+  &__card-n {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+    letter-spacing: 0.1em;
+  }
+
+  &__card-badge {
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-fg);
+    padding: 2px 8px;
+    border: 1px solid var(--ls-line);
+    border-radius: 3px;
+    background: var(--ls-kbd-bg);
+    letter-spacing: 0.08em;
+  }
+
+  &__card-title {
+    font-family: var(--ls-font-display);
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+    margin: 0;
+    line-height: 1.15;
+  }
+
+  &__card-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ls-fg);
+    margin-top: 12px;
+    margin-bottom: 0;
+  }
+
+  &__card-pills {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-dim);
+    letter-spacing: 0.06em;
+  }
+
+  &__card-pill {
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--ls-line);
+    background: var(--ls-bg);
+  }
+}
