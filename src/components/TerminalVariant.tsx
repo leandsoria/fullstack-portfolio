@@ -119,10 +119,12 @@ function TerminalVariant() {
         <div style={{
           padding: "10px 24px",
           borderBottom: `1px solid ${c.line}`,
-          display: "grid", gridTemplateColumns: "1fr auto 1fr",
-          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-          alignItems: "center",
         }}>
+          <div className="container" style={{
+            display: "grid", gridTemplateColumns: "1fr auto 1fr",
+            fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
+            alignItems: "center",
+          }}>
           <div style={{ display: "flex", gap: 16 }}>
             <span style={{ color: c.fg }}>leandrosoria.dev</span>
             <span>/ portfolio</span>
@@ -147,13 +149,16 @@ function TerminalVariant() {
               }}
             >{theme === "dark" ? "dark" : "light"}</button>
           </div>
+          </div>
         </div>
         {/* Row 2: tabs */}
         <div style={{
           padding: "0 24px",
-          display: "flex", gap: 0,
-          fontFamily: termStyles.fontMono, fontSize: 12,
         }}>
+          <div className="container" style={{
+            display: "flex", gap: 0,
+            fontFamily: termStyles.fontMono, fontSize: 12,
+          }}>
           {NAV.map((n, i) => (
             <button
               key={n.id}
@@ -183,6 +188,7 @@ function TerminalVariant() {
             <span>⌘K</span>
             <span>search</span>
           </button>
+          </div>
         </div>
       </header>
 
@@ -1406,6 +1412,7 @@ function TermFooter({ c }) {
       borderTop: `1px solid ${c.line}`,
       overflow: "hidden",
     }}>
+      <div className="container">
       <style>{`
         @keyframes termFootLetter {
           0%   { opacity: 0; transform: translateY(0.4em); filter: blur(24px); }
@@ -1491,6 +1498,7 @@ function TermFooter({ c }) {
         <div>v03 · The Terminal</div>
         <div>build 2026.04.22</div>
         <div style={{ textAlign: "right" }}>end-of-document</div>
+      </div>
       </div>
     </footer>
   );
