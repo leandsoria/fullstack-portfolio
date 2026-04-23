@@ -1,0 +1,61 @@
+@use '../abstracts/mixins' as *;
+
+// Floating bottom nav — mobile-only tab bar pinned to the viewport
+// bottom. Lives inside .term-shell (after the footer) but is positioned
+// fixed against the viewport so internal shell scroll doesn't affect it.
+//
+// Markup:
+//   <nav class="term-mob-nav">
+//     <button class="term-mob-nav__btn [--active]">
+//       <span class="term-mob-nav__icon">◦</span>
+//       <span class="term-mob-nav__label">home</span>
+//     </button>
+//     … 5 slots total …
+//   </nav>
+//
+// The shell reserves bottom padding on mobile so the last section's
+// content doesn't sit underneath the floating bar (see layout/_shell).
+
+.term-mob-nav {
+  display: none;
+
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: var(--ls-bg);
+    border-top: 1px solid var(--ls-line-strong);
+    padding: 8px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+  }
+
+  &__btn {
+    @include button-reset;
+    padding: 8px 4px;
+    text-align: center;
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-dim);
+    letter-spacing: 0.06em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: color var(--ls-dur-fast) var(--ls-ease);
+
+    &:hover,
+    &--active { color: var(--ls-fg); }
+  }
+
+  &__icon {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  &__label {
+    font-size: 10px;
+  }
+}

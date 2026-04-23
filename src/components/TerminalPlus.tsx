@@ -189,6 +189,7 @@ function TerminalVariantV2() {
   const [active, setActive] = React.useState("hero");
   const [stackFilter, setStackFilter] = React.useState(null);
   const [cmdkOpen, setCmdkOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
     const root = containerRef.current;
@@ -246,6 +247,21 @@ function TerminalVariantV2() {
     { id: "writing", label: "Writing" },
     { id: "contact", label: "Contact" },
   ];
+
+  // Mobile-only floating bottom nav (5 slots with glyph icons).
+  const MOB_FLOAT = [
+    { id: "hero",     label: "Home",  icon: "◦" },
+    { id: "work",     label: "Work",  icon: "▣" },
+    { id: "services", label: "Build", icon: "◇" },
+    { id: "process",  label: "How",   icon: "≡" },
+    { id: "contact",  label: "Talk",  icon: "→" },
+  ];
+
+  // Wrap scrollTo so mobile dropdown / floating nav always close the menu.
+  const navTo = (id: string) => {
+    scrollTo(id);
+    setMenuOpen(false);
+  };
 
   return (
     <div ref={containerRef} className="term-shell">
@@ -306,7 +322,33 @@ function TerminalVariantV2() {
               </span>
               <span>search</span>
             </button>
+            {/* Hamburger — visible on mobile, hidden on desktop. */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen(v => !v)}
+              className={`term-nav__menu${menuOpen ? " term-nav__menu--open" : ""}`}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? "×" : "☰"}
+            </button>
           </div>
+        </div>
+
+        {/* Dropdown menu — collapsed by default, animates on .is-open.
+            Lives inside the sticky header so it stays stuck while open. */}
+        <div className={`term-nav-dropdown${menuOpen ? " is-open" : ""}`}>
+          {NAV_V2.map((n, i) => (
+            <button
+              key={n.id}
+              onClick={() => navTo(n.id)}
+              className={`term-nav-dropdown__item${active === n.id ? " term-nav-dropdown__item--active" : ""}`}
+            >
+              <span className="term-nav-dropdown__num">{String(i + 1).padStart(2, "0")}</span>
+              <span>{n.label.toLowerCase()}</span>
+              <span className="term-nav-dropdown__arrow">→</span>
+            </button>
+          ))}
         </div>
       </header>
 
@@ -319,6 +361,21 @@ function TerminalVariantV2() {
       <TermWriting c={c} />
       <TermContact c={c} />
       <TermFooterV2 c={c} scrollTo={scrollTo} />
+
+      {/* Floating bottom nav — visible on mobile only (CSS-gated). */}
+      <nav className="term-mob-nav" aria-label="Primary mobile navigation">
+        {MOB_FLOAT.map(n => (
+          <button
+            key={n.id}
+            onClick={() => navTo(n.id)}
+            className={`term-mob-nav__btn${active === n.id ? " term-mob-nav__btn--active" : ""}`}
+            aria-label={`Go to ${n.label}`}
+          >
+            <span aria-hidden="true" className="term-mob-nav__icon">{n.icon}</span>
+            <span className="term-mob-nav__label">{n.label.toLowerCase()}</span>
+          </button>
+        ))}
+      </nav>
 
       {cmdkOpen && <CmdK c={c} onClose={() => setCmdkOpen(false)} scrollTo={scrollTo} setFilter={setStackFilter} />}
     </div>

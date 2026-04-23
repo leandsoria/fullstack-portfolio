@@ -28,4 +28,10 @@
     linear-gradient(var(--ls-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--ls-line) 1px, transparent 1px);
   background-size: 64px 64px;
+
+  // Reserve room at the bottom on mobile so content doesn't hide under
+  // the fixed .term-mob-nav (≈ 60px base + safe-area inset).
+  @media (max-width: 767px) {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  }
 }

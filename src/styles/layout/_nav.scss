@@ -2,15 +2,20 @@
 
 // Primary nav — the row of section tabs inside .term-header__row--nav.
 //
-// Markup:
+// Markup (desktop):
 //   <div class="container term-nav">
 //     <button class="term-nav__link [--active]">
 //       <span class="term-nav__link-index">01</span>
 //       index
 //     </button>
 //     …
-//     <button class="term-nav__search">⌘K search</button>
+//     <button class="term-nav__search">🔍 search</button>
+//     <button class="term-nav__menu">☰</button>   (mobile only)
 //   </div>
+//
+// On mobile (≤767px) the inline links and search collapse out and the
+// hamburger (.term-nav__menu) toggles the .term-nav-dropdown block that
+// sits directly below the nav row, still inside the sticky header.
 
 .term-nav {
   display: flex;
@@ -58,4 +63,83 @@
       color: var(--ls-fg);
     }
   }
+
+  // Hamburger — desktop hidden, mobile takes over the nav row.
+  &__menu {
+    @include button-reset;
+    display: none;
+    margin-left: auto;
+    padding: 8px 12px;
+    border: 1px solid var(--ls-line);
+    border-radius: 4px;
+    color: var(--ls-dim);
+    font-size: 16px;
+    line-height: 1;
+    transition: color var(--ls-dur-fast) var(--ls-ease),
+                border-color var(--ls-dur-fast) var(--ls-ease);
+
+    &:hover,
+    &--open {
+      color: var(--ls-fg);
+      border-color: var(--ls-line-strong);
+    }
+  }
+
+  @media (max-width: 767px) {
+    // Drop the inline section tabs and the search button; the dropdown
+    // does both jobs on mobile.
+    &__link,
+    &__search { display: none; }
+
+    &__menu { display: inline-flex; align-items: center; }
+  }
+}
+
+// ── Collapsible dropdown menu (mobile) ──────────────────────────────────
+// Sits inside the sticky .term-header, directly below the nav row.
+// Expands via max-height transition (no layout jank on open/close).
+.term-nav-dropdown {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 320ms var(--ls-ease),
+              border-color var(--ls-dur-fast) var(--ls-ease);
+  background: var(--ls-panel);
+  border-bottom: 1px solid transparent;
+
+  &.is-open {
+    // 8 items × 44px ≈ 352; room to spare for larger line-heights.
+    max-height: 420px;
+    border-bottom-color: var(--ls-line);
+  }
+
+  &__item {
+    @include button-reset;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px var(--ls-gutter);
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 1px solid var(--ls-line);
+    font-family: var(--ls-font-mono);
+    font-size: 13px;
+    color: var(--ls-dim);
+    transition: color var(--ls-dur-fast) var(--ls-ease),
+                background var(--ls-dur-fast) var(--ls-ease);
+
+    &:last-child { border-bottom: 0; }
+
+    &:hover { color: var(--ls-fg); }
+
+    &--active { color: var(--ls-fg); }
+  }
+
+  &__num {
+    color: var(--ls-dim);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  &__arrow { color: var(--ls-dim); }
 }
