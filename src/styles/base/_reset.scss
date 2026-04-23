@@ -11,6 +11,10 @@ html {
   background: var(--ls-bg);
   color: var(--ls-fg);
   -webkit-text-size-adjust: 100%;
+  // Prevent any accidental horizontal scrollbar — the fixed-position
+  // cursor and blur filters can nudge pixels past the viewport edge.
+  // `clip` clips without establishing a scroll container (unlike hidden).
+  overflow-x: clip;
 }
 
 body {

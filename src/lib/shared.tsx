@@ -250,8 +250,12 @@ export function useInView(options = { threshold: 0.15, rootMargin: "0px 0px -10%
   return [ref, inView];
 }
 
-// Scoped custom cursor — follows mouse within a container, not the whole page.
-// Shows an outlined dot that scales on hoverable elements ([data-cursor]).
+// Custom cursor — follows the mouse via viewport-relative coords.
+// The dot is position:fixed so it stays pinned to the viewport (not the
+// scrollable shell) — this avoids two bugs: (1) translating the dot
+// toward the left edge inside an `overflow:auto` container generated
+// horizontal scrollbars; (2) inside a container that Lenis scrolls
+// internally the dot drifted out of sync with the mouse while scrolling.
 export function ScopedCursor({ containerRef, color = "currentColor", size = 14 }) {
   const dotRef = React.useRef(null);
   const [hovering, setHovering] = React.useState(false);
@@ -261,11 +265,8 @@ export function ScopedCursor({ containerRef, color = "currentColor", size = 14 }
     const c = containerRef.current;
     if (!c) return;
     const onMove = (e) => {
-      const r = c.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
+        dotRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%,-50%)`;
       }
       setVisible(true);
       const t = e.target.closest?.("[data-cursor]");

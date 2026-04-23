@@ -17,7 +17,10 @@
 //     through `data-color` (which the component mirrors to a CSS var).
 
 .term-cursor {
-  position: absolute;
+  // Fixed against the viewport so the dot doesn't get dragged by the
+  // shell's internal (Lenis) scroll, and so translating it to the left
+  // edge can never cause overflow inside .term-shell.
+  position: fixed;
   left: 0;
   top: 0;
   border-radius: 50%;
