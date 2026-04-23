@@ -46,12 +46,19 @@
 .term-process {
   padding: 100px var(--ls-gutter);
   border-bottom: 1px solid var(--ls-line);
-
+  @media (max-width: 1024px) {
+    padding-bottom: 0;
+  }
   &__body {
     margin-top: 32px;
     display: grid;
     grid-template-columns: 220px 1fr;
     gap: 40px;
+  }
+  @media (max-width: 1024px) {
+    &__body { 
+      grid-template-columns: 1fr;
+    }
   }
 
   // ── Legend (sticky on the left) ────────────────────────────────────────
@@ -64,6 +71,13 @@
     color: var(--ls-dim);
     letter-spacing: 0.08em;
     line-height: 1.8;
+    @media (max-width: 1024px) {
+      position: unset;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 24px;
+    }
   }
 
   &__legend-title {
@@ -71,6 +85,9 @@
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 0.14em;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
   }
 
   &__legend-row {

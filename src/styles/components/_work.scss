@@ -23,6 +23,9 @@
 .term-work {
   padding: 100px var(--ls-gutter);
   border-bottom: 1px solid var(--ls-line);
+  @media (max-width: 1024px) {
+    padding-bottom: unset;
+  }
 
   &__chips {
     margin-top: 20px;
@@ -38,6 +41,9 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 16px;
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -100,6 +106,11 @@
   &--featured  { grid-column: 1 / 13; }
   &--half-left { grid-column: 1 / 7; }
   &--half-right { grid-column: 7 / 13; }
+  @media (max-width: 767px) {
+  &--featured  { grid-column: unset; }
+  &--half-left { grid-column: unset; }
+  &--half-right { grid-column: unset; }
+  }
 
   &--featured .term-work-card__mock { height: 460px; }
 
@@ -332,33 +343,44 @@
     }
 
     &:hover .term-work-index__arrow { transform: translateX(4px); }
+    @media (max-width: 767px){
+      display: grid;
+      grid-template-columns: 2.5fr 1fr 1fr;
+      gap: 8px;
+    }
   }
 
   &__client {
     font-family: var(--ls-font-display);
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     letter-spacing: -0.01em;
     transform: translateX(0);
     transition: transform 220ms var(--ls-ease);
+    @media (max-width: 767px){
+      grid-column: 1 / -1;
+    }
   }
 
   &__note {
     color: var(--ls-dim);
     margin-left: 10px;
-    font-size: 11px;
+    font-size: 13px;
     font-family: var(--ls-font-mono);
   }
 
   &__url {
     font-family: var(--ls-font-mono);
-    font-size: 12px;
+    font-size: 15px;
     color: var(--ls-dim);
+        @media (max-width: 767px){
+      grid-column: 1 / -1;
+    }
   }
 
   &__stack {
     font-family: var(--ls-font-mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--ls-dim);
     display: flex;
     gap: 4px;
@@ -370,11 +392,15 @@
     border-radius: 3px;
     border: 1px solid var(--ls-line);
     background: var(--ls-bg);
+    transition: color .3s ease;
+  }
+  &__stack-item:hover {
+    color: #FFF
   }
 
   &__year {
     font-family: var(--ls-font-mono);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--ls-dim);
     text-align: right;
   }

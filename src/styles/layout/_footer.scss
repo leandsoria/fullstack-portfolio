@@ -144,6 +144,16 @@
     padding-bottom: 32px;
     border-bottom: 1px solid var(--ls-line);
   }
+  @media (max-width: 767px){
+    &__sitemap {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+    @media (max-width: 560px){
+    &__sitemap {
+      grid-template-columns: 1fr;
+    }
+  }
 
   // ── Meta row (4 equal columns, last one right-aligned) ───────────────
   &__meta {
@@ -162,7 +172,17 @@
     // Right-aligned last cell ("end-of-document")
     > :last-child { text-align: right; }
   }
-
+  @media (max-width: 767px){
+    &__meta  {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+    @media (max-width: 560px){
+    &__meta  {
+      grid-template-columns: 1fr;
+    }
+  }
   // V2 reuses __meta but the sitemap grid above already owns the border,
   // so drop the redundant top border and tighten the spacing.
   &--v2 &__meta {

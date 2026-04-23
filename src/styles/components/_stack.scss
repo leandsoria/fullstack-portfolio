@@ -31,12 +31,25 @@
 .term-stack {
   padding: 100px var(--ls-gutter);
   border-bottom: 1px solid var(--ls-line);
+  @media (max-width: 1024px){
+    padding-bottom: 0;
+  }
 
   &__grid {
     margin-top: 32px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
+  }
+  @media (max-width: 1024px){
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 767px){
+    &__grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   &__group {

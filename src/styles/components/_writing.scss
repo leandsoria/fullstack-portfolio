@@ -32,6 +32,9 @@
 .term-writing {
   padding: 100px var(--ls-gutter);
   border-bottom: 1px solid var(--ls-line);
+  @media (max-width: 1024px){
+    padding-bottom: unset;
+  }
 
   &__list { margin-top: 24px; }
 
@@ -56,6 +59,16 @@
       padding: 20px 20px;
     }
   }
+   @media (max-width: 1024px){
+    &__row {
+      grid-template-columns: 40px 140px 140px 1fr;
+    }
+   }
+   @media (max-width: 560px){
+    &__row {
+      grid-template-columns: 30px repeat(3,1fr);
+    }
+   }
 
   &__num {
     color: var(--ls-dim);
@@ -85,10 +98,16 @@
     letter-spacing: -0.01em;
     color: var(--ls-fg);
     font-weight: 500;
+    grid-column: 2 / 5;
   }
 
-  &__kind  { color: var(--ls-dim); }
-  &__date  { color: var(--ls-dim); text-align: right; }
+  &__kind  {
+     color: var(--ls-dim); 
+    grid-column: 2;
+  }
+  &__date  { color: var(--ls-dim); text-align: right; 
+    grid-column: 3;
+  }
 }
 
 // Shared reveal class — component toggles `.in` when inView is true.

@@ -25,12 +25,18 @@
 .term-services {
   padding: 100px var(--ls-gutter);
   border-bottom: 1px solid var(--ls-line);
+   @media (max-width: 1024px) {
+    padding-bottom: 0;
+   }
 
   &__grid {
     margin-top: 32px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+    @media (max-width: 767px){
+      grid-template-columns: 1fr;
+    } 
   }
 
   &__card {

@@ -45,7 +45,10 @@
 
 .term-contact {
   padding: 120px var(--ls-gutter) 80px;
-  border-bottom: 1px solid var(--ls-line);
+  // border-bottom: 1px solid var(--ls-line);
+  @media (max-width: 1024px){
+    padding-bottom: 0;
+  }
 
   &__grid {
     margin-top: 48px;
@@ -54,7 +57,11 @@
     gap: 64px;
     align-items: start;
   }
-
+  @media (max-width: 767px) {
+    &__grid {
+  grid-template-columns: 1fr;
+    }
+  }
   &__h {
     font-family: var(--ls-font-display);
     font-weight: 500;

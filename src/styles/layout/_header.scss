@@ -29,11 +29,18 @@
 
   &__meta {
     display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    grid-template-columns: 1fr  1fr;
     align-items: center;
     font-family: var(--ls-font-mono);
     font-size: 11px;
     color: var(--ls-dim);
+  }
+  @media (max-width: 767px){
+    &__meta {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
 
   // Left cell: "leandrosoria.dev / portfolio / v03"
@@ -43,6 +50,12 @@
 
     // Only the first span (the domain) is foreground-coloured.
     > :first-child { color: var(--ls-fg); }
+  }
+  @media (max-width: 767px){
+    &__breadcrumb span:not(:first-child) {
+      display: none;
+
+    }
   }
 
   // Middle cell: "⌘ K to navigate"
