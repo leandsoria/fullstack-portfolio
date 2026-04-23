@@ -940,119 +940,73 @@ Object.assign(window, { TerminalVariantV2, TerminalMobile });
 // ─────────────────────────────────────────────
 function TermFooterV2({ c, scrollTo }) {
   return (
-    <footer style={{
-      padding: "80px 24px 24px",
-      borderTop: `1px solid ${c.line}`,
-      background: c.bg,
-    }}>
+    <footer className="term-footer term-footer--v2">
       <div className="container">
-      {/* Giant wordmark */}
-      <div style={{
-        fontFamily: termStyles.fontDisplay, fontWeight: 500,
-        fontSize: "clamp(72px, 13vw, 220px)",
-        letterSpacing: "-0.05em", lineHeight: 0.9,
-        margin: 0, color: c.fg,
-        borderBottom: `1px solid ${c.line}`,
-        paddingBottom: 40, marginBottom: 40,
-        display: "flex", justifyContent: "space-between", alignItems: "flex-end",
-        gap: 40, flexWrap: "wrap",
-      }}>
-        <span>Leandro Soria.</span>
-        <span style={{
-          fontFamily: termStyles.fontMono, fontSize: 12,
-          color: c.dim, letterSpacing: "0.08em",
-          textTransform: "uppercase", alignSelf: "flex-end",
-          paddingBottom: 8, whiteSpace: "nowrap",
-        }}>↑ back to top</span>
-      </div>
+        {/* Giant wordmark */}
+        <div className="term-footer__wordmark">
+          <span>Leandro Soria.</span>
+          <span className="term-footer__back">↑ back to top</span>
+        </div>
 
-      {/* Sitemap grid */}
-      <div style={{
-        display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 32,
-        paddingBottom: 32, borderBottom: `1px solid ${c.line}`,
-      }}>
-        <FooterCol c={c} title="index" items={[
-          ["About",   () => scrollTo?.("about")],
-          ["Work",    () => scrollTo?.("work")],
-          ["Services", () => scrollTo?.("services")],
-          ["Process", () => scrollTo?.("process")],
-          ["Stack",   () => scrollTo?.("stack")],
-          ["Writing", () => scrollTo?.("writing")],
-        ]}/>
-        <FooterCol c={c} title="elsewhere" items={[
-          ["LinkedIn /in/leandrosoria",  null],
-          ["GitHub @leandrosoria",       null],
-          ["Read.cv/leandrosoria",       null],
-          ["Cal.com/leandrosoria/30",    null],
-        ]}/>
-        <FooterCol c={c} title="colophon" items={[
-          ["Inter · JetBrains Mono", null],
-          ["No frameworks harmed",    null],
-          ["Hand-built in React",     null],
-          ["Buenos Aires · GMT-3",    null],
-        ]}/>
-        <div>
-          <div style={{
-            fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-            letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14,
-          }}>now</div>
-          <div style={{
-            fontFamily: termStyles.fontMono, fontSize: 12, lineHeight: 1.7,
-            color: c.fg,
-          }}>
-            <div><span style={{ color: c.dim }}>mon–fri  </span>deep work 09→14 GMT-3</div>
-            <div><span style={{ color: c.dim }}>reply eta  </span>&lt; 24h business days</div>
-            <div style={{ marginTop: 8 }}>
-              <span style={{
-                display: "inline-block", width: 6, height: 6, borderRadius: "50%",
-                background: "#7fd37f", marginRight: 8, verticalAlign: "middle",
-              }}/>
-              2 slots · Q3 2026
+        {/* Sitemap grid */}
+        <div className="term-footer__sitemap">
+          <FooterCol title="index" items={[
+            ["About",   () => scrollTo?.("about")],
+            ["Work",    () => scrollTo?.("work")],
+            ["Services", () => scrollTo?.("services")],
+            ["Process", () => scrollTo?.("process")],
+            ["Stack",   () => scrollTo?.("stack")],
+            ["Writing", () => scrollTo?.("writing")],
+          ]}/>
+          <FooterCol title="elsewhere" items={[
+            ["LinkedIn /in/leandrosoria",  null],
+            ["GitHub @leandrosoria",       null],
+            ["Read.cv/leandrosoria",       null],
+            ["Cal.com/leandrosoria/30",    null],
+          ]}/>
+          <FooterCol title="colophon" items={[
+            ["Inter · JetBrains Mono", null],
+            ["No frameworks harmed",    null],
+            ["Hand-built in React",     null],
+            ["Buenos Aires · GMT-3",    null],
+          ]}/>
+          <div className="term-footer-now">
+            <div className="term-footer-now__label">now</div>
+            <div className="term-footer-now__body">
+              <div><span className="term-footer-now__dim">mon–fri  </span>deep work 09→14 GMT-3</div>
+              <div><span className="term-footer-now__dim">reply eta  </span>&lt; 24h business days</div>
+              <div className="term-footer-now__slots">
+                <span className="term-footer-now__dot" />
+                2 slots · Q3 2026
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Meta row */}
-      <div style={{
-        paddingTop: 24,
-        display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
-        fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-        letterSpacing: "0.06em",
-      }}>
-        <div>© 2026 Leandro Soria</div>
-        <div>v03.1 · The Terminal</div>
-        <div>build 2026.04.22</div>
-        <div style={{ textAlign: "right" }}>end-of-document</div>
-      </div>
+        {/* Meta row */}
+        <div className="term-footer__meta">
+          <div>© 2026 Leandro Soria</div>
+          <div>v03.1 · The Terminal</div>
+          <div>build 2026.04.22</div>
+          <div>end-of-document</div>
+        </div>
       </div>
     </footer>
   );
 }
 
-function FooterCol({ c, title, items }) {
+function FooterCol({ title, items }) {
   return (
-    <div>
-      <div style={{
-        fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-        letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14,
-      }}>{title}</div>
-      <div style={{
-        fontFamily: termStyles.fontMono, fontSize: 12, lineHeight: 1.9,
-      }}>
+    <div className="term-footer-col">
+      <div className="term-footer-col__title">{title}</div>
+      <div className="term-footer-col__items">
         {items.map(([label, onClick], i) => (
           <div key={i}>
             <button
               data-cursor
               onClick={onClick || undefined}
-              style={{
-                all: "unset", cursor: onClick ? "pointer" : "default",
-                color: c.fg,
-                borderBottom: "1px solid transparent",
-                transition: `border-color 150ms ${TERM_EASE}, color 150ms ${TERM_EASE}`,
-              }}
-              onMouseEnter={(e) => { if (onClick) e.currentTarget.style.borderBottomColor = c.fg; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderBottomColor = "transparent"; }}
+              className="term-footer-col__btn"
+              data-clickable={onClick ? "true" : "false"}
             >
               {label}
             </button>

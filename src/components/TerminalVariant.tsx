@@ -1378,98 +1378,34 @@ function TermFooter({ c }) {
   // Split the wordmark into individual letters for staggered blur reveal
   const mark = "LEANDROSORIA";
   return (
-    <footer ref={ref} style={{
-      padding: "80px 24px 32px",
-      borderTop: `1px solid ${c.line}`,
-      overflow: "hidden",
-    }}>
+    <footer ref={ref} className="term-footer">
       <div className="container">
-      <style>{`
-        @keyframes termFootLetter {
-          0%   { opacity: 0; transform: translateY(0.4em); filter: blur(24px); }
-          60%  { opacity: 0.9; filter: blur(0); }
-          100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-        @keyframes termFootBlock {
-          0%   { opacity: 0; filter: blur(40px); transform: translateY(24px) scale(0.98); }
-          100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
-        }
-        .term-foot-letter {
-          display: inline-block;
-          opacity: 0;
-          will-change: opacity, transform, filter;
-        }
-        .term-foot-letter.in {
-          animation: termFootLetter 1200ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        .term-foot-mark {
-          opacity: 0;
-          will-change: opacity, transform, filter;
-        }
-        .term-foot-mark.in {
-          animation: termFootBlock 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        @keyframes termFootSig {
-          0%   { opacity: 0; filter: blur(18px); transform: translateY(16px); }
-          100% { opacity: 1; filter: blur(0); transform: translateY(0); }
-        }
-        .term-foot-sig {
-          opacity: 0;
-          will-change: opacity, transform, filter;
-        }
-        .term-foot-sig.in {
-          animation: termFootSig 1100ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-          animation-delay: 1200ms;
-        }
-      `}</style>
-      <div
-        aria-label="Leandro Soria"
-        className={inView ? "term-foot-mark in" : "term-foot-mark"}
-        style={{
-          fontFamily: termStyles.fontDisplay, fontWeight: 500,
-          fontSize: "clamp(80px, 16vw, 280px)",
-          letterSpacing: "-0.05em", lineHeight: 0.9,
-          color: c.fg,
-          textAlign: "center",
-          whiteSpace: "nowrap",
-          // Parallax drift applied after the reveal animation completes via wrapper
-        }}
-      >
-        <div style={{
-          transform: `translateY(${driftY}px)`,
-          transition: "transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1)",
-          willChange: "transform",
-        }}>
-          {mark.split("").map((ch, i) => (
-            <span
-              key={i}
-              className={inView ? "term-foot-letter in" : "term-foot-letter"}
-              style={{ animationDelay: `${600 + i * 45}ms` }}
-            >{ch}</span>
-          ))}
+        <div
+          aria-label="Leandro Soria"
+          className={`term-footer__mark${inView ? " in" : ""}`}
+        >
+          <div
+            className="term-footer__mark-inner"
+            style={{ transform: `translateY(${driftY}px)` }}
+          >
+            {mark.split("").map((ch, i) => (
+              <span
+                key={i}
+                className={`term-footer__letter${inView ? " in" : ""}`}
+                style={{ animationDelay: `${600 + i * 45}ms` }}
+              >{ch}</span>
+            ))}
+          </div>
         </div>
-      </div>
-      <div
-        className={inView ? "term-foot-sig in" : "term-foot-sig"}
-        style={{
-          marginTop: 56, textAlign: "center",
-          fontFamily: termStyles.fontDisplay, fontWeight: 500,
-          fontSize: 22, letterSpacing: "-0.01em", color: c.fg,
-        }}>
-        Leandro Soria.
-      </div>
-      <div style={{
-        marginTop: 24, paddingTop: 20,
-        borderTop: `1px solid ${c.line}`,
-        display: "grid", gridTemplateColumns: "repeat(4, 1fr)",
-        fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-        letterSpacing: "0.06em",
-      }}>
-        <div>© 2026 Leandro Soria</div>
-        <div>v03 · The Terminal</div>
-        <div>build 2026.04.22</div>
-        <div style={{ textAlign: "right" }}>end-of-document</div>
-      </div>
+        <div className={`term-footer__sig${inView ? " in" : ""}`}>
+          Leandro Soria.
+        </div>
+        <div className="term-footer__meta">
+          <div>© 2026 Leandro Soria</div>
+          <div>v03 · The Terminal</div>
+          <div>build 2026.04.22</div>
+          <div>end-of-document</div>
+        </div>
       </div>
     </footer>
   );
