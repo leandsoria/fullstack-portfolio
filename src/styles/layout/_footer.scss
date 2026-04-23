@@ -122,6 +122,7 @@
   }
 
   &__back {
+    @include button-reset;
     font-family: var(--ls-font-mono);
     font-size: 12px;
     color: var(--ls-dim);
@@ -130,6 +131,9 @@
     align-self: flex-end;
     padding-bottom: 8px;
     white-space: nowrap;
+    transition: color var(--ls-dur-fast) var(--ls-ease);
+
+    &:hover { color: var(--ls-fg); }
   }
 
   // ── V2 sitemap grid (4 columns of links + a "now" column) ────────────

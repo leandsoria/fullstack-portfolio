@@ -161,12 +161,13 @@ function TerminalVariantV2() {
     return () => io.disconnect();
   }, []);
 
-  const scrollTo = (id) => {
+  const scrollTo = (id, opts: { duration?: number } = {}) => {
     const root = containerRef.current;
     const target = root?.querySelector(`[data-section="${id}"]`);
     if (!target) return;
+    const duration = opts.duration ?? 1.2;
     if (lenisRef.current) {
-      lenisRef.current.scrollTo(target.offsetTop - 8, { duration: 1.2 });
+      lenisRef.current.scrollTo(target.offsetTop - 8, { duration });
     } else {
       root.scrollTo({ top: target.offsetTop - 8, behavior: "smooth" });
     }
@@ -871,14 +872,20 @@ Object.assign(window, { TerminalVariantV2, TerminalMobile });
 // ─────────────────────────────────────────────
 // V3.1 FOOTER — sitemap + brand closer
 // ─────────────────────────────────────────────
-function TermFooterV2({ c, scrollTo }) {
+function TermFooterV2({ c, scrollTo }: any) {
   return (
     <footer className="term-footer term-footer--v2">
       <div className="container">
         {/* Giant wordmark */}
         <div className="term-footer__wordmark">
           <span>Leandro Soria.</span>
-          <span className="term-footer__back">↑ back to top</span>
+          <button
+            data-cursor
+            onClick={() => scrollTo?.("hero", { duration: 1 })}
+            className="term-footer__back"
+          >
+            ↑ back to top
+          </button>
         </div>
 
         {/* Sitemap grid */}
