@@ -86,7 +86,7 @@ const personLd = {
       name: 'Leandro Soria',
       url: SITE_URL,
       jobTitle: 'Senior Front-End Engineer & CMS Architect',
-      email: 'mailto:hello@leandrosoria.com',
+      email: 'mailto:hello@leandrosoria.dev',
       address: { '@type': 'PostalAddress', addressLocality: 'Buenos Aires', addressCountry: 'AR' },
       sameAs: [
         'https://www.linkedin.com/in/leandrosoria',

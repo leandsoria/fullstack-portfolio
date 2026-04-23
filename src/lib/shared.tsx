@@ -17,7 +17,7 @@ export const PROFILE = {
   role: "Senior Front-End Engineer & CMS Architect",
   tagline: "Building production websites for international brands",
   location: "Buenos Aires, AR · Working globally",
-  email: "hello@leandrosoria.com",
+  email: "hello@leandrosoria.dev",
   yearsExperience: 5,
   sitesShipped: 100,
   teamSize: 15,
