@@ -1,0 +1,93 @@
+@use '../abstracts/mixins' as *;
+
+// Technical stack — 4-column grid of category cards.
+//
+// Markup:
+//   <section class="term-stack">
+//     <div class="container">
+//       <div class="term-section-header">…</div>
+//       <div class="term-stack__grid">
+//         <div class="term-stack__group">
+//           <div class="term-stack-item term-stack__cat [.in]"
+//                style="animation-delay: …">
+//             <span class="term-stack__cat-name">platform</span>
+//             <span>05</span>
+//           </div>
+//           <div class="term-stack-item term-stack__row [.in]"
+//                style="animation-delay: …">
+//             <span class="term-stack__row-name">Next.js</span>
+//             <span class="term-stack__row-dot" />
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   </section>
+
+@keyframes term-stack-in {
+  0%   { opacity: 0; transform: translateX(-14px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0);    filter: blur(0); }
+}
+
+.term-stack {
+  padding: 100px var(--ls-gutter);
+  border-bottom: 1px solid var(--ls-line);
+
+  &__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  &__group {
+    border: 1px solid var(--ls-line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ls-panel);
+  }
+
+  &__cat {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ls-line);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-dim);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__cat-name { color: var(--ls-fg); }
+
+  &__row {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ls-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+
+    &--last { border-bottom: 0; }
+  }
+
+  &__row-name { color: var(--ls-fg); }
+
+  &__row-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ls-fg);
+    opacity: 0.4;
+  }
+}
+
+// Shared per-row reveal — component sets `.in` when the section enters view.
+// animation-delay is applied inline (per-item stagger).
+.term-stack-item {
+  opacity: 0;
+  will-change: opacity, transform, filter;
+
+  &.in { animation: term-stack-in 520ms var(--ls-ease) forwards; }
+}

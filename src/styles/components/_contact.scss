@@ -1,0 +1,147 @@
+@use '../abstracts/mixins' as *;
+
+// Contact — display-type headline (word-stagger reveal) + CTA button on
+// the left, "direct channels" card on the right.
+//
+// Markup:
+//   <section class="term-contact">
+//     <div class="container">
+//       <div class="term-section-header">…</div>
+//       <div class="term-contact__grid">
+//         <div>
+//           <h2 class="term-contact__h">
+//             <span class="term-contact__h-line">
+//               <span class="term-contact-word [.in]">2</span>
+//               <span class="term-contact-word [.in]">engagements</span>
+//             </span>
+//             <span class="term-contact__h-line term-contact__h-line--muted">
+//               <span class="term-contact-word [.in]">available</span> …
+//             </span>
+//           </h2>
+//           <p  class="term-contact__lede term-contact-fade [.in]">…</p>
+//           <button class="term-contact__cta term-contact-fade [.in]">…</button>
+//         </div>
+//         <aside class="term-contact__card term-contact-fade [.in]">
+//           <div class="term-contact__card-head">direct channels</div>
+//           <div class="term-contact__card-row">
+//             <span class="term-contact__card-key">email</span>
+//             <span class="term-contact__card-val">…</span>
+//           </div>
+//         </aside>
+//       </div>
+//     </div>
+//   </section>
+
+@keyframes term-contact-word {
+  0%   { opacity: 0; transform: translateY(0.4em); filter: blur(14px); }
+  60%  { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0);    filter: blur(0); }
+}
+
+@keyframes term-contact-fade {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.term-contact {
+  padding: 120px var(--ls-gutter) 80px;
+  border-bottom: 1px solid var(--ls-line);
+
+  &__grid {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  &__h {
+    font-family: var(--ls-font-display);
+    font-weight: 500;
+    font-size: clamp(48px, 6vw, 96px);
+    letter-spacing: -0.035em;
+    line-height: 1;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  &__h-line {
+    display: block;
+
+    &--muted { color: var(--ls-dim); }
+  }
+
+  &__lede {
+    margin-top: 28px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  &__cta {
+    @include button-reset;
+    margin-top: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 22px;
+    border-radius: 8px;
+    background: var(--ls-fg);
+    color: var(--ls-bg);
+    font-family: var(--ls-font-mono);
+    font-size: 14px;
+  }
+
+  &__cta-hint {
+    font-size: 11px;
+    opacity: 0.6;
+  }
+
+  // Channels card (right column).
+  &__card {
+    border: 1px solid var(--ls-line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ls-panel);
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+  }
+
+  &__card-head {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ls-line);
+    font-size: 10px;
+    color: var(--ls-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__card-row {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--ls-line);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  &__card-key { color: var(--ls-dim); }
+  &__card-val { color: var(--ls-fg); }
+}
+
+// Per-word reveal (H1-style word-in) — animationDelay is inline.
+.term-contact-word {
+  display: inline-block;
+  opacity: 0;
+  will-change: opacity, transform, filter;
+
+  &.in { animation: term-contact-word 900ms var(--ls-ease) forwards; }
+}
+
+// Softer slide-fade for lede/CTA/card — animationDelay is inline.
+.term-contact-fade {
+  opacity: 0;
+  will-change: opacity, transform;
+
+  &.in { animation: term-contact-fade 700ms var(--ls-ease) forwards; }
+}

@@ -1,0 +1,100 @@
+@use '../abstracts/mixins' as *;
+
+// Writing — dense, mono-font table of piece rows.
+//
+// Hover state now lives in CSS (:hover) instead of a hoverIdx useState.
+// Per-row scroll-in reveal is a class + inline animation-delay.
+//
+// Markup:
+//   <section class="term-writing">
+//     <div class="container">
+//       <div class="term-section-header">…</div>
+//       <div class="term-writing__list">
+//         <div class="term-writing__row term-writing-row [.in]"
+//              style="animation-delay: …">
+//           <span class="term-writing__num">
+//             <span class="term-writing__arrow">→</span>
+//             01/
+//           </span>
+//           <span class="term-writing__title">…</span>
+//           <span class="term-writing__kind">…</span>
+//           <span class="term-writing__date">…</span>
+//         </div>
+//       </div>
+//     </div>
+//   </section>
+
+@keyframes term-writing-in {
+  0%   { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0);   filter: blur(0); }
+}
+
+.term-writing {
+  padding: 100px var(--ls-gutter);
+  border-bottom: 1px solid var(--ls-line);
+
+  &__list { margin-top: 24px; }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px 140px;
+    gap: 24px;
+    padding: 20px 12px;
+    border-top: 1px solid var(--ls-line);
+    align-items: baseline;
+    cursor: pointer;
+    font-family: var(--ls-font-mono);
+    font-size: 13px;
+    background: transparent;
+    transition: background-color 250ms ease, padding-left 250ms ease, padding-right 250ms ease;
+
+    // Last row gets a closing bottom border.
+    &:last-child { border-bottom: 1px solid var(--ls-line); }
+
+    &:hover {
+      background: var(--ls-panel);
+      padding: 20px 20px;
+    }
+  }
+
+  &__num {
+    color: var(--ls-dim);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  // Arrow hidden until row hover — slides in from the left.
+  &__arrow {
+    display: inline-block;
+    width: 8px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 250ms ease, transform 250ms ease;
+    color: var(--ls-fg);
+
+    .term-writing__row:hover & {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  &__title {
+    font-family: var(--ls-font-display);
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--ls-fg);
+    font-weight: 500;
+  }
+
+  &__kind  { color: var(--ls-dim); }
+  &__date  { color: var(--ls-dim); text-align: right; }
+}
+
+// Shared reveal class — component toggles `.in` when inView is true.
+.term-writing-row {
+  opacity: 0;
+  will-change: opacity, transform, filter;
+
+  &.in { animation: term-writing-in 600ms var(--ls-ease) forwards; }
+}

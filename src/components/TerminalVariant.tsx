@@ -788,71 +788,39 @@ function TermServices({ c }) {
 // ── STACK
 function TermStack({ c }) {
   const [ref, inView] = useInView({ threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
-  const items = [];
-  STACK.forEach(g => g.items.forEach((it, j) => items.push({ g: g.cat, it, j, last: j === g.items.length - 1 })));
   return (
-    <section data-section="stack" data-screen-label="05 Stack" ref={ref} style={{
-      padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
-    }}>
+    <section data-section="stack" data-screen-label="05 Stack" ref={ref} className="term-stack">
       <div className="container">
-      <style>{`
-        @keyframes termStackIn {
-          0%   { opacity: 0; transform: translateX(-14px); filter: blur(4px); }
-          100% { opacity: 1; transform: translateX(0); filter: blur(0); }
-        }
-        .term-stack-item {
-          opacity: 0;
-          will-change: opacity, transform, filter;
-        }
-        .term-stack-item.in {
-          animation: termStackIn 520ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-      `}</style>
-      <TermSectionHeader c={c} n="05" label="technical stack" />
-      <div style={{
-        marginTop: 32, display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
-      }}>
-        {STACK.map((g, gi) => {
-          const gDelay = gi * 80;
-          return (
-            <div key={g.cat} style={{
-              border: `1px solid ${c.line}`, borderRadius: 10, overflow: "hidden",
-              background: c.panel,
-            }}>
-              <div
-                className={inView ? "term-stack-item in" : "term-stack-item"}
-                style={{
-                  padding: "10px 14px",
-                  borderBottom: `1px solid ${c.line}`,
-                  display: "flex", justifyContent: "space-between",
-                  fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-                  letterSpacing: "0.08em", textTransform: "uppercase",
-                  animationDelay: `${gDelay}ms`,
-                }}>
-                <span style={{ color: c.fg }}>{g.cat}</span>
-                <span>{String(g.items.length).padStart(2, "0")}</span>
-              </div>
-              {g.items.map((it, j) => (
+        <TermSectionHeader c={c} n="05" label="technical stack" />
+        <div className="term-stack__grid">
+          {STACK.map((g, gi) => {
+            const gDelay = gi * 80;
+            return (
+              <div key={g.cat} className="term-stack__group">
                 <div
-                  key={it}
-                  className={inView ? "term-stack-item in" : "term-stack-item"}
-                  style={{
-                    padding: "10px 14px",
-                    borderBottom: j === g.items.length - 1 ? "none" : `1px solid ${c.line}`,
-                    display: "flex", justifyContent: "space-between", alignItems: "center",
-                    fontFamily: termStyles.fontMono, fontSize: 12,
-                    animationDelay: `${gDelay + 80 + j * 60}ms`,
-                  }}>
-                  <span style={{ color: c.fg }}>{it}</span>
-                  <span style={{
-                    width: 6, height: 6, borderRadius: "50%", background: c.fg, opacity: 0.4,
-                  }}/>
+                  className={`term-stack-item term-stack__cat${inView ? " in" : ""}`}
+                  style={{ animationDelay: `${gDelay}ms` }}
+                >
+                  <span className="term-stack__cat-name">{g.cat}</span>
+                  <span>{String(g.items.length).padStart(2, "0")}</span>
                 </div>
-              ))}
-            </div>
-          );
-        })}
-      </div>
+                {g.items.map((it, j) => {
+                  const isLast = j === g.items.length - 1;
+                  return (
+                    <div
+                      key={it}
+                      className={`term-stack-item term-stack__row${isLast ? " term-stack__row--last" : ""}${inView ? " in" : ""}`}
+                      style={{ animationDelay: `${gDelay + 80 + j * 60}ms` }}
+                    >
+                      <span className="term-stack__row-name">{it}</span>
+                      <span className="term-stack__row-dot" />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -861,71 +829,28 @@ function TermStack({ c }) {
 // ── WRITING
 function TermWriting({ c }) {
   const [ref, inView] = useInView({ threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
-  const [hoverIdx, setHoverIdx] = React.useState(null);
   return (
-    <section data-section="writing" data-screen-label="06 Writing" ref={ref} style={{
-      padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
-    }}>
+    <section data-section="writing" data-screen-label="06 Writing" ref={ref} className="term-writing">
       <div className="container">
-      <style>{`
-        @keyframes termWritingIn {
-          0%   { opacity: 0; transform: translateY(10px); filter: blur(4px); }
-          100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-        .term-writing-row {
-          opacity: 0;
-          will-change: opacity, transform, filter;
-          transition: background-color .25s ease, padding-left .25s ease;
-        }
-        .term-writing-row.in {
-          animation: termWritingIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-      `}</style>
-      <TermSectionHeader c={c} n="06" label="writing" meta="forthcoming" />
-      <div style={{ marginTop: 24 }}>
-        {WRITING.map((w, i) => {
-          const isHover = hoverIdx === i;
-          return (
+        <TermSectionHeader c={c} n="06" label="writing" meta="forthcoming" />
+        <div className="term-writing__list">
+          {WRITING.map((w, i) => (
             <div
               key={i}
               data-cursor
-              className={inView ? "term-writing-row in" : "term-writing-row"}
-              onMouseEnter={() => setHoverIdx(i)}
-              onMouseLeave={() => setHoverIdx(null)}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "80px 1fr 120px 140px",
-                gap: 24,
-                padding: isHover ? "20px 20px 20px 20px" : "20px 12px",
-                borderTop: `1px solid ${c.line}`,
-                borderBottom: i === WRITING.length - 1 ? `1px solid ${c.line}` : "none",
-                alignItems: "baseline",
-                cursor: "pointer",
-                fontFamily: termStyles.fontMono, fontSize: 13,
-                background: isHover ? c.panel : "transparent",
-                animationDelay: `${i * 70}ms`,
-              }}>
-              <span style={{ color: c.dim, display: "flex", alignItems: "baseline", gap: 8 }}>
-                <span style={{
-                  display: "inline-block",
-                  width: 8,
-                  opacity: isHover ? 1 : 0,
-                  transform: isHover ? "translateX(0)" : "translateX(-4px)",
-                  transition: "opacity .25s, transform .25s",
-                  color: c.fg,
-                }}>→</span>
-                {String(i+1).padStart(2,"0")}/
+              className={`term-writing__row term-writing-row${inView ? " in" : ""}`}
+              style={{ animationDelay: `${i * 70}ms` }}
+            >
+              <span className="term-writing__num">
+                <span className="term-writing__arrow">→</span>
+                {String(i + 1).padStart(2, "0")}/
               </span>
-              <span style={{
-                fontFamily: termStyles.fontDisplay, fontSize: 20, letterSpacing: "-0.01em",
-                color: c.fg, fontWeight: 500,
-              }}>{w.title}</span>
-              <span style={{ color: c.dim }}>{w.kind.toLowerCase()}</span>
-              <span style={{ color: c.dim, textAlign: "right" }}>{w.date}</span>
+              <span className="term-writing__title">{w.title}</span>
+              <span className="term-writing__kind">{w.kind.toLowerCase()}</span>
+              <span className="term-writing__date">{w.date}</span>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -943,135 +868,68 @@ function TermContact({ c }) {
   const words1 = ["2", "engagements"];
   const words2 = ["available", "Q3", "2026."];
   let idx = 0;
+  const wordCls = `term-contact-word${inView ? " in" : ""}`;
+  const fadeCls = `term-contact-fade${inView ? " in" : ""}`;
   return (
-    <section data-section="contact" data-screen-label="07 Contact" ref={ref} style={{
-      padding: "120px 24px 80px",
-      borderBottom: `1px solid ${c.line}`,
-    }}>
+    <section data-section="contact" data-screen-label="07 Contact" ref={ref} className="term-contact">
       <div className="container">
-      <style>{`
-        @keyframes termContactWord {
-          0%   { opacity: 0; transform: translateY(0.4em); filter: blur(14px); }
-          60%  { opacity: 1; filter: blur(0); }
-          100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-        @keyframes termContactFade {
-          0%   { opacity: 0; transform: translateY(10px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .term-contact-word {
-          display: inline-block;
-          opacity: 0;
-          will-change: opacity, transform, filter;
-        }
-        .term-contact-word.in {
-          animation: termContactWord 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-        .term-contact-fade {
-          opacity: 0;
-          will-change: opacity, transform;
-        }
-        .term-contact-fade.in {
-          animation: termContactFade 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-      `}</style>
-      <TermSectionHeader c={c} n="07" label="contact" />
-      <div style={{
-        marginTop: 48, display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 64,
-        alignItems: "start",
-      }}>
-        <div>
-          <h2 style={{
-            fontFamily: termStyles.fontDisplay, fontWeight: 500,
-            fontSize: "clamp(48px, 6vw, 96px)", letterSpacing: "-0.035em",
-            lineHeight: 1.0, margin: 0, textWrap: "balance",
-          }}>
-            <span style={{ display: "block" }}>
-              {words1.map((w, wi) => {
-                const delay = idx * 90; idx++;
-                return (
-                  <React.Fragment key={wi}>
-                    <span
-                      className={inView ? "term-contact-word in" : "term-contact-word"}
-                      style={{ animationDelay: `${delay}ms` }}
-                    >{w}</span>
-                    {wi < words1.length - 1 && " "}
-                  </React.Fragment>
-                );
-              })}
-            </span>
-            <span style={{ display: "block", color: c.dim }}>
-              {words2.map((w, wi) => {
-                const delay = idx * 90; idx++;
-                return (
-                  <React.Fragment key={wi}>
-                    <span
-                      className={inView ? "term-contact-word in" : "term-contact-word"}
-                      style={{ animationDelay: `${delay}ms` }}
-                    >{w}</span>
-                    {wi < words2.length - 1 && " "}
-                  </React.Fragment>
-                );
-              })}
-            </span>
-          </h2>
-          <p
-            className={inView ? "term-contact-fade in" : "term-contact-fade"}
-            style={{
-              marginTop: 28, fontSize: 16, lineHeight: 1.6, maxWidth: 500,
-              animationDelay: "600ms",
-            }}>
-            Write directly. I reply within one business day with either a scoping
-            call or a referral to someone better suited.
-          </p>
-          <button
-            data-cursor
-            onClick={copy}
-            className={inView ? "term-contact-fade in" : "term-contact-fade"}
-            style={{
-              all: "unset", cursor: "pointer", marginTop: 32,
-              display: "inline-flex", alignItems: "center", gap: 14,
-              padding: "14px 22px", borderRadius: 8,
-              background: c.fg, color: c.bg,
-              fontFamily: termStyles.fontMono, fontSize: 14,
-              animationDelay: "780ms",
-            }}
-          >
-            <span>{copied ? "copied ✓" : PROFILE.email}</span>
-            <span style={{ fontSize: 11, opacity: 0.6 }}>{copied ? "" : "copy"}</span>
-          </button>
-        </div>
-        <div
-          className={inView ? "term-contact-fade in" : "term-contact-fade"}
-          style={{
-            border: `1px solid ${c.line}`, borderRadius: 10, overflow: "hidden",
-            background: c.panel, fontFamily: termStyles.fontMono, fontSize: 12,
-            animationDelay: "500ms",
-          }}>
-          <div style={{
-            padding: "10px 14px", borderBottom: `1px solid ${c.line}`,
-            fontSize: 10, color: c.dim, letterSpacing: "0.1em", textTransform: "uppercase",
-          }}>
-            direct channels
+        <TermSectionHeader c={c} n="07" label="contact" />
+        <div className="term-contact__grid">
+          <div>
+            <h2 className="term-contact__h">
+              <span className="term-contact__h-line">
+                {words1.map((w, wi) => {
+                  const delay = idx * 90; idx++;
+                  return (
+                    <React.Fragment key={wi}>
+                      <span className={wordCls} style={{ animationDelay: `${delay}ms` }}>{w}</span>
+                      {wi < words1.length - 1 && " "}
+                    </React.Fragment>
+                  );
+                })}
+              </span>
+              <span className="term-contact__h-line term-contact__h-line--muted">
+                {words2.map((w, wi) => {
+                  const delay = idx * 90; idx++;
+                  return (
+                    <React.Fragment key={wi}>
+                      <span className={wordCls} style={{ animationDelay: `${delay}ms` }}>{w}</span>
+                      {wi < words2.length - 1 && " "}
+                    </React.Fragment>
+                  );
+                })}
+              </span>
+            </h2>
+            <p className={`term-contact__lede ${fadeCls}`} style={{ animationDelay: "600ms" }}>
+              Write directly. I reply within one business day with either a scoping
+              call or a referral to someone better suited.
+            </p>
+            <button
+              data-cursor
+              onClick={copy}
+              className={`term-contact__cta ${fadeCls}`}
+              style={{ animationDelay: "780ms" }}
+            >
+              <span>{copied ? "copied ✓" : PROFILE.email}</span>
+              <span className="term-contact__cta-hint">{copied ? "" : "copy"}</span>
+            </button>
           </div>
-          {[
-            ["email",    PROFILE.email],
-            ["linkedin", "/in/leandrosoria"],
-            ["github",   "@leandrosoria"],
-            ["read.cv",  "leandrosoria"],
-            ["intro",    "cal.com/leandrosoria/30"],
-          ].map(([k, v], i) => (
-            <div key={k} style={{
-              padding: "12px 14px",
-              borderBottom: `1px solid ${c.line}`,
-              display: "grid", gridTemplateColumns: "100px 1fr",
-            }}>
-              <span style={{ color: c.dim }}>{k}</span>
-              <span style={{ color: c.fg }}>{v}</span>
-            </div>
-          ))}
+          <aside className={`term-contact__card ${fadeCls}`} style={{ animationDelay: "500ms" }}>
+            <div className="term-contact__card-head">direct channels</div>
+            {[
+              ["email",    PROFILE.email],
+              ["linkedin", "/in/leandrosoria"],
+              ["github",   "@leandrosoria"],
+              ["read.cv",  "leandrosoria"],
+              ["intro",    "cal.com/leandrosoria/30"],
+            ].map(([k, v]) => (
+              <div key={k} className="term-contact__card-row">
+                <span className="term-contact__card-key">{k}</span>
+                <span className="term-contact__card-val">{v}</span>
+              </div>
+            ))}
+          </aside>
         </div>
-      </div>
       </div>
     </section>
   );
