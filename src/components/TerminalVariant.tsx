@@ -337,9 +337,11 @@ function TermHero({ c }) {
       padding: "80px 24px 100px",
       borderBottom: `1px solid ${c.line}`,
       minHeight: "85vh",
-      display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 60,
-      alignItems: "start",
     }}>
+      <div className="container" style={{
+        display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 60,
+        alignItems: "start",
+      }}>
       <div>
         <div style={{
           fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
@@ -439,6 +441,7 @@ function TermHero({ c }) {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
@@ -576,6 +579,7 @@ function TermAbout({ c }) {
       opacity: inView ? 1 : 0, transform: `translateY(${inView ? 0 : 16}px)`,
       transition: "opacity .7s, transform .7s",
     }}>
+      <div className="container">
       <TermSectionHeader c={c} n="02" label="about" />
       <div style={{
         marginTop: 40, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 48,
@@ -632,6 +636,7 @@ function TermAbout({ c }) {
         {CREDENTIALS.map((cr, i) => (
           <TermStatCell key={i} cr={cr} i={i} c={c} sweepOn={sweepOn} statsIn={statsIn} />
         ))}
+      </div>
       </div>
     </section>
   );
@@ -735,6 +740,7 @@ function TermWork({ c, filter, setFilter, filtered }) {
     <section data-section="work" data-screen-label="03 Work" style={{
       padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
     }}>
+      <div className="container">
       <TermSectionHeader c={c} n="03" label="selected work" meta={`${filtered.length} featured · ${(WORK_INDEX || []).length + WORK.length} total`} />
 
       <div style={{
@@ -768,6 +774,7 @@ function TermWork({ c, filter, setFilter, filtered }) {
 
       {/* Full index list grouped by agency */}
       <TermWorkIndex c={c} items={indexFiltered}/>
+      </div>
     </section>
   );
 }
@@ -1026,6 +1033,7 @@ function TermServices({ c }) {
     <section data-section="services" data-screen-label="04 Services" style={{
       padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
     }}>
+      <div className="container">
       <TermSectionHeader c={c} n="04" label="what I build" meta="4 engagements" />
       <div style={{
         marginTop: 32, display: "grid",
@@ -1082,6 +1090,7 @@ function TermServices({ c }) {
           );
         })}
       </div>
+      </div>
     </section>
   );
 }
@@ -1095,6 +1104,7 @@ function TermStack({ c }) {
     <section data-section="stack" data-screen-label="05 Stack" ref={ref} style={{
       padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
     }}>
+      <div className="container">
       <style>{`
         @keyframes termStackIn {
           0%   { opacity: 0; transform: translateX(-14px); filter: blur(4px); }
@@ -1153,6 +1163,7 @@ function TermStack({ c }) {
           );
         })}
       </div>
+      </div>
     </section>
   );
 }
@@ -1165,6 +1176,7 @@ function TermWriting({ c }) {
     <section data-section="writing" data-screen-label="06 Writing" ref={ref} style={{
       padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
     }}>
+      <div className="container">
       <style>{`
         @keyframes termWritingIn {
           0%   { opacity: 0; transform: translateY(10px); filter: blur(4px); }
@@ -1224,6 +1236,7 @@ function TermWriting({ c }) {
           );
         })}
       </div>
+      </div>
     </section>
   );
 }
@@ -1245,6 +1258,7 @@ function TermContact({ c }) {
       padding: "120px 24px 80px",
       borderBottom: `1px solid ${c.line}`,
     }}>
+      <div className="container">
       <style>{`
         @keyframes termContactWord {
           0%   { opacity: 0; transform: translateY(0.4em); filter: blur(14px); }
@@ -1367,6 +1381,7 @@ function TermContact({ c }) {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );
