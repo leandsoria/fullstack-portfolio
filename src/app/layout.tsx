@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <div id="root-host">{children}</div>
+        <main>{children}</main>
       </body>
     </html>
   );

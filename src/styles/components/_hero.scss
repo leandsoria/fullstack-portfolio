@@ -49,13 +49,13 @@
 }
 
 .term-hero {
+  overflow: hidden;
   padding: 80px var(--ls-gutter) 100px;
   border-bottom: 1px solid var(--ls-line);
-  min-height: 85vh;
 
   &__grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 1.7fr 1fr;
     gap: 60px;
     align-items: start;
   }
@@ -176,7 +176,7 @@
 .term-h1 {
   font-family: var(--ls-font-display);
   font-weight: 500;
-  font-size: clamp(56px, 7.5vw, 128px);
+  font-size: clamp(56px, 7vw, 108px);
   line-height: 1;
   letter-spacing: -0.035em;
   margin: 0;

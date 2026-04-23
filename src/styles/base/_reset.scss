@@ -37,8 +37,10 @@ input    { font-family: inherit; }
   border-radius: 3px;
 }
 
-// The TerminalVariantV2 manages its own internal scroll container.
-#root-host { height: 100%; overflow: hidden; }
+// Top-level <main> is the fixed-height host for the terminal shell.
+// Lenis scrolls .term-shell (height: 100%) inside it, so main must have
+// a concrete height. 100vh is what the old page-level wrapper was doing.
+main { height: 100vh; overflow: hidden; }
 
 // Respect reduced-motion globally. Components add their own overrides where
 // a state change without any transition would be too abrupt.

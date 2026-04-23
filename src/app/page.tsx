@@ -14,9 +14,5 @@ const TerminalVariantV2 = dynamic(
 );
 
 export default function HomePage() {
-  return (
-    <div style={{ width: '100%', height: '100vh', background: '#0b0b0d' }}>
-      <TerminalVariantV2 />
-    </div>
-  );
+  return <TerminalVariantV2 />;
 }
