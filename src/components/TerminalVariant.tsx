@@ -149,7 +149,7 @@ function TerminalVariant() {
         </div>
       </header>
 
-      <TermHero c={c} />
+      <TermHero c={c} scrollTo={scrollTo} />
       <TermAbout c={c} />
       <TermWork c={c} filter={stackFilter} setFilter={setStackFilter} filtered={filtered} />
       <TermServices c={c} />
@@ -236,7 +236,7 @@ function AnimatedH1({ c }) {
   );
 }
 
-function TermHero({ c }) {
+function TermHero({ c, scrollTo }: any) {
   return (
     <section data-section="hero" data-screen-label="01 Hero" className="term-hero">
       <div className="container term-hero__grid">
@@ -251,11 +251,16 @@ function TermHero({ c }) {
             Five years, a hundred-plus sites, and a standard that doesn&apos;t bend.
           </p>
           <div className="term-hero__ctas">
-            <button data-cursor className="term-hero__cta term-hero__cta--primary">
+            <button
+              data-cursor
+              onClick={() => scrollTo?.("work")}
+              className="term-hero__cta term-hero__cta--primary"
+            >
               View selected work
               <span className="term-hero__cta-arrow">→</span>
             </button>
-            <button data-cursor className="term-hero__cta term-hero__cta--ghost">
+            {/* Hidden for now — may re-enable when booking flow is ready. */}
+            <button data-cursor hidden className="term-hero__cta term-hero__cta--ghost">
               Book an intro call
             </button>
           </div>
