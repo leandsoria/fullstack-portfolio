@@ -18,7 +18,9 @@
   align-items: baseline;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--ls-line);
-
+  @media (max-width: 560px){
+    flex-direction: column-reverse;
+  }
   &__left {
     display: flex;
     align-items: baseline;

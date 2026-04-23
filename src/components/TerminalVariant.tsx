@@ -567,17 +567,9 @@ function TermWork({ c, filter, setFilter, filtered }) {
         </div>
 
         <div className="term-work__grid">
-          {filtered.map((w, i) => {
-            const layouts = [
-              { col: "1 / 13", h: 460 },
-              { col: "1 / 7",  h: 340 },
-              { col: "7 / 13", h: 340 },
-              { col: "1 / 7",  h: 340 },
-              { col: "7 / 13", h: 340 },
-            ];
-            const L = layouts[i] || { col: "1 / 7", h: 340 };
-            return <TermWorkCard key={w.id} w={w} c={c} layout={L} n={i} />;
-          })}
+          {filtered.map((w, i) => (
+            <TermWorkCard key={w.id} w={w} c={c} n={i} />
+          ))}
         </div>
 
         {/* Full index list grouped by agency */}
@@ -658,8 +650,23 @@ function TermChip({ active, c, children, onClick }) {
   );
 }
 
-function TermWorkCard({ w, c, layout, n }) {
+// Layout modifier per card index:
+//   0         → featured (full-width, taller mockup)
+//   odd       → half-left
+//   even (>0) → half-right
+function workCardLayoutMod(n: number) {
+  if (n === 0) return "term-work-card--featured";
+  if (n % 2 === 1) return "term-work-card--half-left";
+  return "term-work-card--half-right";
+}
+
+function TermWorkCard({ w, c, n }: any) {
   const [ref, inView] = useInView();
+  const cls = [
+    "term-work-card",
+    workCardLayoutMod(n),
+    inView ? "is-in" : "",
+  ].filter(Boolean).join(" ");
   return (
     <a
       ref={ref}
@@ -668,12 +675,13 @@ function TermWorkCard({ w, c, layout, n }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`${w.client} - ${w.title}`}
-      className="term-work-card"
+      className={cls}
       style={{
-        gridColumn: layout.col,
-        opacity: inView ? 1 : 0,
-        transform: `translateY(${inView ? 0 : 16}px)`,
-        transition: `opacity .6s ${n * 0.05}s, transform .6s ${n * 0.05}s`,
+        // Per-item CSS variables the SCSS reads:
+        //   --swatch        → mockup background gradient (unique per card)
+        //   --reveal-delay  → staggered reveal by index
+        ['--swatch' as any]: w.swatch,
+        ['--reveal-delay' as any]: `${n * 0.05}s`,
       }}
     >
       <div className="term-work-card__bar">
@@ -687,10 +695,7 @@ function TermWorkCard({ w, c, layout, n }) {
         </div>
       </div>
 
-      <div
-        className="term-work-card__mock"
-        style={{ height: layout.h, background: w.swatch }}
-      >
+      <div className="term-work-card__mock">
         <div className="term-work-card__mock-grain" />
         <div className="term-work-card__mock-chrome">
           <div className="term-work-card__mock-dot" />

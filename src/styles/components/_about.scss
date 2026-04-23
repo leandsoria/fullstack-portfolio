@@ -33,6 +33,9 @@
 .term-about {
   padding: 100px var(--ls-gutter);
   border-bottom: 1px solid var(--ls-line);
+  @media (max-width: 1024px) {
+    padding-bottom: unset;
+  }
 
   // Scroll-triggered in-view fade/slide — hook flips --in between 0 and 1
   // via inline style (the component already does opacity/translateY inline;

@@ -10,8 +10,14 @@
 //       .term-work__chips                   — flex filter row
 //         .term-chip [.term-chip--active]   — toggle chip
 //       .term-work__grid                    — 12-col grid
-//         .term-work-card                   — layout via inline style
-//                                             (grid-column, mockup height)
+//         .term-work-card                   — tile; grid position + mock
+//              [--featured / --half-left    height come from one of three
+//               / --half-right]             BEM modifiers. Per-item data
+//              [.is-in on reveal]           (swatch gradient + stagger
+//                                            delay) flows through two CSS
+//                                            variables set inline on the
+//                                            component: --swatch and
+//                                            --reveal-delay.
 //       .term-work-index                    — full index block
 
 .term-work {
@@ -72,6 +78,34 @@
   background: var(--ls-panel);
   cursor: pointer;
 
+  // ── Reveal state ──────────────────────────────────────────────────────
+  // Default hidden. `.is-in` is added when the card enters the viewport.
+  // The stagger delay is supplied per-item via the --reveal-delay var.
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms var(--ls-ease) var(--reveal-delay, 0s),
+    transform 600ms var(--ls-ease) var(--reveal-delay, 0s);
+
+  &.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // ── Layout modifiers (grid position + mockup height) ──────────────────
+  // The grid itself is 12 cols; three shapes cover the whole set:
+  //   featured   — full-width, taller mockup (first card)
+  //   half-left  — left half, standard height
+  //   half-right — right half, standard height
+  &--featured  { grid-column: 1 / 13; }
+  &--half-left { grid-column: 1 / 7; }
+  &--half-right { grid-column: 7 / 13; }
+
+  &--featured .term-work-card__mock { height: 460px; }
+
+  &--half-left .term-work-card__mock,
+  &--half-right .term-work-card__mock { height: 340px; }
+
   &__bar {
     padding: 10px 14px;
     border-bottom: 1px solid var(--ls-line);
@@ -95,11 +129,13 @@
     border: 1px solid var(--ls-line);
   }
 
-  // The mockup region uses inline background (swatch) and inline height
-  // (layout.h). Everything else is class-driven.
+  // Mock region: height comes from the layout modifier above, background
+  // (unique swatch gradient per card) comes from the --swatch variable
+  // that the component sets inline on .term-work-card.
   &__mock {
     position: relative;
     overflow: hidden;
+    background: var(--swatch);
   }
 
   &__mock-grain {
