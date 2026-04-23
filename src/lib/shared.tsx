@@ -284,19 +284,11 @@ export function ScopedCursor({ containerRef, color = "currentColor", size = 14 }
     <div
       ref={dotRef}
       aria-hidden
+      className={`term-cursor${visible ? " is-visible" : ""}${hovering ? " is-hovering" : ""}`}
       style={{
-        position: "absolute",
-        left: 0, top: 0,
+        ['--cursor-color' as any]: color,
         width: hovering ? size * 3 : size,
         height: hovering ? size * 3 : size,
-        borderRadius: "50%",
-        border: `1.25px solid ${color}`,
-        background: hovering ? `${color}` : "transparent",
-        mixBlendMode: "difference",
-        pointerEvents: "none",
-        opacity: visible ? 1 : 0,
-        transition: "width .22s cubic-bezier(.2,.8,.2,1), height .22s cubic-bezier(.2,.8,.2,1), background .18s, opacity .15s",
-        zIndex: 999,
       }}
     />
   );
@@ -317,13 +309,11 @@ export function ScrollProgress({ containerRef, color, thickness = 1 }) {
     return () => c.removeEventListener("scroll", on);
   }, [containerRef]);
   return (
-    <div style={{
-      position: "absolute", left: 0, top: 0, right: 0, height: thickness,
-      background: "transparent", zIndex: 50, pointerEvents: "none",
-    }}>
-      <div style={{
-        height: "100%", width: `${p * 100}%`, background: color, transition: "width .08s linear",
-      }} />
+    <div className="term-scroll-progress" style={{ height: thickness }}>
+      <div
+        className="term-scroll-progress__bar"
+        style={{ width: `${p * 100}%`, background: color }}
+      />
     </div>
   );
 }

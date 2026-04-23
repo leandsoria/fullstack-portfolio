@@ -1,0 +1,29 @@
+@use '../abstracts/mixins' as *;
+
+// Thin scroll-progress bar pinned to the top of a scrolling container.
+//
+// Markup:
+//   <div class="term-scroll-progress" style="height: 1px">
+//     <div class="term-scroll-progress__bar"
+//          style="width: 42%; background: var(--ls-accent)" />
+//   </div>
+//
+// The component drives width (scroll progress) and thickness (prop)
+// through inline styles; everything else is class-driven.
+
+.term-scroll-progress {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  background: transparent;
+  z-index: 50;
+  pointer-events: none;
+
+  &__bar {
+    height: 100%;
+    width: 0;
+    background: var(--ls-accent);
+    transition: width 80ms linear;
+  }
+}

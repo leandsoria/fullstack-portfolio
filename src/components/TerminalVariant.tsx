@@ -200,55 +200,25 @@ function CmdK({ c, onClose, scrollTo, setFilter }) {
     return () => window.removeEventListener("keydown", esc);
   }, []);
   return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)",
-        backdropFilter: "blur(4px)", zIndex: 100,
-        display: "flex", alignItems: "flex-start", justifyContent: "center",
-        paddingTop: "15vh",
-      }}>
-      <div
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          width: 560, maxWidth: "90vw", background: c.bg2,
-          border: `1px solid ${c.lineStrong}`, borderRadius: 8,
-          overflow: "hidden", boxShadow: "0 40px 120px rgba(0,0,0,0.5)",
-        }}>
+    <div className="term-cmdk" onClick={onClose}>
+      <div className="term-cmdk__panel" onClick={(e) => e.stopPropagation()}>
         <input
           autoFocus
           value={q}
           onChange={e => setQ(e.target.value)}
           placeholder="Search sections, stacks, actions…"
-          style={{
-            width: "100%", padding: "16px 20px", background: "transparent",
-            border: "none", outline: "none", color: c.fg, fontSize: 15,
-            fontFamily: termStyles.fontBody,
-            borderBottom: `1px solid ${c.line}`,
-          }}
+          className="term-cmdk__input"
         />
-        <div style={{ maxHeight: 320, overflowY: "auto", padding: "8px 0" }}>
+        <div className="term-cmdk__results">
           {filtered.map((it, i) => (
-            <button
-              key={i}
-              onClick={it.run}
-              style={{
-                all: "unset", cursor: "pointer",
-                display: "grid", gridTemplateColumns: "80px 1fr auto",
-                padding: "10px 20px", width: "100%", boxSizing: "border-box",
-                fontFamily: termStyles.fontMono, fontSize: 13,
-                color: c.fg, alignItems: "center",
-              }}
-            >
-              <span style={{ color: c.dim, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em" }}>{it.type}</span>
+            <button key={i} onClick={it.run} className="term-cmdk__item">
+              <span className="term-cmdk__item-type">{it.type}</span>
               <span>{it.label}</span>
-              <span style={{ color: c.dim, fontSize: 10 }}>↵</span>
+              <span className="term-cmdk__item-hint">↵</span>
             </button>
           ))}
           {filtered.length === 0 && (
-            <div style={{ padding: "20px", color: c.dim, fontSize: 13, textAlign: "center" }}>
-              No matches
-            </div>
+            <div className="term-cmdk__empty">No matches</div>
           )}
         </div>
       </div>

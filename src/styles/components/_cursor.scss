@@ -1,0 +1,40 @@
+@use '../abstracts/mixins' as *;
+
+// Scoped custom cursor — absolutely-positioned dot that follows the mouse
+// inside its scroll container. The component updates transform/visibility
+// via inline styles; the rest of the chrome lives here.
+//
+// Markup:
+//   <div class="term-cursor [.is-hovering] [.is-visible]"
+//        data-color="#ece8dd"
+//        style="transform: translate(x, y) translate(-50%,-50%);
+//               width: 14px; height: 14px;" />
+//
+// Notes:
+//   - `mix-blend-mode: difference` is the trick that inverts under dark
+//     and light sections. Keeping it here so both themes behave the same.
+//   - `border-color` and background both read the component's color
+//     through `data-color` (which the component mirrors to a CSS var).
+
+.term-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  border: 1.25px solid var(--cursor-color, currentColor);
+  background: transparent;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    width 220ms var(--ls-ease),
+    height 220ms var(--ls-ease),
+    background 180ms,
+    opacity 150ms;
+  z-index: 999;
+
+  &.is-visible { opacity: 1; }
+
+  // Over a [data-cursor] target — filled + larger.
+  &.is-hovering { background: var(--cursor-color, currentColor); }
+}
