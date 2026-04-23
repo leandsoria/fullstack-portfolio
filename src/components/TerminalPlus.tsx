@@ -81,6 +81,7 @@ function TermProcess({ c }) {
     <section data-section="process" data-screen-label="05 Process" style={{
       padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
     }}>
+      <div className="container">
       <TermSectionHeader c={c} n="05" label="how i work" meta="4 phases · ~5 weeks typical" />
       <div style={{
         marginTop: 32, display: "grid", gridTemplateColumns: "220px 1fr", gap: 40,
@@ -182,6 +183,7 @@ function TermProcess({ c }) {
             );
           })}
         </ol>
+      </div>
       </div>
     </section>
   );
@@ -886,7 +888,7 @@ function MobSection({ id, label, children }) {
       padding: "36px 16px",
       borderBottom: "1px solid rgba(236,232,221,0.08)",
     }}>
-      {children}
+      <div className="container">{children}</div>
     </section>
   );
 }
