@@ -570,43 +570,35 @@ function TermWork({ c, filter, setFilter, filtered }) {
     ? (typeof WORK_INDEX !== "undefined" ? WORK_INDEX : []).filter(w => w.stack.includes(filter))
     : (typeof WORK_INDEX !== "undefined" ? WORK_INDEX : []);
   return (
-    <section data-section="work" data-screen-label="03 Work" style={{
-      padding: "100px 24px", borderBottom: `1px solid ${c.line}`,
-    }}>
+    <section data-section="work" data-screen-label="03 Work" className="term-work">
       <div className="container">
-      <TermSectionHeader c={c} n="03" label="selected work" meta={`${filtered.length} featured · ${(WORK_INDEX || []).length + WORK.length} total`} />
+        <TermSectionHeader c={c} n="03" label="selected work" meta={`${filtered.length} featured · ${(WORK_INDEX || []).length + WORK.length} total`} />
 
-      <div style={{
-        marginTop: 20, display: "flex", flexWrap: "wrap", gap: 6,
-        fontFamily: termStyles.fontMono, fontSize: 11,
-      }}>
-        <TermChip active={filter === null} c={c} onClick={() => setFilter(null)}>all</TermChip>
-        {ALL_STACKS.map(s => (
-          <TermChip key={s} active={filter === s} c={c} onClick={() => setFilter(filter === s ? null : s)}>
-            {s.toLowerCase()}
-          </TermChip>
-        ))}
-      </div>
+        <div className="term-work__chips">
+          <TermChip active={filter === null} c={c} onClick={() => setFilter(null)}>all</TermChip>
+          {ALL_STACKS.map(s => (
+            <TermChip key={s} active={filter === s} c={c} onClick={() => setFilter(filter === s ? null : s)}>
+              {s.toLowerCase()}
+            </TermChip>
+          ))}
+        </div>
 
-      <div style={{
-        marginTop: 32, display: "grid",
-        gridTemplateColumns: "repeat(12, 1fr)", gap: 16,
-      }}>
-        {filtered.map((w, i) => {
-          const layouts = [
-            { col: "1 / 13", h: 460 },
-            { col: "1 / 7",  h: 340 },
-            { col: "7 / 13", h: 340 },
-            { col: "1 / 7",  h: 340 },
-            { col: "7 / 13", h: 340 },
-          ];
-          const L = layouts[i] || { col: "1 / 7", h: 340 };
-          return <TermWorkCard key={w.id} w={w} c={c} layout={L} n={i} />;
-        })}
-      </div>
+        <div className="term-work__grid">
+          {filtered.map((w, i) => {
+            const layouts = [
+              { col: "1 / 13", h: 460 },
+              { col: "1 / 7",  h: 340 },
+              { col: "7 / 13", h: 340 },
+              { col: "1 / 7",  h: 340 },
+              { col: "7 / 13", h: 340 },
+            ];
+            const L = layouts[i] || { col: "1 / 7", h: 340 };
+            return <TermWorkCard key={w.id} w={w} c={c} layout={L} n={i} />;
+          })}
+        </div>
 
-      {/* Full index list grouped by agency */}
-      <TermWorkIndex c={c} items={indexFiltered}/>
+        {/* Full index list grouped by agency */}
+        <TermWorkIndex c={c} items={indexFiltered}/>
       </div>
     </section>
   );
@@ -619,25 +611,14 @@ function TermWorkIndex({ c, items }) {
   });
   const order = ["Marketwake", "Luxury Presence"];
   return (
-    <div style={{ marginTop: 64 }}>
-      <div style={{
-        fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-        letterSpacing: "0.12em", textTransform: "uppercase",
-        paddingBottom: 12, borderBottom: `1px solid ${c.line}`,
-        display: "flex", justifyContent: "space-between",
-      }}>
+    <div className="term-work-index">
+      <div className="term-work-index__head">
         <span>full index</span>
         <span>{items.length} projects</span>
       </div>
       {order.filter(k => groups[k]?.length).map(agency => (
-        <div key={agency} style={{ marginTop: 32 }}>
-          <div style={{
-            fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-            letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 8,
-            paddingBottom: 8, borderBottom: `1px dashed ${c.line}`,
-          }}>
-            via {agency}
-          </div>
+        <div key={agency} className="term-work-index__group">
+          <div className="term-work-index__agency">via {agency}</div>
           {groups[agency].map((it, i) => (
             <TermIndexRow key={i} it={it} c={c} stagger={i} />
           ))}
@@ -648,212 +629,116 @@ function TermWorkIndex({ c, items }) {
 }
 
 function TermIndexRow({ it, c, stagger = 0 }) {
-  const [hover, setHover] = React.useState(false);
   const [ref, inView] = useInView({ threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
   const delay = Math.min(stagger, 8) * 60; // cap to keep long lists snappy
   return (
     <a
       ref={ref}
       href={`https://${it.url}`}
-      target="_blank" rel="noopener"
+      target="_blank"
+      rel="noopener"
       data-cursor
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      className="term-work-index__row"
       style={{
-        all: "unset", cursor: "pointer", display: "grid",
-        gridTemplateColumns: "1.4fr 1fr 200px 80px 24px",
-        gap: 16, alignItems: "baseline",
-        padding: "14px 4px",
-        borderBottom: `1px solid ${c.line}`,
-        color: c.fg,
-        background: hover ? c.panel : "transparent",
         opacity: inView ? 1 : 0,
         filter: inView ? "blur(0)" : "blur(10px)",
         transform: inView ? "translateY(0)" : "translateY(14px)",
-        transition: `opacity 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, filter 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, transform 700ms cubic-bezier(0.2,0.8,0.2,1) ${delay}ms, background 180ms cubic-bezier(0.2,0.8,0.2,1)`,
+        transition: `opacity 700ms var(--ls-ease) ${delay}ms, filter 700ms var(--ls-ease) ${delay}ms, transform 700ms var(--ls-ease) ${delay}ms, background 180ms var(--ls-ease)`,
         willChange: "opacity, filter, transform",
       }}
     >
-      <span style={{
-        fontFamily: termStyles.fontDisplay, fontSize: 18, fontWeight: 500,
-        letterSpacing: "-0.01em",
-        transform: hover ? "translateX(6px)" : "translateX(0)",
-        transition: "transform 220ms cubic-bezier(0.2,0.8,0.2,1)",
-      }}>{it.client}{it.note && <span style={{ color: c.dim, marginLeft: 10, fontSize: 11, fontFamily: termStyles.fontMono }}>★ {it.note}</span>}</span>
-      <span style={{ fontFamily: termStyles.fontMono, fontSize: 12, color: c.dim }}>{it.url}</span>
-      <span style={{
-        fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-        display: "flex", gap: 4, flexWrap: "wrap",
-      }}>
+      <span className="term-work-index__client">
+        {it.client}
+        {it.note && <span className="term-work-index__note">★ {it.note}</span>}
+      </span>
+      <span className="term-work-index__url">{it.url}</span>
+      <span className="term-work-index__stack">
         {it.stack.map(s => (
-          <span key={s} style={{
-            padding: "2px 7px", borderRadius: 3,
-            border: `1px solid ${c.line}`, background: c.bg,
-          }}>{s}</span>
+          <span key={s} className="term-work-index__stack-item">{s}</span>
         ))}
       </span>
-      <span style={{ fontFamily: termStyles.fontMono, fontSize: 12, color: c.dim, textAlign: "right" }}>{it.year}</span>
-      <span style={{
-        fontFamily: termStyles.fontMono, fontSize: 12, color: c.dim, textAlign: "right",
-        transform: hover ? "translateX(4px)" : "translateX(0)",
-        transition: "transform 220ms cubic-bezier(0.2,0.8,0.2,1)",
-      }}>↗</span>
+      <span className="term-work-index__year">{it.year}</span>
+      <span className="term-work-index__arrow">↗</span>
     </a>
   );
 }
 
 function TermChip({ active, c, children, onClick }) {
-  const [hover, setHover] = React.useState(false);
   return (
     <button
       data-cursor
       onClick={onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        all: "unset", cursor: "pointer",
-        padding: "4px 10px", borderRadius: 4,
-        border: `1px solid ${active ? c.fg : (hover ? c.lineStrong : c.line)}`,
-        background: active ? c.fg : (hover ? c.kbdBg : "transparent"),
-        color: active ? c.bg : (hover ? c.fg : c.dim),
-        transition: "all 180ms cubic-bezier(0.2,0.8,0.2,1)",
-        transform: hover && !active ? "translateY(-1px)" : "translateY(0)",
-      }}
-    >{children}</button>
+      className={`term-chip${active ? " term-chip--active" : ""}`}
+    >
+      {children}
+    </button>
   );
 }
 
 function TermWorkCard({ w, c, layout, n }) {
   const [ref, inView] = useInView();
-  const [hover, setHover] = React.useState(false);
   return (
     <article
       ref={ref}
       data-cursor
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      className="term-work-card"
       style={{
         gridColumn: layout.col,
-        opacity: inView ? 1 : 0, transform: `translateY(${inView ? 0 : 16}px)`,
+        opacity: inView ? 1 : 0,
+        transform: `translateY(${inView ? 0 : 16}px)`,
         transition: `opacity .6s ${n * 0.05}s, transform .6s ${n * 0.05}s`,
-        border: `1px solid ${c.line}`,
-        borderRadius: 10, overflow: "hidden",
-        background: c.panel,
-        cursor: "pointer",
-      }}>
-      {/* card header bar */}
-      <div style={{
-        padding: "10px 14px",
-        borderBottom: `1px solid ${c.line}`,
-        display: "flex", justifyContent: "space-between",
-        fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-      }}>
-        <div style={{ display: "flex", gap: 12 }}>
-          <span style={{ color: c.fg }}>№ {w.index}</span>
+      }}
+    >
+      <div className="term-work-card__bar">
+        <div className="term-work-card__bar-left">
+          <span className="term-work-card__bar-index">№ {w.index}</span>
           <span>{w.category.toLowerCase()}</span>
         </div>
-        <div style={{ display: "flex", gap: 12 }}>
+        <div className="term-work-card__bar-right">
           <span>{w.year}</span>
-          <span style={{
-            color: c.fg, padding: "0 6px", borderRadius: 3,
-            background: c.kbdBg, border: `1px solid ${c.line}`,
-          }}>
-            {w.stack[0].toLowerCase()}
-          </span>
+          <span className="term-work-card__bar-pill">{w.stack[0].toLowerCase()}</span>
         </div>
       </div>
-      {/* mockup region */}
-      <div style={{
-        height: layout.h, position: "relative", overflow: "hidden",
-        background: w.swatch,
-      }}>
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "repeating-linear-gradient(135deg, rgba(255,255,255,0.018) 0 12px, transparent 12px 24px)",
-        }}/>
-        {/* Fake site chrome to suggest preview */}
-        <div style={{
-          position: "absolute", top: 20, left: 20, right: 20,
-          height: 24, borderRadius: 4,
-          background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.1)",
-          display: "flex", alignItems: "center", padding: "0 10px", gap: 8,
-        }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "rgba(255,255,255,0.25)" }}/>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "rgba(255,255,255,0.25)" }}/>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "rgba(255,255,255,0.25)" }}/>
-          <div style={{
-            flex: 1, height: 14, marginLeft: 12, borderRadius: 3,
-            background: "rgba(255,255,255,0.1)",
-            fontFamily: termStyles.fontMono, fontSize: 10, color: "rgba(255,255,255,0.6)",
-            display: "flex", alignItems: "center", padding: "0 8px",
-          }}>
+
+      <div
+        className="term-work-card__mock"
+        style={{ height: layout.h, background: w.swatch }}
+      >
+        <div className="term-work-card__mock-grain" />
+        <div className="term-work-card__mock-chrome">
+          <div className="term-work-card__mock-dot" />
+          <div className="term-work-card__mock-dot" />
+          <div className="term-work-card__mock-dot" />
+          <div className="term-work-card__mock-url">
             {w.client.toLowerCase().replace(/\s+/g, "")}.com
           </div>
         </div>
-        <div style={{
-          position: "absolute", bottom: 28, left: 28, right: 28,
-          color: "rgba(255,255,255,0.95)",
-        }}>
-          <div style={{
-            fontFamily: termStyles.fontDisplay, fontWeight: 500,
-            fontSize: n === 0 ? 56 : 40, letterSpacing: "-0.025em", lineHeight: 1,
-          }}>{w.client}</div>
-          <div style={{
-            fontFamily: termStyles.fontMono, fontSize: 11, color: "rgba(255,255,255,0.75)",
-            marginTop: 10, letterSpacing: "0.06em",
-          }}>
-            {w.title}
+        <div className="term-work-card__mock-caption">
+          <div className={`term-work-card__mock-title${n === 0 ? " term-work-card__mock-title--featured" : ""}`}>
+            {w.client}
           </div>
+          <div className="term-work-card__mock-subtitle">{w.title}</div>
         </div>
-        {/* hover overlay */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "rgba(0,0,0,0.4)", backdropFilter: "blur(6px)",
-          opacity: hover ? 1 : 0, transition: "opacity .3s",
-          padding: 28,
-          display: "flex", flexDirection: "column", justifyContent: "space-between",
-          color: "rgba(255,255,255,0.92)",
-        }}>
-          <div style={{ fontFamily: termStyles.fontMono, fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)" }}>
-            № {w.index} · case study
-          </div>
+
+        <div className="term-work-card__overlay">
+          <div className="term-work-card__overlay-kicker">№ {w.index} · case study</div>
           <div>
-            <div style={{
-              fontFamily: termStyles.fontDisplay, fontSize: 22, fontWeight: 500,
-              letterSpacing: "-0.02em", lineHeight: 1.25, maxWidth: 480,
-            }}>
-              {w.summary}
-            </div>
+            <div className="term-work-card__overlay-summary">{w.summary}</div>
             {w.award && (
-              <div style={{
-                marginTop: 16, fontFamily: termStyles.fontMono, fontSize: 11,
-                letterSpacing: "0.08em",
-              }}>
-                ★ {w.award}
-              </div>
+              <div className="term-work-card__overlay-award">★ {w.award}</div>
             )}
-            <div style={{
-              marginTop: 20, display: "flex", gap: 6,
-              fontFamily: termStyles.fontMono, fontSize: 10, letterSpacing: "0.06em",
-            }}>
+            <div className="term-work-card__overlay-stack">
               {w.stack.map(s => (
-                <span key={s} style={{
-                  padding: "3px 8px", borderRadius: 3,
-                  border: "1px solid rgba(255,255,255,0.25)",
-                }}>{s}</span>
+                <span key={s} className="term-work-card__overlay-stack-item">{s}</span>
               ))}
             </div>
           </div>
         </div>
       </div>
-      {/* footer bar */}
-      <div style={{
-        padding: "12px 14px",
-        display: "flex", justifyContent: "space-between",
-        fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-      }}>
+
+      <div className="term-work-card__foot">
         <span>{w.role.toLowerCase()}</span>
-        <span style={{ color: c.fg }}>{w.metric}</span>
+        <span className="term-work-card__foot-metric">{w.metric}</span>
         <span>→ case study</span>
       </div>
     </article>

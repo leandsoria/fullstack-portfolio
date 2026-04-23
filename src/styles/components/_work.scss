@@ -1,0 +1,354 @@
+@use '../abstracts/mixins' as *;
+
+// Selected work section — header, filter chips, 12-col asymmetric card
+// grid, and an agency-grouped index table beneath.
+//
+// Structure:
+//   .term-work                              — section padding + divider
+//     .container
+//       .term-section-header …
+//       .term-work__chips                   — flex filter row
+//         .term-chip [.term-chip--active]   — toggle chip
+//       .term-work__grid                    — 12-col grid
+//         .term-work-card                   — layout via inline style
+//                                             (grid-column, mockup height)
+//       .term-work-index                    — full index block
+
+.term-work {
+  padding: 100px var(--ls-gutter);
+  border-bottom: 1px solid var(--ls-line);
+
+  &__chips {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+  }
+
+  &__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 16px;
+  }
+}
+
+// ── Filter chip ──────────────────────────────────────────────────────────
+.term-chip {
+  @include button-reset;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--ls-line);
+  background: transparent;
+  color: var(--ls-dim);
+  transition: background var(--ls-dur-fast) var(--ls-ease),
+              border-color var(--ls-dur-fast) var(--ls-ease),
+              color var(--ls-dur-fast) var(--ls-ease),
+              transform var(--ls-dur-fast) var(--ls-ease);
+
+  &:hover {
+    border-color: var(--ls-line-strong);
+    background: var(--ls-kbd-bg);
+    color: var(--ls-fg);
+    transform: translateY(-1px);
+  }
+
+  &--active,
+  &--active:hover {
+    border-color: var(--ls-fg);
+    background: var(--ls-fg);
+    color: var(--ls-bg);
+    transform: translateY(0);
+  }
+}
+
+// ── Work card (mockup-style tile) ────────────────────────────────────────
+.term-work-card {
+  border: 1px solid var(--ls-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--ls-panel);
+  cursor: pointer;
+
+  &__bar {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ls-line);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+  }
+
+  &__bar-left,
+  &__bar-right { display: flex; gap: 12px; }
+
+  &__bar-index { color: var(--ls-fg); }
+
+  &__bar-pill {
+    color: var(--ls-fg);
+    padding: 0 6px;
+    border-radius: 3px;
+    background: var(--ls-kbd-bg);
+    border: 1px solid var(--ls-line);
+  }
+
+  // The mockup region uses inline background (swatch) and inline height
+  // (layout.h). Everything else is class-driven.
+  &__mock {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__mock-grain {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.018) 0 12px,
+      transparent 12px 24px
+    );
+  }
+
+  &__mock-chrome {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 24px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 8px;
+  }
+
+  &__mock-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  &__mock-url {
+    flex: 1;
+    height: 14px;
+    margin-left: 12px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+  }
+
+  &__mock-caption {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    right: 28px;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  &__mock-title {
+    font-family: var(--ls-font-display);
+    font-weight: 500;
+    font-size: 40px;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+
+  // First (featured) card's title is bigger; component applies --featured.
+  &__mock-title--featured { font-size: 56px; }
+
+  &__mock-subtitle {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  // Hover overlay with summary copy + stack pills.
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 300ms var(--ls-ease);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.92);
+
+    .term-work-card:hover & { opacity: 1; }
+  }
+
+  &__overlay-kicker {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__overlay-summary {
+    font-family: var(--ls-font-display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    max-width: 480px;
+  }
+
+  &__overlay-award {
+    margin-top: 16px;
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  &__overlay-stack {
+    margin-top: 20px;
+    display: flex;
+    gap: 6px;
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  &__overlay-stack-item {
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  &__foot {
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+  }
+
+  &__foot-metric { color: var(--ls-fg); }
+}
+
+// ── Full index (agency-grouped table) ────────────────────────────────────
+.term-work-index {
+  margin-top: 64px;
+
+  &__head {
+    font-family: var(--ls-font-mono);
+    font-size: 11px;
+    color: var(--ls-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ls-line);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__group { margin-top: 32px; }
+
+  &__agency {
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-dim);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--ls-line);
+  }
+
+  &__row {
+    all: unset;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 200px 80px 24px;
+    gap: 16px;
+    align-items: baseline;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--ls-line);
+    color: var(--ls-fg);
+    background: transparent;
+    // The JS hook flips opacity/translateY/blur via inline styles that
+    // read `--in` (0/1) — everything else is static.
+    transition: background var(--ls-dur-fast) var(--ls-ease);
+
+    &:hover { background: var(--ls-panel); }
+
+    // Nudge the client name + arrow right on hover.
+    &:hover .term-work-index__client,
+    &:hover .term-work-index__arrow {
+      transform: translateX(6px);
+    }
+
+    &:hover .term-work-index__arrow { transform: translateX(4px); }
+  }
+
+  &__client {
+    font-family: var(--ls-font-display);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    transform: translateX(0);
+    transition: transform 220ms var(--ls-ease);
+  }
+
+  &__note {
+    color: var(--ls-dim);
+    margin-left: 10px;
+    font-size: 11px;
+    font-family: var(--ls-font-mono);
+  }
+
+  &__url {
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+    color: var(--ls-dim);
+  }
+
+  &__stack {
+    font-family: var(--ls-font-mono);
+    font-size: 10px;
+    color: var(--ls-dim);
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  &__stack-item {
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid var(--ls-line);
+    background: var(--ls-bg);
+  }
+
+  &__year {
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+    color: var(--ls-dim);
+    text-align: right;
+  }
+
+  &__arrow {
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+    color: var(--ls-dim);
+    text-align: right;
+    transform: translateX(0);
+    transition: transform 220ms var(--ls-ease);
+  }
+}
