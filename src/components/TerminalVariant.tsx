@@ -889,8 +889,6 @@ function TermContact({ c }) {
               ["email",    PROFILE.email],
               ["linkedin", "/in/leandro-d-soria"],
               ["github",   "@leandsoria"],
-              ["read.cv",  "leandrosoria"],
-              ["intro",    "cal.com/leandrosoria/30"],
             ].map(([k, v]) => (
               <div key={k} className="term-contact__card-row">
                 <span className="term-contact__card-key">{k}</span>

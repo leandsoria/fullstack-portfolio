@@ -808,8 +808,6 @@ function TerminalMobile() {
           {[
             ["linkedin", "/in/leandro-d-soria"],
             ["github",   "@leandsoria"],
-            ["read.cv",  "leandrosoria"],
-            ["intro",    "cal.com/leandrosoria/30"],
           ].map(([k, v], i, arr) => (
             <div key={k} style={{
               padding: "12px 14px",
@@ -955,10 +953,8 @@ function TermFooterV2({ c, scrollTo }: any) {
           <FooterCol title="elsewhere" items={[
             ["LinkedIn /in/leandro-d-soria", "https://www.linkedin.com/in/leandro-d-soria/"],
             ["GitHub @leandsoria",           "https://github.com/leandsoria"],
-            ["Read.cv/leandrosoria",         null],
-            ["Cal.com/leandrosoria/30",      null],
           ]}/>
-          <FooterCol title="colophon" items={[
+          <FooterCol title="notes" items={[
             ["Inter · JetBrains Mono", null],
             ["No frameworks harmed",    null],
             ["Hand-built in React",     null],
