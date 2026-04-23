@@ -46,8 +46,11 @@
   }
 
   // Middle cell: "⌘ K to navigate"
+  // Hidden for now — the search affordance already lives in the nav row.
+  // Keep the rule so it can be flipped back to `flex` without re-adding
+  // layout code.
   &__hint {
-    display: flex;
+    display: none;
     gap: 10px;
     align-items: center;
   }

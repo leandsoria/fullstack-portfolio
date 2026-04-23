@@ -142,7 +142,20 @@ function TerminalVariant() {
               onClick={() => setCmdkOpen(true)}
               className="term-nav__search"
             >
-              <span>⌘K</span>
+              <span aria-hidden="true">
+                <svg
+                  viewBox="0 0 14 14"
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                >
+                  <circle cx="6" cy="6" r="4" />
+                  <path d="M9.2 9.2L13 13" />
+                </svg>
+              </span>
               <span>search</span>
             </button>
           </div>
