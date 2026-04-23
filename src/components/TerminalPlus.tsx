@@ -284,10 +284,12 @@ function TerminalVariantV2() {
       }}>
         <div style={{
           padding: "10px 24px", borderBottom: `1px solid ${c.line}`,
-          display: "grid", gridTemplateColumns: "1fr auto 1fr",
-          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
-          alignItems: "center",
         }}>
+          <div className="container" style={{
+            display: "grid", gridTemplateColumns: "1fr auto 1fr",
+            fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
+            alignItems: "center",
+          }}>
           <div style={{ display: "flex", gap: 16 }}>
             <span style={{ color: c.fg }}>leandrosoria.dev</span>
             <span>/ portfolio</span>
@@ -308,11 +310,15 @@ function TerminalVariantV2() {
               padding: "2px 8px", border: `1px solid ${c.line}`, borderRadius: 4,
             }}>{theme === "dark" ? "dark" : "light"}</button>
           </div>
+          </div>
         </div>
         <div style={{
-          padding: "0 24px", display: "flex", gap: 0,
-          fontFamily: termStyles.fontMono, fontSize: 12,
+          padding: "0 24px",
         }}>
+          <div className="container" style={{
+            display: "flex", gap: 0,
+            fontFamily: termStyles.fontMono, fontSize: 12,
+          }}>
           {NAV_V2.map((n, i) => (
             <button key={n.id} data-cursor onClick={() => scrollTo(n.id)} style={{
               all: "unset", cursor: "pointer",
@@ -332,6 +338,7 @@ function TerminalVariantV2() {
           }}>
             <span>⌘K</span><span>search</span>
           </button>
+          </div>
         </div>
       </header>
 
@@ -408,9 +415,11 @@ function TerminalMobile() {
         position: "sticky", top: 0, zIndex: 30,
         background: c.bg, borderBottom: `1px solid ${c.line}`,
         padding: "10px 16px",
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
       }}>
+        <div className="container" style={{
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          fontFamily: termStyles.fontMono, fontSize: 11, color: c.dim,
+        }}>
         <div style={{ display: "flex", gap: 8 }}>
           <span style={{ color: c.fg }}>leandrosoria.dev</span>
         </div>
@@ -424,6 +433,7 @@ function TerminalMobile() {
             all: "unset", cursor: "pointer",
             padding: "2px 8px", border: `1px solid ${c.line}`, borderRadius: 4,
           }}>{menuOpen ? "×" : "☰"}</button>
+        </div>
         </div>
       </header>
 
@@ -847,14 +857,17 @@ function TerminalMobile() {
 
       <footer style={{
         padding: "20px 16px 100px",
-        display: "grid", gridTemplateColumns: "1fr 1fr",
-        fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
-        letterSpacing: "0.06em", gap: 6,
       }}>
+        <div className="container" style={{
+          display: "grid", gridTemplateColumns: "1fr 1fr",
+          fontFamily: termStyles.fontMono, fontSize: 10, color: c.dim,
+          letterSpacing: "0.06em", gap: 6,
+        }}>
         <div>© 2026 L. Soria</div>
         <div style={{ textAlign: "right" }}>v03m · Terminal</div>
         <div>build 2026.04.22</div>
         <div style={{ textAlign: "right" }}>end-of-document</div>
+        </div>
       </footer>
 
       {/* bottom tab bar */}
@@ -862,9 +875,11 @@ function TerminalMobile() {
         position: "sticky", bottom: 0, left: 0, right: 0, zIndex: 20,
         background: c.bg, borderTop: `1px solid ${c.lineStrong}`,
         padding: "8px 6px calc(8px + env(safe-area-inset-bottom, 0px))",
-        display: "grid", gridTemplateColumns: `repeat(${MOB_NAV.length}, 1fr)`,
         marginTop: -76,
       }}>
+        <div className="container" style={{
+          display: "grid", gridTemplateColumns: `repeat(${MOB_NAV.length}, 1fr)`,
+        }}>
         {MOB_NAV.map(n => (
           <button key={n.id} onClick={() => scrollTo(n.id)} style={{
             all: "unset", cursor: "pointer",
@@ -877,6 +892,7 @@ function TerminalMobile() {
             <div>{n.label.toLowerCase()}</div>
           </button>
         ))}
+        </div>
       </nav>
     </div>
   );
@@ -949,6 +965,7 @@ function TermFooterV2({ c, scrollTo }) {
       borderTop: `1px solid ${c.line}`,
       background: c.bg,
     }}>
+      <div className="container">
       {/* Giant wordmark */}
       <div style={{
         fontFamily: termStyles.fontDisplay, fontWeight: 500,
@@ -1027,6 +1044,7 @@ function TermFooterV2({ c, scrollTo }) {
         <div>v03.1 · The Terminal</div>
         <div>build 2026.04.22</div>
         <div style={{ textAlign: "right" }}>end-of-document</div>
+      </div>
       </div>
     </footer>
   );
