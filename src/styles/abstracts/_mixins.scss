@@ -1,0 +1,50 @@
+// Reusable SCSS mixins — patterns that repeat across many components.
+
+// Reset a button element to look like normal content.
+// Mirrors the inline `all: "unset"` usage in the original JSX.
+@mixin button-reset {
+  all: unset;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+// Mono type with tight tracking (used for meta labels, tags, timestamps).
+@mixin text-mono($size: 11px) {
+  font-family: var(--ls-font-mono);
+  font-size: $size;
+  letter-spacing: 0.08em;
+}
+
+// Uppercase mono tag (category, section number, state).
+@mixin text-mono-tag($size: 10px) {
+  font-family: var(--ls-font-mono);
+  font-size: $size;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ls-dim);
+}
+
+// Display type for headings.
+@mixin text-display($size, $weight: 500, $tracking: -0.02em) {
+  font-family: var(--ls-font-display);
+  font-weight: $weight;
+  font-size: $size;
+  letter-spacing: $tracking;
+  line-height: 1;
+}
+
+// Card surface (panel background + subtle border, used by work cards, services, stack groups).
+@mixin surface {
+  background: var(--ls-panel);
+  border: 1px solid var(--ls-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+// A section container that sits inside a full-width <section>. Max-width + center.
+@mixin container {
+  width: 100%;
+  max-width: var(--ls-container);
+  margin-inline: auto;
+}

@@ -1,0 +1,39 @@
+// Main SCSS orchestrator. Imported once from src/app/layout.tsx.
+//
+// Load order matters:
+//   1. Tokens (CSS custom properties for colors/type/motion)
+//   2. Base  (reset, typography, reduced-motion safeguards)
+//   3. Layout (global primitives: container, header, nav, footer)
+//   4. Components (section-level BEM blocks)
+//   5. Mobile (overrides for the TerminalMobile-only variant)
+
+// ── Abstracts (tokens + mixins) ─────────────────────────────────────────
+@use 'abstracts/tokens';
+
+// ── Base ────────────────────────────────────────────────────────────────
+@use 'base/reset';
+@use 'base/typography';
+
+// ── Layout ──────────────────────────────────────────────────────────────
+@use 'layout/container';
+
+// Component stylesheets are added progressively as each component is
+// refactored from inline styles to BEM classes. Keep this block sorted
+// alphabetically so new additions have an obvious home.
+
+// @use 'layout/header';
+// @use 'layout/nav';
+// @use 'layout/footer';
+// @use 'components/hero';
+// @use 'components/about';
+// @use 'components/work';
+// @use 'components/services';
+// @use 'components/process';
+// @use 'components/stack';
+// @use 'components/writing';
+// @use 'components/contact';
+// @use 'components/cmdk';
+// @use 'components/cursor';
+// @use 'components/scroll-progress';
+// @use 'components/placeholder';
+// @use 'mobile/terminal-mobile';

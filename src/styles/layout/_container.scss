@@ -1,0 +1,7 @@
+@use '../abstracts/mixins' as *;
+
+// Layout primitive: every <section>, <header>, <nav> and <footer> uses this
+// as its direct child to cap content width and center.
+.container {
+  @include container;
+}

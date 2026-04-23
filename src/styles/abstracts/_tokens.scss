@@ -1,0 +1,50 @@
+// Design tokens — single source of truth for colors, typography, spacing, motion.
+//
+// All tokens live as CSS custom properties so the theme can flip at runtime
+// with a `[data-theme]` attribute on <html> (no React re-render needed).
+// Dark is the default (no attribute or `data-theme="dark"`). Light is opt-in.
+
+:root {
+  color-scheme: dark light;
+
+  // Palette — dark (default)
+  --ls-bg:          #0b0b0d;
+  --ls-bg-2:        #0f0f12;
+  --ls-fg:          #ece8dd;
+  --ls-dim:         #807b72;
+  --ls-line:        rgba(236, 232, 221, 0.08);
+  --ls-line-strong: rgba(236, 232, 221, 0.18);
+  --ls-panel:       rgba(236, 232, 221, 0.03);
+  --ls-kbd-bg:      rgba(236, 232, 221, 0.06);
+  --ls-accent:      var(--ls-fg);
+  --ls-success:     #7fd37f;
+
+  // Typography
+  --ls-font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ls-font-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --ls-font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  // Motion
+  --ls-ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ls-dur-fast:  180ms;
+  --ls-dur:       320ms;
+  --ls-dur-slow:  700ms;
+
+  // Layout
+  --ls-container: 1440px;
+  --ls-gutter:    24px;
+
+  // Rhythm — used for consistent section vertical spacing
+  --ls-section-y: 100px;
+}
+
+[data-theme='light'] {
+  --ls-bg:          #f6f3ec;
+  --ls-bg-2:        #ece9e0;
+  --ls-fg:          #14120d;
+  --ls-dim:         #605b51;
+  --ls-line:        rgba(20, 18, 13, 0.10);
+  --ls-line-strong: rgba(20, 18, 13, 0.22);
+  --ls-panel:       rgba(20, 18, 13, 0.03);
+  --ls-kbd-bg:      rgba(20, 18, 13, 0.06);
+}
