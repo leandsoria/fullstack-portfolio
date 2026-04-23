@@ -53,7 +53,7 @@ const PROCESS_STEPS = [
   {
     n: "01", status: "Week 1",
     title: "Discovery",
-    body: "We scope the actual problem — traffic, team, CMS constraints, brand obligations. One call, one written brief back.",
+    body: "We scope the actual problem - traffic, team, CMS constraints, brand obligations. One call, one written brief back.",
     deliverables: ["Scope doc", "Risk map", "Go / no-go"],
   },
   {
@@ -505,11 +505,11 @@ function TerminalMobile() {
           margin: 0, textWrap: "pretty",
         }}>
           I build marketing sites that survive the second year
-          <span style={{ color: c.dim }}> — when the original team rotated out and the brand pivoted twice.</span>
+          <span style={{ color: c.dim }}> - when the original team rotated out and the brand pivoted twice.</span>
         </h2>
         <p style={{ marginTop: 18, fontSize: 14, lineHeight: 1.6 }}>
           Past: Team Lead of 15 engineers at Luxury Presence.
-          Now independent — two engagements per quarter for clients who
+          Now independent - two engagements per quarter for clients who
           care how the site ages.
         </p>
         {/* trust */}

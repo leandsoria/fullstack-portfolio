@@ -457,7 +457,7 @@ function TermAbout({ c }) {
         <div className="term-about__body">
           <div>
             {(() => {
-              const fillText = "I build marketing sites that survive the second year — when the original team rotated out and the brand pivoted twice.";
+              const fillText = "I build marketing sites that survive the second year - when the original team rotated out and the brand pivoted twice.";
               const words = fillText.split(" ");
               return (
                 <h2
@@ -486,7 +486,7 @@ function TermAbout({ c }) {
           <div className="term-about__prose">
             <p>
               Five years in production front-end. Past: Team Lead of 15 engineers at
-              Luxury Presence. Current: independent — two engagements per quarter for
+              Luxury Presence. Current: independent - two engagements per quarter for
               clients who care how the site ages.
             </p>
             <p>
@@ -667,7 +667,7 @@ function TermWorkCard({ w, c, layout, n }) {
       href={`https://${w.url}`}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`${w.client} — ${w.title}`}
+      aria-label={`${w.client} - ${w.title}`}
       className="term-work-card"
       style={{
         gridColumn: layout.col,

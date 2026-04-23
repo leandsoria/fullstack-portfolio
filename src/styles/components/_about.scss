@@ -43,6 +43,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 48px;
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   // Scroll-fill headline. The JS hook measures element-in-viewport
@@ -53,13 +56,16 @@
   &__fill {
     font-family: var(--ls-font-display);
     font-weight: 500;
-    font-size: 44px;
+    font-size: clamp(32px, 7vw, 44px);
     letter-spacing: -0.025em;
     line-height: 1.1;
     margin: 0;
     max-width: 560px;
     text-wrap: pretty;
     color: var(--ls-dim); // fallback for the non-fill parts
+    @media(max-width: 1024px ) {
+      max-width: unset;
+    }
   }
 
   &__fill-word {
@@ -98,6 +104,12 @@
     border-radius: 8px;
     overflow: hidden;
     position: relative;
+    @media(max-width: 991px){
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media(max-width: 560px){
+  grid-template-columns: 1fr;
+    }
   }
 }
 

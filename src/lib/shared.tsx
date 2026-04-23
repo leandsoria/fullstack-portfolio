@@ -60,7 +60,7 @@ export const WORK = [
     url: "thefullerproperties.com",
     stack: ["Next.js", "Sanity", "GSAP"],
     category: "Luxury Real Estate",
-    award: "RealTrends — Best Website Design 2022",
+    award: "RealTrends - Best Website Design 2022",
     metric: "RealTrends Best Design 2022",
     swatch: "linear-gradient(135deg,#2a2420 0%,#4a3f35 45%,#8a7862 100%)",
   },
@@ -155,7 +155,7 @@ export const SERVICES = [
   {
     n: "02",
     title: "CMS Implementation",
-    body: "HubSpot, Webflow, WordPress, or Sanity — modeled for how your team works, not how the platform wants you to work. Editors ship without engineering in the loop.",
+    body: "HubSpot, Webflow, WordPress, or Sanity - modeled for how your team works, not how the platform wants you to work. Editors ship without engineering in the loop.",
     deliverables: ["Content modeling", "Template system", "Editor training", "Ops integration"],
   },
   {
@@ -167,7 +167,7 @@ export const SERVICES = [
   {
     n: "04",
     title: "Fractional Engineering Lead",
-    body: "Embedded leadership for in-house teams. Code review, architectural direction, hiring support, process design — with five years of shipping at the other end of it.",
+    body: "Embedded leadership for in-house teams. Code review, architectural direction, hiring support, process design - with five years of shipping at the other end of it.",
     deliverables: ["Architecture review", "Mentoring", "Process", "Hiring"],
   },
 ];
