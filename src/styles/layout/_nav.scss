@@ -4,18 +4,16 @@
 //
 // Markup (desktop):
 //   <div class="container term-nav">
-//     <button class="term-nav__link [--active]">
-//       <span class="term-nav__link-index">01</span>
-//       index
-//     </button>
-//     …
+//     <button class="term-nav__link [--active]">…</button> …
 //     <button class="term-nav__search">🔍 search</button>
-//     <button class="term-nav__menu">☰</button>   (mobile only)
 //   </div>
 //
-// On mobile (≤767px) the inline links and search collapse out and the
-// hamburger (.term-nav__menu) toggles the .term-nav-dropdown block that
-// sits directly below the nav row, still inside the sticky header.
+// On mobile (≤767px) this entire nav row hides (the header meta row
+// gets a .term-nav__menu hamburger instead). The hamburger toggles the
+// .term-nav-dropdown block that sits directly below the meta row,
+// still inside the sticky header. Because the hamburger lives in the
+// meta row rather than inside .term-nav, its styles sit outside the
+// .term-nav nesting below.
 
 .term-nav {
   display: flex;
@@ -64,34 +62,41 @@
     }
   }
 
-  // Hamburger — desktop hidden, mobile takes over the nav row.
-  &__menu {
-    @include button-reset;
-    display: none;
-    margin-left: auto;
-    padding: 8px 12px;
-    border: 1px solid var(--ls-line);
-    border-radius: 4px;
-    color: var(--ls-dim);
-    font-size: 16px;
-    line-height: 1;
-    transition: color var(--ls-dur-fast) var(--ls-ease),
-                border-color var(--ls-dur-fast) var(--ls-ease);
+}
 
-    &:hover,
-    &--open {
-      color: var(--ls-fg);
-      border-color: var(--ls-line-strong);
-    }
+// Hamburger — lives inside .term-header__status (meta row). Hidden on
+// desktop entirely; on mobile it takes over navigation. Sized to match
+// the adjacent .term-theme-toggle pill.
+.term-nav__menu {
+  @include button-reset;
+  display: none;
+  padding: 2px 8px;
+  border: 1px solid var(--ls-line);
+  border-radius: 4px;
+  color: var(--ls-dim);
+  font-size: 14px;
+  line-height: 1;
+  transition: color var(--ls-dur-fast) var(--ls-ease),
+              border-color var(--ls-dur-fast) var(--ls-ease);
+
+  &:hover,
+  &--open {
+    color: var(--ls-fg);
+    border-color: var(--ls-line-strong);
   }
 
   @media (max-width: 767px) {
-    // Drop the inline section tabs and the search button; the dropdown
-    // does both jobs on mobile.
-    &__link,
-    &__search { display: none; }
+    display: inline-flex;
+    align-items: center;
+  }
+}
 
-    &__menu { display: inline-flex; align-items: center; }
+// On mobile the entire nav row is empty (tabs + search replaced by the
+// hamburger + dropdown pair in the meta row), so drop it and reclaim
+// the vertical space.
+.term-header__row--nav {
+  @media (max-width: 767px) {
+    display: none;
   }
 }
 

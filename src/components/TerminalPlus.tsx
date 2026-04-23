@@ -289,6 +289,16 @@ function TerminalVariantV2() {
               <button data-cursor onClick={toggleTheme} className="term-theme-toggle">
                 {theme === "dark" ? "dark" : "light"}
               </button>
+              {/* Hamburger — mobile only; opens the dropdown below. */}
+              <button
+                type="button"
+                onClick={() => setMenuOpen(v => !v)}
+                className={`term-nav__menu${menuOpen ? " term-nav__menu--open" : ""}`}
+                aria-label={menuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={menuOpen}
+              >
+                {menuOpen ? "×" : "☰"}
+              </button>
             </div>
           </div>
         </div>
@@ -321,16 +331,6 @@ function TerminalVariantV2() {
                 </svg>
               </span>
               <span>search</span>
-            </button>
-            {/* Hamburger — visible on mobile, hidden on desktop. */}
-            <button
-              type="button"
-              onClick={() => setMenuOpen(v => !v)}
-              className={`term-nav__menu${menuOpen ? " term-nav__menu--open" : ""}`}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? "×" : "☰"}
             </button>
           </div>
         </div>
