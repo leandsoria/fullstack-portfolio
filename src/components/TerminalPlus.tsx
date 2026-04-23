@@ -9,7 +9,7 @@
 import * as React from 'react';
 import Lenis from 'lenis';
 import { PROFILE, CREDENTIALS, WORK, WORK_INDEX, SERVICES, STACK, WRITING, NAV, ALL_STACKS, useTheme, useInView, ScopedCursor, ScrollProgress, Placeholder } from '@/lib/shared';
-import { TerminalPalette, TermHero, TermAbout, TermWork, TermServices, TermStack, TermWriting, TermContact, TermFooter, TermSectionHeader, CmdK, termStyles } from './TerminalVariant';
+import { TerminalPalette, TermHero, TermAbout, TermWork, TermServices, TermStack, TermWriting, TermContact, TermFooter, TermSectionHeader, CmdK, termStyles, getScrollParent } from './TerminalVariant';
 
 // V3 — Terminal: enhancements
 // 1) Process section (numbered vertical list with states)
@@ -76,7 +76,46 @@ const PROCESS_STEPS = [
   },
 ];
 
+// 4 process steps compress into 3 legend rows.
+// Discovery → 0, Architecture → 1, Design & Build → 1, Handoff & Care → 2.
+const PROCESS_STEP_TO_LEGEND = [0, 1, 1, 2];
+
+// Labels for the 3 legend rows — visual hint of which macro phase the
+// scroll is currently aligned with.
+const PROCESS_LEGEND_LABELS = ["current step", "pending", "complete"];
+
 function TermProcess({ c }) {
+  const stepsRef = React.useRef(null);
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  // Track which step card is at or above the sticky-legend top band.
+  // The legend sticks at top: 120px; we pad by 20 so the switch feels
+  // natural as the card's title crosses that line.
+  React.useEffect(() => {
+    const wrap = stepsRef.current;
+    if (!wrap) return;
+    const scroller = getScrollParent(wrap);
+    const onScroll = () => {
+      const stepEls = wrap.querySelectorAll(".term-process__step");
+      const triggerY = 140;
+      let idx = 0;
+      stepEls.forEach((el, i) => {
+        if (el.getBoundingClientRect().top <= triggerY) idx = i;
+      });
+      setActiveStep(idx);
+    };
+    const target = scroller === window ? window : scroller;
+    target.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+    return () => {
+      target.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  const activeLegend = PROCESS_STEP_TO_LEGEND[activeStep] ?? 0;
+
   return (
     <section data-section="process" data-screen-label="05 Process" className="term-process">
       <div className="container">
@@ -84,21 +123,22 @@ function TermProcess({ c }) {
         <div className="term-process__body">
           <aside className="term-process__legend">
             <div className="term-process__legend-title">process.map</div>
-            <div className="term-process__legend-row">
-              <span className="term-process__legend-dot term-process__legend-dot--current" />
-              current step
-            </div>
-            <div className="term-process__legend-row">
-              <span className="term-process__legend-dot term-process__legend-dot--pending" />
-              pending
-            </div>
-            <div className="term-process__legend-row">
-              <span className="term-process__legend-dot term-process__legend-dot--complete" />
-              complete
-            </div>
+            {PROCESS_LEGEND_LABELS.map((label, i) => {
+              const mod = i < activeLegend
+                ? "complete"
+                : i === activeLegend
+                  ? "current"
+                  : "pending";
+              return (
+                <div key={i} className="term-process__legend-row">
+                  <span className={`term-process__legend-dot term-process__legend-dot--${mod}`} />
+                  {label}
+                </div>
+              );
+            })}
           </aside>
 
-          <ol className="term-process__steps">
+          <ol className="term-process__steps" ref={stepsRef}>
             <div className="term-process__guide" />
             {PROCESS_STEPS.map((s, i) => {
               const [ref, shown] = useReveal(i * 90);

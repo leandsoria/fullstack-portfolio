@@ -60,7 +60,7 @@
     top: 120px;
     align-self: start;
     font-family: var(--ls-font-mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--ls-dim);
     letter-spacing: 0.08em;
     line-height: 1.8;
@@ -170,7 +170,7 @@
   }
 
   &__card-body {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     color: var(--ls-fg);
     margin: 0;
@@ -183,7 +183,7 @@
     flex-wrap: wrap;
     gap: 6px;
     font-family: var(--ls-font-mono);
-    font-size: 10px;
+    font-size: 13px;
     color: var(--ls-dim);
     letter-spacing: 0.06em;
   }
@@ -193,5 +193,9 @@
     border-radius: 3px;
     border: 1px solid var(--ls-line);
     background: var(--ls-bg);
+    transition: color .3s ease;
+  }
+  &__card-pill:hover {
+    color:  #FFF;
   }
 }

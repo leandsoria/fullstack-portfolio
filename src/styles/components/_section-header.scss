@@ -27,7 +27,7 @@
 
   &__num {
     font-family: var(--ls-font-mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--ls-dim);
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -36,14 +36,14 @@
   &__label {
     font-family: var(--ls-font-display);
     font-weight: 500;
-    font-size: 28px;
+    font-size: 36px;
     letter-spacing: -0.02em;
     margin: 0;
   }
 
   &__meta {
     font-family: var(--ls-font-mono);
-    font-size: 11px;
+    font-size: 13px;
     color: var(--ls-dim);
     letter-spacing: 0.08em;
   }

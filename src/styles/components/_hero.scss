@@ -84,8 +84,8 @@
 
   &__lede {
     margin-top: 32px;
-    max-width: 520px;
-    font-size: 17px;
+    max-width: 620px;
+    font-size: 20px;
     line-height: 1.55;
     color: var(--ls-fg);
     opacity: 0;
@@ -117,6 +117,7 @@
 
     &--ghost {
       border: 1px solid var(--ls-line-strong);
+      display: none;
     }
   }
 

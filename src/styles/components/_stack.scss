@@ -52,7 +52,7 @@
     display: flex;
     justify-content: space-between;
     font-family: var(--ls-font-mono);
-    font-size: 10px;
+    font-size: 14px;
     color: var(--ls-dim);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -67,10 +67,13 @@
     justify-content: space-between;
     align-items: center;
     font-family: var(--ls-font-mono);
-    font-size: 12px;
+    font-size: 18px;
 
     &--last { border-bottom: 0; }
   }
+   &__row:hover &__row-dot {
+    background-color: var(--ls-success);
+   } 
 
   &__row-name { color: var(--ls-fg); }
 
@@ -80,6 +83,7 @@
     border-radius: 50%;
     background: var(--ls-fg);
     opacity: 0.4;
+    transition: background .2s ease;
   }
 }
 
