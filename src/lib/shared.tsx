@@ -205,7 +205,7 @@ export const STACK = [
   },
   {
     cat: "AI",
-    items: ["Claude Code (custom skills)", "Claude Cowork", "MCP"],
+    items: ["Claude Code (custom skills)", "Claude Cowork", "MCP", "ChatGPT", "Qwen", "Ollama", "ComfyUI"],
   },
 ];
 
