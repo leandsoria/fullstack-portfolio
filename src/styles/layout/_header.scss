@@ -68,7 +68,7 @@
     align-items: center;
   }
 
-  // Right cell: "• available-q3-26    [dark/light toggle]"
+  // Right cell: "• happy-to-talk    [dark/light toggle]"
   &__status {
     display: flex;
     justify-content: flex-end;
@@ -92,7 +92,7 @@
 }
 
 // Availability badge with a green pulse dot. On mobile the long label
-// collapses to the short quarter code ("available-q3-26" → "q3-26").
+// collapses to the short label ("happy-to-talk" → "talk").
 .term-status {
   display: inline-flex;
   align-items: center;

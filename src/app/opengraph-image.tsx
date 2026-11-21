@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Leandro Soria - Senior Front-End Engineer & CMS Architect';
+export const alt = 'Leandro Soria | Web Engineer for Marketing Teams';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -26,21 +26,20 @@ export default function OpengraphImage() {
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 18, color: '#807b72', letterSpacing: 2 }}>
           <span>leandrosoria.dev / portfolio / v03</span>
-          <span>AVAILABLE Q3 2026</span>
+          <span>6 YEARS · 100+ SITES</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <span style={{ display: 'inline-flex', padding: '6px 14px', border: '1px solid rgba(236,232,221,0.18)', borderRadius: 6, fontSize: 18, letterSpacing: 1, alignSelf: 'flex-start' }}>
-            SENIOR / CONTRACTOR / TEAM-LEAD
+            WEBFLOW / WORDPRESS / HUBSPOT CMS / SHOPIFY · AI-FIRST
           </span>
           <div style={{ fontSize: 96, fontWeight: 500, lineHeight: 1.0, letterSpacing: -3.5 }}>
-            Senior Front-End<br />
-            Engineer <span style={{ color: '#807b72' }}>&amp;</span> CMS<br />
-            Architect.
+            Web Engineer<br />
+            <span style={{ color: '#807b72' }}>for</span> Marketing Teams.
           </div>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 18, color: '#807b72' }}>
           <span>Leandro Soria</span>
-          <span>Buenos Aires, AR · Working globally</span>
+          <span>Buenos Aires, AR · GMT-3, full US overlap</span>
         </div>
       </div>
     ),

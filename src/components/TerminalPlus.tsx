@@ -8,7 +8,7 @@
 // @ts-nocheck
 import * as React from 'react';
 import Lenis from 'lenis';
-import { PROFILE, CREDENTIALS, WORK, WORK_INDEX, SERVICES, STACK, WRITING, NAV, ALL_STACKS, useTheme, useInView, ScopedCursor, ScrollProgress, Placeholder } from '@/lib/shared';
+import { PROFILE, CREDENTIALS, WORK, WORK_INDEX, SERVICES, STACK, TESTIMONIALS, WRITING, NAV, ALL_STACKS, useTheme, useInView, ScopedCursor, ScrollProgress, Placeholder } from '@/lib/shared';
 import { TerminalPalette, TermHero, TermAbout, TermWork, TermServices, TermStack, TermWriting, TermContact, TermFooter, TermSectionHeader, CmdK, termStyles, getScrollParent } from './TerminalVariant';
 
 // V3 — Terminal: enhancements
@@ -53,7 +53,7 @@ const PROCESS_STEPS = [
   {
     n: "01", status: "Week 1",
     title: "Discovery",
-    body: "We scope the actual problem - traffic, team, CMS constraints, brand obligations. One call, one written brief back.",
+    body: "We scope the actual problem: traffic, team, CMS constraints, brand obligations. One call, one written brief back.",
     deliverables: ["Scope doc", "Risk map", "Go / no-go"],
   },
   {
@@ -71,8 +71,8 @@ const PROCESS_STEPS = [
   {
     n: "04", status: "Week 5+",
     title: "Handoff & Care",
-    body: "Editor training, documentation, monitoring. I stay available by retainer if you want someone on-call when marketing ships.",
-    deliverables: ["Docs", "Editor session", "Retainer (opt.)"],
+    body: "Editor training and documentation, then the site keeps running: hosting, monitoring, restarts and fixes as marketing ships.",
+    deliverables: ["Docs", "Editor session", "Monitoring"],
   },
 ];
 
@@ -244,7 +244,7 @@ function TerminalVariantV2() {
     { id: "services", label: "Services" },
     { id: "process", label: "Process" },
     { id: "stack", label: "Stack" },
-    { id: "writing", label: "Writing" },
+    { id: "testimonials", label: "Quotes" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -274,7 +274,7 @@ function TerminalVariantV2() {
             <div className="term-header__breadcrumb">
               <span>leandrosoria.dev</span>
               <span>/ portfolio</span>
-              <span>/ v03.1</span>
+              <span>/ v03.2</span>
             </div>
             <div className="term-header__hint">
               <kbd className="term-kbd">⌘</kbd>
@@ -285,8 +285,8 @@ function TerminalVariantV2() {
               <span className="term-status">
                 <span className="term-status__dot" />
                 {/* Two labels — CSS swaps them at the mobile breakpoint. */}
-                <span className="term-status__full">available-q3-26</span>
-                <span className="term-status__short">q3-26</span>
+                <span className="term-status__full">happy-to-talk</span>
+                <span className="term-status__short">talk</span>
               </span>
               <button data-cursor onClick={toggleTheme} className="term-theme-toggle">
                 {/* Desktop: text label. Mobile: glyph (◐ dark / ◑ light). */}
@@ -365,9 +365,9 @@ function TerminalVariantV2() {
       <TermWork c={c} filter={stackFilter} setFilter={setStackFilter} filtered={filtered} />
       <TermServices c={c} />
       <TermProcess c={c} />
-      <TermStack c={c} />
-      <TermWriting c={c} />
-      <TermContact c={c} />
+      <TermStack c={c} n="06" />
+      <TermTestimonials c={c} n="07" />
+      <TermContact c={c} n="08" />
       <TermFooterV2 c={c} scrollTo={scrollTo} />
 
       {/* Floating bottom nav — visible on mobile only (CSS-gated). */}
@@ -457,7 +457,7 @@ function TerminalMobile() {
           <span style={{ color: c.fg }}>leandrosoria.dev</span>
         </div>
         <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-          <span><span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: "#7fd37f", marginRight: 6 }}/>q3-26</span>
+          <span><span style={{ display: "inline-block", width: 6, height: 6, borderRadius: "50%", background: "#7fd37f", marginRight: 6 }}/>talk</span>
           <button onClick={toggleTheme} style={{
             all: "unset", cursor: "pointer",
             padding: "2px 8px", border: `1px solid ${c.line}`, borderRadius: 4,
@@ -477,7 +477,7 @@ function TerminalMobile() {
         borderBottom: menuOpen ? `1px solid ${c.line}` : "none",
         background: c.panel,
       }}>
-        {[["hero","01","Index"],["about","02","About"],["work","03","Work"],["services","04","Services"],["process","05","Process"],["stack","06","Stack"],["writing","07","Writing"],["contact","08","Contact"]].map(([id, n, label]) => (
+        {[["hero","01","Index"],["about","02","About"],["work","03","Work"],["services","04","Services"],["process","05","Process"],["stack","06","Stack"],["contact","07","Contact"]].map(([id, n, label]) => (
           <button key={id} onClick={() => scrollTo(id)} style={{
             all: "unset", cursor: "pointer", width: "100%", boxSizing: "border-box",
             padding: "12px 16px", display: "grid",
@@ -500,21 +500,21 @@ function TerminalMobile() {
           letterSpacing: "0.08em", marginBottom: 18,
           display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap",
         }}>
-          <span style={{ padding: "3px 8px", borderRadius: 4, background: c.panel, border: `1px solid ${c.line}`, color: c.fg }}>SENIOR</span>
-          <span>contractor · team-lead</span>
+          <span style={{ padding: "3px 8px", borderRadius: 4, background: c.panel, border: `1px solid ${c.line}`, color: c.fg }}>AI-FIRST</span>
+          <span>webflow · wordpress · hubspot cms · shopify</span>
         </div>
         <h1 style={{
           fontFamily: termStyles.fontDisplay, fontWeight: 500,
           fontSize: 44, lineHeight: 1.0, letterSpacing: "-0.035em",
           margin: 0, textWrap: "balance",
         }}>
-          Senior Front-End<br/>
-          Engineer <span style={{ color: c.dim }}>&</span><br/>
-          CMS Architect.
+          Web Engineer<br/>
+          <span style={{ color: c.dim }}>for</span> Marketing<br/>
+          Teams.
         </h1>
         <p style={{ marginTop: 20, fontSize: 15, lineHeight: 1.55, color: c.fg }}>
-          Building production websites for international brands.
-          Five years, a hundred-plus sites, and a standard that doesn't bend.
+          I own the web layer for US marketing teams: build, integrations, tracking,
+          migrations, hosting and performance. 6 years, AI-first with Claude Code.
         </p>
         <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 8 }}>
           <button onClick={() => scrollTo("work")} style={{
@@ -544,12 +544,12 @@ function TerminalMobile() {
           </div>
           {[
             ["name", PROFILE.name],
-            ["role", "Senior FE · CMS Architect"],
-            ["exp", "5+ years"],
+            ["role", "Web Engineer"],
+            ["exp", "6 years"],
             ["shipped", "100+ sites"],
-            ["lead", "15 engineers"],
+            ["lead", "15 front-end devs"],
             ["cert", "HubSpot · RealTrends '22"],
-            ["slots", "2 · Q3 2026"],
+            ["now", "Marketwake · happy to talk"],
           ].map(([k, v]) => (
             <div key={k} style={{
               display: "grid", gridTemplateColumns: "66px 1fr",
@@ -569,13 +569,13 @@ function TerminalMobile() {
           fontSize: 28, letterSpacing: "-0.025em", lineHeight: 1.15,
           margin: 0, textWrap: "pretty",
         }}>
-          I build marketing sites that survive the second year
-          <span style={{ color: c.dim }}> - when the original team rotated out and the brand pivoted twice.</span>
+          I build and run marketing websites that keep working after launch
+          <span style={{ color: c.dim }}>: when the campaign changes, the host changes, or the team that built it is gone.</span>
         </h2>
         <p style={{ marginTop: 18, fontSize: 14, lineHeight: 1.6 }}>
-          Past: Team Lead of 15 engineers at Luxury Presence.
-          Now independent - two engagements per quarter for clients who
-          care how the site ages.
+          At Marketwake I own the web layer for about 30 production sites.
+          Before that I launched 100+ sites at Luxury Presence and led 15
+          front-end developers.
         </p>
         {/* trust */}
         <div style={{
@@ -639,7 +639,7 @@ function TerminalMobile() {
                     display: "flex", alignItems: "center", padding: "0 8px",
                     fontFamily: termStyles.fontMono, fontSize: 9, color: "rgba(255,255,255,0.6)",
                   }}>
-                    {w.client.toLowerCase().replace(/\s+/g, "")}.com
+                    {w.url}
                   </div>
                   <div style={{
                     position: "absolute", bottom: 14, left: 16, right: 16,
@@ -699,7 +699,7 @@ function TerminalMobile() {
 
       {/* SERVICES — stacked cards */}
       <MobSection id="services" label="04 Services" n="04">
-        <SectionMobHead c={c} n="04" label="what i build" meta="4 engagements"/>
+        <SectionMobHead c={c} n="04" label="what i do" meta="4 areas"/>
         <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 16 }}>
           {SERVICES.map((s, i) => {
             const [ref, shown] = useReveal(i * 80);
@@ -821,8 +821,8 @@ function TerminalMobile() {
         </div>
       </MobSection>
 
-      {/* WRITING */}
-      <MobSection id="writing" label="07 Writing" n="07">
+      {/* WRITING: removed until a real post exists */}
+      {WRITING.length > 0 && <MobSection id="writing" label="07 Writing" n="07">
         <SectionMobHead c={c} n="07" label="writing" meta="forthcoming"/>
         <div style={{ marginTop: 12 }}>
           {WRITING.map((w, i) => (
@@ -846,22 +846,21 @@ function TerminalMobile() {
             </div>
           ))}
         </div>
-      </MobSection>
+      </MobSection>}
 
       {/* CONTACT */}
-      <MobSection id="contact" label="08 Contact" n="08">
-        <SectionMobHead c={c} n="08" label="contact"/>
+      <MobSection id="contact" label="07 Contact" n="07">
+        <SectionMobHead c={c} n="07" label="contact"/>
         <h2 style={{
           fontFamily: termStyles.fontDisplay, fontWeight: 500,
           fontSize: 36, letterSpacing: "-0.035em", lineHeight: 1.0,
           margin: "20px 0 0",
         }}>
-          2 engagements<br/>
-          <span style={{ color: c.dim }}>available Q3 2026.</span>
+          Currently at Marketwake.<br/>
+          <span style={{ color: c.dim }}>Happy to talk.</span>
         </h2>
         <p style={{ fontSize: 14, lineHeight: 1.55, marginTop: 14 }}>
-          Write directly. I reply within one business day with either a
-          scoping call or a referral to someone better suited.
+          Write directly. I reply within one business day.
         </p>
         <MobileCopyEmail c={c}/>
         {/* channels */}
@@ -896,7 +895,7 @@ function TerminalMobile() {
         }}>
         <div>© 2026 L. Soria</div>
         <div style={{ textAlign: "right" }}>v03m · Terminal</div>
-        <div>build 2026.04.22</div>
+        <div>build 2026.11.21</div>
         <div style={{ textAlign: "right" }}>end-of-document</div>
         </div>
       </footer>
@@ -987,6 +986,34 @@ function MobileCopyEmail({ c }) {
 Object.assign(window, { TerminalVariantV2, TerminalMobile });
 
 // ─────────────────────────────────────────────
+// TESTIMONIALS — approved teammate quotes, verbatim (no ratings, no numbers)
+// ─────────────────────────────────────────────
+function TermTestimonials({ c, n = "07" }: any) {
+  return (
+    <section data-section="testimonials" data-screen-label={`${n} Testimonials`} className="term-quotes">
+      <div className="container">
+        <TermSectionHeader c={c} n={n} label="what teammates say" meta="Luxury Presence · 2023" />
+        <div className="term-quotes__grid">
+          {TESTIMONIALS.map((t, i) => {
+            const [ref, shown] = useReveal(i * 90);
+            return (
+              <figure key={t.name} ref={ref} className="term-quotes__card" style={revealStyle(shown, 10)}>
+                <span className="term-quotes__n">/quote/{String(i + 1).padStart(2, "0")}</span>
+                <blockquote className="term-quotes__text">&ldquo;{t.quote}&rdquo;</blockquote>
+                <figcaption className="term-quotes__who">
+                  <span className="term-quotes__name">{t.name}</span>
+                  <span className="term-quotes__role">{t.role}</span>
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────
 // V3.1 FOOTER — sitemap + brand closer
 // ─────────────────────────────────────────────
 function TermFooterV2({ c, scrollTo }: any) {
@@ -1013,17 +1040,16 @@ function TermFooterV2({ c, scrollTo }: any) {
             ["Services", () => scrollTo?.("services")],
             ["Process", () => scrollTo?.("process")],
             ["Stack",   () => scrollTo?.("stack")],
-            ["Writing", () => scrollTo?.("writing")],
+            ["Quotes",  () => scrollTo?.("testimonials")],
           ]}/>
           <FooterCol title="elsewhere" items={[
             ["LinkedIn /in/leandro-d-soria", "https://www.linkedin.com/in/leandro-d-soria/"],
             ["GitHub @leandsoria",           "https://github.com/leandsoria"],
           ]}/>
           <FooterCol title="notes" items={[
-            ["Inter · JetBrains Mono", null],
-            ["No frameworks harmed",    null],
-            ["Hand-built in React",     null],
-            ["Buenos Aires · GMT-3",    null],
+            ["Inter · JetBrains Mono",       null],
+            ["Built AI-first with Claude Code", null],
+            ["Buenos Aires · GMT-3",          null],
           ]}/>
           <div className="term-footer-now">
             <div className="term-footer-now__label">now</div>
@@ -1032,7 +1058,7 @@ function TermFooterV2({ c, scrollTo }: any) {
               <div><span className="term-footer-now__dim">reply eta  </span>&lt; 24h business days</div>
               <div className="term-footer-now__slots">
                 <span className="term-footer-now__dot" />
-                2 slots · Q3 2026
+                at Marketwake · happy to talk
               </div>
             </div>
           </div>
@@ -1041,8 +1067,8 @@ function TermFooterV2({ c, scrollTo }: any) {
         {/* Meta row */}
         <div className="term-footer__meta">
           <div>© 2026 Leandro Soria</div>
-          <div>v03.1 · The Terminal</div>
-          <div>build 2026.04.22</div>
+          <div>v03.2 · The Terminal</div>
+          <div>build 2026.11.21</div>
           <div>end-of-document</div>
         </div>
       </div>

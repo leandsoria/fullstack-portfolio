@@ -8,7 +8,7 @@
 // @ts-nocheck
 import * as React from 'react';
 import Lenis from 'lenis';
-import { PROFILE, CREDENTIALS, WORK, WORK_INDEX, SERVICES, STACK, WRITING, NAV, ALL_STACKS, useTheme, useInView, ScopedCursor, ScrollProgress, Placeholder } from '@/lib/shared';
+import { PROFILE, CREDENTIALS, WORK, WORK_INDEX, SERVICES, STACK, STACK_NOTE, WRITING, NAV, ALL_STACKS, useTheme, useInView, ScopedCursor, ScrollProgress, Placeholder } from '@/lib/shared';
 
 // Variant 3 — The Terminal
 // Linear-adjacent. Denser, more system-feeling, monospace tags,
@@ -113,7 +113,7 @@ function TerminalVariant() {
             <div className="term-header__status">
               <span className="term-status">
                 <span className="term-status__dot" />
-                available-q3-26
+                happy-to-talk
               </span>
               <button
                 data-cursor
@@ -167,7 +167,6 @@ function TerminalVariant() {
       <TermWork c={c} filter={stackFilter} setFilter={setStackFilter} filtered={filtered} />
       <TermServices c={c} />
       <TermStack c={c} />
-      <TermWriting c={c} />
       <TermContact c={c} />
       <TermFooter c={c} />
 
@@ -220,9 +219,9 @@ function CmdK({ c, onClose, scrollTo, setFilter }) {
 function AnimatedH1({ c }) {
   // Split into words for per-word reveal with blur + slide
   const lines = [
-    ["Senior", "Front-End"],
-    ["Engineer", "&", "CMS"],
-    ["Architect."],
+    ["Web", "Engineer"],
+    ["for", "Marketing"],
+    ["Teams."],
   ];
   let idx = 0;
   return (
@@ -232,7 +231,7 @@ function AnimatedH1({ c }) {
           {line.map((w, wi) => {
             const delay = idx * 90;
             idx++;
-            const isAmp = w === "&";
+            const isAmp = w === "for";
             return (
               <React.Fragment key={wi}>
                 <span
@@ -255,13 +254,14 @@ function TermHero({ c, scrollTo }: any) {
       <div className="container term-hero__grid">
         <div className="term-hero__left">
           <div className="term-hero__eyebrow">
-            <span className="term-hero__tag">SENIOR</span>
-            <span>/ contractor / team-lead</span>
+            <span className="term-hero__tag">AI-FIRST</span>
+            <span>/ webflow / wordpress / hubspot cms / shopify</span>
           </div>
           <AnimatedH1 c={c} />
           <p className="term-hero__lede">
-            Building production websites for international brands.
-            Five years, a hundred-plus sites, and a standard that doesn&apos;t bend.
+            I own the web layer for US marketing teams: build, integrations, tracking,
+            migrations, hosting and performance. 6 years, the last 5 inside US teams.
+            AI-first with Claude Code.
           </p>
           <div className="term-hero__ctas">
             <button
@@ -288,16 +288,16 @@ function TermHero({ c, scrollTo }: any) {
           <div className="term-hero__sys-rows">
             {[
               ["name",       PROFILE.name],
-              ["role",       "Senior FE Engineer"],
-              ["secondary",  "CMS Architect"],
-              ["location",   "Buenos Aires, AR"],
-              ["time_zone",  "GMT-3"],
-              ["experience", "5+ years"],
+              ["role",       "Web Engineer"],
+              ["focus",      "marketing sites, CMS, web operations"],
+              ["location",   "Buenos Aires, AR · GMT-3, full US overlap"],
+              ["experience", "6 years"],
               ["shipped",    "100+ sites"],
-              ["leadership", "15 engineers @ Luxury Presence"],
-              ["recognition","RealTrends Best Design 2022"],
-              ["certified",  "HubSpot Implementation Partner"],
-              ["status",     "available Q3 2026 · 2 slots"],
+              ["leadership", "led 15 front-end devs @ Luxury Presence"],
+              ["recognition","RealTrends Best Design 2022 (Fuller Group)"],
+              ["certified",  "HubSpot Implementation for Partners"],
+              ["current",    "Marketwake (US agency)"],
+              ["status",     "happy to talk"],
             ].map(([k, v], i) => (
               <div key={k} className="term-hero__sys-row">
                 <span className="term-hero__sys-key">{k}</span>
@@ -402,10 +402,13 @@ function CountUp({ value, active, duration = 1400 }) {
   if (!match) return <>{value}</>;
   const [, prefix, numStr, suffix] = match;
   const target = parseFloat(numStr.replace(/,/g, ""));
-  const [n, setN] = React.useState(0);
+  // Start at the final value so anything rendered before the count-up
+  // (screenshots, slow devices, reduced motion) shows the real number.
+  const [n, setN] = React.useState(target);
 
   React.useEffect(() => {
     if (!active) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
     const start = performance.now();
     let raf;
     const tick = (t) => {
@@ -457,7 +460,7 @@ function TermAbout({ c }) {
         <div className="term-about__body">
           <div>
             {(() => {
-              const fillText = "I build marketing sites that survive the second year - when the original team rotated out and the brand pivoted twice.";
+              const fillText = "I build and run marketing websites that keep working after launch: when the campaign changes, the host changes, or the team that built it is gone.";
               const words = fillText.split(" ");
               return (
                 <h2
@@ -485,14 +488,21 @@ function TermAbout({ c }) {
           </div>
           <div className="term-about__prose">
             <p>
-              Five years in production front-end. Past: Team Lead of 15 engineers at
-              Luxury Presence. Current: independent - two engagements per quarter for
-              clients who care how the site ages.
+              6 years building and operating websites for US companies, the last 5 inside
+              US teams. At Marketwake, a US marketing agency, I own the web layer for around
+              10 client accounts and about 30 production sites on WordPress, Webflow, HubSpot
+              CMS, Shopify and Framer: builds, integrations, tracking, migrations, hosting,
+              performance and incident response.
             </p>
             <p>
-              My work lives at the intersection of front-end engineering and operational
-              content systems. Fast on day one, maintainable on day three hundred. The
-              brief is always both.
+              Before that I launched 100+ sites at Luxury Presence and was promoted to team
+              leader of 15 front-end developers. I also taught web development to 200+
+              students at Coderhouse.
+            </p>
+            <p>
+              I work AI-first. I define the architecture and own review and QA; Claude Code,
+              with skills I built, does much of the writing. That is how one person keeps 30
+              sites healthy.
             </p>
           </div>
         </div>
@@ -702,7 +712,7 @@ function TermWorkCard({ w, c, n }: any) {
           <div className="term-work-card__mock-dot" />
           <div className="term-work-card__mock-dot" />
           <div className="term-work-card__mock-url">
-            {w.client.toLowerCase().replace(/\s+/g, "")}.com
+            {w.url}
           </div>
         </div>
         <div className="term-work-card__mock-caption">
@@ -742,7 +752,7 @@ function TermServices({ c }) {
   return (
     <section data-section="services" data-screen-label="04 Services" className="term-services">
       <div className="container">
-        <TermSectionHeader c={c} n="04" label="what I build" meta="4 engagements" />
+        <TermSectionHeader c={c} n="04" label="what I do" meta="4 areas" />
         <div className="term-services__grid">
           {SERVICES.map((s, i) => {
             const [ref, inView] = useInView();
@@ -778,12 +788,12 @@ function TermServices({ c }) {
 }
 
 // ── STACK
-function TermStack({ c }) {
+function TermStack({ c, n = "05" }: any) {
   const [ref, inView] = useInView({ threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
   return (
     <section data-section="stack" data-screen-label="05 Stack" ref={ref} className="term-stack">
       <div className="container">
-        <TermSectionHeader c={c} n="05" label="technical stack" />
+        <TermSectionHeader c={c} n={n} label="technical stack" />
         <div className="term-stack__grid">
           {STACK.map((g, gi) => {
             const gDelay = gi * 80;
@@ -813,6 +823,7 @@ function TermStack({ c }) {
             );
           })}
         </div>
+        {STACK_NOTE && <p className="term-stack__note">{STACK_NOTE}</p>}
       </div>
     </section>
   );
@@ -849,7 +860,7 @@ function TermWriting({ c }) {
 }
 
 // ── CONTACT
-function TermContact({ c }) {
+function TermContact({ c, n = "06" }: any) {
   const [ref, inView] = useInView({ threshold: 0.25, rootMargin: "0px 0px -8% 0px" });
   const [copied, setCopied] = React.useState(false);
   const copy = () => {
@@ -857,15 +868,15 @@ function TermContact({ c }) {
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
-  const words1 = ["2", "engagements"];
-  const words2 = ["available", "Q3", "2026."];
+  const words1 = ["Currently", "at", "Marketwake."];
+  const words2 = ["Happy", "to", "talk."];
   let idx = 0;
   const wordCls = `term-contact-word${inView ? " in" : ""}`;
   const fadeCls = `term-contact-fade${inView ? " in" : ""}`;
   return (
     <section data-section="contact" data-screen-label="07 Contact" ref={ref} className="term-contact">
       <div className="container">
-        <TermSectionHeader c={c} n="07" label="contact" />
+        <TermSectionHeader c={c} n={n} label="contact" />
         <div className="term-contact__grid">
           <div>
             <h2 className="term-contact__h">
@@ -893,8 +904,7 @@ function TermContact({ c }) {
               </span>
             </h2>
             <p className={`term-contact__lede ${fadeCls}`} style={{ animationDelay: "600ms" }}>
-              Write directly. I reply within one business day with either a scoping
-              call or a referral to someone better suited.
+              Write directly. I reply within one business day.
             </p>
             <button
               data-cursor

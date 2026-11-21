@@ -1,0 +1,81 @@
+@use '../abstracts/mixins' as *;
+
+// Testimonials — 3 approved teammate quotes, verbatim, in panel cards.
+//
+// Markup:
+//   <section class="term-quotes">
+//     <div class="container">
+//       <div class="term-section-header">…</div>
+//       <div class="term-quotes__grid">
+//         <figure class="term-quotes__card">   <!-- inline reveal opacity/transform -->
+//           <span class="term-quotes__n">/quote/01</span>
+//           <blockquote class="term-quotes__text">“…”</blockquote>
+//           <figcaption class="term-quotes__who">
+//             <span class="term-quotes__name">…</span>
+//             <span class="term-quotes__role">…</span>
+//           </figcaption>
+//         </figure>
+//       </div>
+//     </div>
+//   </section>
+
+.term-quotes {
+  padding: 100px var(--ls-gutter);
+  border-bottom: 1px solid var(--ls-line);
+
+  &__grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    @include surface;
+    margin: 0;
+    padding: 24px 24px 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__n {
+    @include text-mono(11px);
+    color: var(--ls-dim);
+  }
+
+  &__text {
+    margin: 0;
+    flex: 1;
+    font-family: var(--ls-font-display);
+    font-size: 19px;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: var(--ls-fg);
+    text-wrap: pretty;
+  }
+
+  &__who {
+    padding-top: 14px;
+    border-top: 1px solid var(--ls-line);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ls-fg);
+  }
+
+  &__role {
+    @include text-mono(11px);
+    color: var(--ls-dim);
+  }
+}

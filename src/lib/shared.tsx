@@ -10,135 +10,145 @@
 
 import * as React from 'react';
 // Shared data + hooks for all three portfolio variations.
-// Leandro Soria — Senior Front-End Engineer & CMS Architect
+// Leandro Soria: Web Engineer for Marketing Teams
+//
+// Content source of truth: career-ops/output/portfolio-update-brief.md (2026-11-21).
+// Every claim here must trace to the "Facts you can use" list in that brief.
 
 export const PROFILE = {
   name: "Leandro Soria",
-  role: "Senior Front-End Engineer & CMS Architect",
-  tagline: "Building production websites for international brands",
-  location: "Buenos Aires, AR · Working globally",
+  role: "Web Engineer for Marketing Teams",
+  tagline: "I own the web layer for US marketing teams",
+  location: "Buenos Aires, AR · GMT-3, full US overlap",
   email: "hello@leandrosoria.dev",
-  yearsExperience: 5,
+  yearsExperience: 6,
   sitesShipped: 100,
   teamSize: 15,
+  // Public availability line (neutral version, approved by Leandro).
+  availability: "Currently at Marketwake. Happy to talk.",
 };
 
 export const CREDENTIALS = [
-  { label: "Years shipping",        value: "5+",            meta: "Front-end & CMS" },
-  { label: "Production sites",      value: "100+",          meta: "Live, maintained" },
-  { label: "Team Lead",             value: "15 devs",       meta: "Luxury Presence" },
+  { label: "Years shipping",        value: "6",             meta: "Web for US teams" },
+  { label: "Sites launched",        value: "100+",          meta: "Luxury Presence + Marketwake" },
+  { label: "Devs led",              value: "15",            meta: "Luxury Presence" },
   { label: "RealTrends 2022",       value: "Best Design",   meta: "Fuller Group" },
-  { label: "HubSpot CMS",           value: "Certified",     meta: "Implementation Partner" },
+  { label: "HubSpot",               value: "Certified",     meta: "Implementation for Partners" },
 ];
 
 export const WORK = [
   {
-    id: "impact",
-    index: "03",
-    client: "Impact Analytics",
-    title: "Marketing platform for an enterprise AI company",
-    summary: "Translated a complex B2B AI product into a clear marketing story. Webflow CMS architected for non-technical marketers to ship weekly.",
-    year: "2025",
-    role: "Front-end Lead",
+    id: "cloyes",
+    index: "01",
+    client: "Cloyes",
+    title: "A Webflow site and a catalog app on one domain",
+    summary: "Full rebuild for an automotive timing parts manufacturer. A Webflow marketing site in English and Spanish, plus a Webflow Cloud app in Next.js on Cloudflare Workers for the parts catalog, with live search by make, model, year, engine and category. I designed the search and data model (Algolia, Cloudflare D1, R2 and Cloudflare Images), directed the pipeline that normalizes the client's catalog exports, and ran the launch: redirect map from the old WordPress site, technical SEO, consent and CRM forms. Claude Code wrote most of the code; I owned the architecture, review, QA and delivery.",
+    year: "2026",
+    role: "Primary developer",
     agency: "Marketwake",
-    url: "impactanalytics.co",
-    stack: ["Webflow", "JS", "Figma"],
-    category: "B2B SaaS · AI",
-    metric: "Marketing ships weekly",
-    swatch: "linear-gradient(135deg,#1a1d28 0%,#2a3349 50%,#5b6a8f 100%)",
+    url: "cloyes.com",
+    stack: ["Webflow", "Webflow Cloud", "Algolia", "Cloudflare", "Claude Code"],
+    category: "Automotive parts",
+    metric: "Live since Nov 2026, English and Spanish on one domain",
+    swatch: "linear-gradient(135deg,#1c1a16 0%,#3a3226 50%,#8a6f45 100%)",
     featured: true,
   },
   {
-    id: "fuller",
-    index: "01",
-    client: "Fuller Group",
-    title: "A flagship site for top-producing luxury real estate",
-    summary: "Rebuilt the digital presence of a Chicago-area luxury brokerage. Focus on narrative pacing, typography, and a content system the team could actually operate.",
-    year: "2022",
-    role: "Lead Engineer",
-    agency: "Luxury Presence",
-    url: "thefullerproperties.com",
-    stack: ["Next.js", "Sanity", "GSAP"],
-    category: "Luxury Real Estate",
-    award: "RealTrends - Best Website Design 2022",
-    metric: "RealTrends Best Design 2022",
-    swatch: "linear-gradient(135deg,#2a2420 0%,#4a3f35 45%,#8a7862 100%)",
+    id: "arovy",
+    index: "02",
+    client: "Arovy",
+    title: "SaaS marketing site on HubSpot CMS",
+    summary: "Campaign-ready HubSpot CMS theme built from scratch in HubL, with custom modules the marketing team uses to launch pages on its own",
+    year: "2025",
+    role: "HubSpot developer",
+    agency: "Marketwake",
+    url: "arovy.com",
+    stack: ["HubSpot CMS", "HubL"],
+    category: "SaaS",
+    metric: "Marketing launches pages without a developer",
+    swatch: "linear-gradient(135deg,#1e2420 0%,#2d3a30 50%,#6a8070 100%)",
   },
   {
-    id: "greene-isen",
-    index: "02",
-    client: "Patricia Greene Isen",
-    title: "Multi-market luxury brokerage, one editorial voice",
-    summary: "Unified presence across LA and Aspen markets without diluting either. Modular listing system, editorial templates, custom search.",
-    year: "2023",
-    role: "Architect & Lead",
-    agency: "Luxury Presence",
-    url: "patriciagreeneisen.com",
-    stack: ["Next.js", "Sanity", "Algolia"],
-    category: "Luxury Real Estate",
-    metric: "Two markets, one system",
-    swatch: "linear-gradient(135deg,#1a2420 0%,#2d3a34 50%,#607065 100%)",
+    id: "impact",
+    index: "03",
+    client: "Impact Analytics",
+    title: "A Webflow site the marketing team runs",
+    summary: "Webflow site with modular, CMS-driven sections the marketing team edits on its own: complex CMS collections, Logic, custom code and localization",
+    year: "2025",
+    role: "Webflow developer",
+    agency: "Marketwake",
+    url: "impactanalytics.ai",
+    stack: ["Webflow", "Webflow CMS", "Figma"],
+    category: "B2B SaaS",
+    metric: "Marketing edits the site on its own",
+    swatch: "linear-gradient(135deg,#1a1d28 0%,#2a3349 50%,#5b6a8f 100%)",
   },
   {
     id: "sayers",
     index: "04",
     client: "Sayers",
-    title: "Corporate technology consultancy, on WordPress",
-    summary: "Enterprise IT consultancy site rebuilt on WordPress + Breakdance. Performance budget held under strict CMS constraints; editors ship without dev involvement.",
+    title: "Corporate technology site on WordPress",
+    summary: "Corporate site built on WordPress with Breakdance, with custom PHP, ACF field groups and a performance pass before launch",
     year: "2025",
-    role: "CMS Architect",
+    role: "WordPress developer",
     agency: "Marketwake",
     url: "sayers.com",
-    stack: ["WordPress", "Breakdance", "ACF"],
-    category: "Corporate Technology",
-    metric: "Editors ship independently",
+    stack: ["WordPress", "Breakdance", "ACF", "PHP"],
+    category: "Corporate technology",
+    metric: "Launched with a 90+ PageSpeed target",
     swatch: "linear-gradient(135deg,#241a1a 0%,#3d2a2a 50%,#7a5656 100%)",
   },
   {
-    id: "arovy",
+    id: "fuller",
     index: "05",
-    client: "Arovy",
-    title: "SaaS marketing presence on HubSpot CMS",
-    summary: "Full HubSpot CMS build: design system, modular templates, marketing ops integrated from day one. Growth team runs experiments without waiting.",
-    year: "2025",
-    role: "HubSpot Architect",
-    agency: "Marketwake",
-    url: "arovy.com",
-    stack: ["HubSpot", "HubL", "TS"],
-    category: "SaaS Marketing",
-    metric: "Growth runs experiments unblocked",
-    swatch: "linear-gradient(135deg,#1e2420 0%,#2d3a30 50%,#6a8070 100%)",
+    client: "Fuller Group",
+    title: "Luxury real estate site, built solo",
+    summary: "Developed the site on my own at Luxury Presence. Selected among RealTrends Best Website Designs 2022",
+    year: "2022",
+    role: "Front-end developer",
+    agency: "Luxury Presence",
+    url: "thefullerproperties.com",
+    stack: ["HTML", "CSS / SCSS", "JavaScript"],
+    category: "Luxury real estate",
+    award: "RealTrends Best Website Designs 2022",
+    metric: "★ RealTrends Best Website Designs 2022",
+    swatch: "linear-gradient(135deg,#2a2420 0%,#4a3f35 45%,#8a7862 100%)",
   },
 ];
 
-// Expanded catalogue — grouped by agency, shown in a list view below flagship cards
+// Expanded catalogue, grouped by agency, shown in a list view below flagship cards.
+// Luxury Presence entries carry no framework tags: the stack behind them is not confirmed.
+const LP = ["Luxury Presence platform"];
 export const WORK_INDEX = [
-  // Luxury Presence — real estate
-  { client: "Fuller Group",           url: "thefullerproperties.com",    year: "2022", agency: "Luxury Presence", stack: ["Next.js"],    note: "RealTrends Best Design '22" },
-  { client: "Patricia Greene Isen",   url: "patriciagreeneisen.com",     year: "2023", agency: "Luxury Presence", stack: ["Next.js"] },
-  { client: "The Alliance Group",     url: "alliancegrouphomes.com",     year: "2023", agency: "Luxury Presence", stack: ["Next.js"] },
-  { client: "Terra Shoaf",            url: "terrashoaf.com",             year: "2023", agency: "Luxury Presence", stack: ["Next.js"] },
-  { client: "Stephanie Renteria",     url: "stephanierenteria.com",      year: "2023", agency: "Luxury Presence", stack: ["Next.js"] },
-  { client: "David Thayer",           url: "thayercoastalhomes.com",     year: "2024", agency: "Luxury Presence", stack: ["Next.js"] },
-  { client: "Tim Singer",             url: "timsinger.com",              year: "2024", agency: "Luxury Presence", stack: ["Next.js"] },
+  // Luxury Presence, real estate
+  { client: "Fuller Group",           url: "thefullerproperties.com",    year: "2022", agency: "Luxury Presence", stack: LP, note: "RealTrends Best Design '22" },
+  { client: "Patricia Greene Isen",   url: "patriciagreeneisen.com",     year: "2023", agency: "Luxury Presence", stack: LP },
+  { client: "The Alliance Group",     url: "alliancegrouphomes.com",     year: "2023", agency: "Luxury Presence", stack: LP },
+  { client: "Terra Shoaf",            url: "terrashoaf.com",             year: "2023", agency: "Luxury Presence", stack: LP },
+  { client: "Stephanie Renteria",     url: "stephanierenteria.com",      year: "2023", agency: "Luxury Presence", stack: LP },
+  { client: "David Thayer",           url: "thayercoastalhomes.com",     year: "2023", agency: "Luxury Presence", stack: LP },
+  { client: "Tim Singer",             url: "timsinger.com",              year: "2023", agency: "Luxury Presence", stack: LP },
 
-  // Marketwake — B2B, SaaS, e-com
-  { client: "Impact Analytics",       url: "impactanalytics.co",         year: "2024", agency: "Marketwake", stack: ["Webflow"] },
-  { client: "Sayers",                 url: "sayers.com",                 year: "2024", agency: "Marketwake", stack: ["WordPress", "Breakdance"] },
+  // Marketwake, B2B, SaaS, e-com
+  { client: "Cloyes",                 url: "cloyes.com",                 year: "2026", agency: "Marketwake", stack: ["Webflow", "Webflow Cloud"] },
+  { client: "Impact Analytics",       url: "impactanalytics.ai",         year: "2025", agency: "Marketwake", stack: ["Webflow"] },
+  { client: "Sayers",                 url: "sayers.com",                 year: "2025", agency: "Marketwake", stack: ["WordPress", "Breakdance"] },
   { client: "Stratascale",            url: "stratascale.com",            year: "2024", agency: "Marketwake", stack: ["WordPress", "Breakdance"] },
   { client: "RightPath",              url: "rightpath.com",              year: "2024", agency: "Marketwake", stack: ["WordPress", "Breakdance"] },
+  { client: "Sylvan",                 url: "sylvan-inc.com",             year: "2026", agency: "Marketwake", stack: ["WordPress", "Elementor"] },
   { client: "Arovy",                  url: "arovy.com",                  year: "2025", agency: "Marketwake", stack: ["HubSpot"] },
   { client: "Katalon",                url: "katalon.com",                year: "2025", agency: "Marketwake", stack: ["HubSpot"] },
   { client: "T-Lake",                 url: "tlake.com",                  year: "2025", agency: "Marketwake", stack: ["HubSpot"] },
   { client: "Ripple IT",              url: "rippleit.com",               year: "2023", agency: "Marketwake", stack: ["HubSpot"] },
+  { client: "Signature Aviation",     url: "signatureaviation.com",      year: "ongoing", agency: "Marketwake", stack: ["HubSpot", "Tailwind CSS"] },
+  { client: "Crunchafi",              url: "crunchafi.com",              year: "ongoing", agency: "Marketwake", stack: ["HubSpot"] },
   { client: "BIP Wealth",             url: "bipwealth.com",              year: "2023", agency: "Marketwake", stack: ["WordPress", "Oxygen"] },
   { client: "Infinity Transport",     url: "infinitytransport.com",      year: "2023", agency: "Marketwake", stack: ["WordPress", "Oxygen"] },
   { client: "Georgia Chamber",        url: "gachamber.com",              year: "2023", agency: "Marketwake", stack: ["WordPress", "Oxygen"] },
   { client: "Xcelerate Networks",     url: "xceleratenetworks.com",      year: "2023", agency: "Marketwake", stack: ["WordPress", "Oxygen"] },
   { client: "Tavezio",                url: "tavezio.com",                year: "2023", agency: "Marketwake", stack: ["WordPress", "Oxygen"] },
   { client: "Punchlist",              url: "punchlist.com",              year: "2023", agency: "Marketwake", stack: ["WordPress", "Oxygen"] },
-  { client: "Ras Systems",            url: "ras-systems.com",            year: "2023", agency: "Marketwake", stack: ["WordPress", "Bakery"] },
-  { client: "Marketwake",             url: "marketwake.com",             year: "2024", agency: "Marketwake", stack: ["WordPress", "Greenshift"] },
+  { client: "RAS Systems",            url: "ras-systems.com",            year: "2023", agency: "Marketwake", stack: ["WordPress", "WPBakery"] },
   { client: "5Q Partners",            url: "5qpartners.com",             year: "2024", agency: "Marketwake", stack: ["Webflow"] },
   { client: "100 Coconuts",           url: "100coconuts.com",            year: "2024", agency: "Marketwake", stack: ["Shopify"] },
   { client: "Penley Art",             url: "penleyartco.com",            year: "2024", agency: "Marketwake", stack: ["Shopify"] },
@@ -148,62 +158,90 @@ export const WORK_INDEX = [
 export const SERVICES = [
   {
     n: "01",
-    title: "Marketing Site Architecture",
-    body: "End-to-end build of a marketing site your team can actually operate. Information architecture, design system, CMS modeling, front-end engineering, launch.",
-    deliverables: ["Design system", "CMS schema", "Production build", "Team handoff"],
+    title: "Marketing sites, end to end",
+    body: "Figma to production on WordPress, Webflow, HubSpot CMS or Shopify, with CMS structures your marketing team edits on its own.",
+    deliverables: ["Figma to build", "CMS modeling", "Custom themes", "Launch"],
   },
   {
     n: "02",
-    title: "CMS Implementation",
-    body: "HubSpot, Webflow, WordPress, or Sanity - modeled for how your team works, not how the platform wants you to work. Editors ship without engineering in the loop.",
-    deliverables: ["Content modeling", "Template system", "Editor training", "Ops integration"],
+    title: "Web operations",
+    body: "Hosting, DNS, Cloudflare, security headers, backups, monitoring and incident response. Migrations between CMS and hosts that keep your SEO.",
+    deliverables: ["Migrations", "Cloudflare", "Security headers", "Incidents"],
   },
   {
     n: "03",
-    title: "Front-End Rebuilds",
-    body: "Performance, accessibility, and maintainability retrofitted onto sites that have outgrown their original build. Minimal disruption, measurable outcome.",
-    deliverables: ["Audit", "Migration plan", "Phased build", "Core Web Vitals"],
+    title: "Tracking and integrations",
+    body: "GA4 and Google Tag Manager events and conversions, consent-gated analytics, and forms connected to HubSpot, ActiveCampaign or Mailchimp through Zapier, Make and n8n.",
+    deliverables: ["GA4", "GTM", "Consent", "CRM forms"],
   },
   {
     n: "04",
-    title: "Fractional Engineering Lead",
-    body: "Embedded leadership for in-house teams. Code review, architectural direction, hiring support, process design - with five years of shipping at the other end of it.",
-    deliverables: ["Architecture review", "Mentoring", "Process", "Hiring"],
+    title: "AI-first delivery",
+    body: "Claude Code with custom skills, MCP-connected tools and written specs, so builds move faster while I own architecture, review and QA.",
+    deliverables: ["Claude Code", "Custom skills", "MCP", "QA"],
   },
 ];
 
 export const STACK = [
   {
-    cat: "Front-end",
-    items: ["React", "Next.js", "TypeScript", "Astro", "Tailwind", "GSAP"],
+    cat: "Platforms",
+    items: ["WordPress", "Webflow + Webflow Cloud", "HubSpot CMS", "Shopify", "Framer"],
   },
   {
-    cat: "CMS",
-    items: ["HubSpot CMS", "Webflow", "WordPress", "Sanity", "Shopify", "Breakdance"],
+    cat: "Front end",
+    items: ["HTML", "CSS / SCSS", "Tailwind CSS", "JavaScript (ES6+)", "PHP for WordPress", "Twig", "HubL", "Liquid", "GSAP"],
+  },
+  {
+    cat: "WordPress",
+    items: ["Custom themes and plugins", "ACF", "Custom post types", "WooCommerce", "Breakdance", "Oxygen", "Elementor"],
   },
   {
     cat: "Infrastructure",
-    items: ["Vercel", "Netlify", "Cloudflare", "Algolia", "Stripe", "Sentry"],
+    items: ["Cloudflare: DNS, SSL, Workers", "Cloudflare Images and R2", "Security headers", "WP Engine", "Kinsta", "Cloudways", "SiteGround", "Pantheon", "Git"],
   },
   {
-    cat: "Practice",
-    items: ["Design systems", "Performance", "Accessibility", "Team leadership", "Hiring", "Architecture"],
+    cat: "Analytics and integrations",
+    items: ["GA4", "Google Tag Manager", "Hotjar", "Algolia", "HubSpot", "ActiveCampaign", "Mailchimp", "Zapier", "Make", "n8n"],
+  },
+  {
+    cat: "AI",
+    items: ["Claude Code (custom skills)", "Claude Cowork", "MCP"],
   },
 ];
 
-export const WRITING = [
-  { title: "The real cost of Webflow at scale", date: "Coming soon",  kind: "Essay" },
-  { title: "Why HubSpot is an underrated front-end platform", date: "Coming soon", kind: "Essay" },
-  { title: "Leading a 15-person front-end team remotely", date: "Coming soon", kind: "Notes" },
+export const STACK_NOTE = "Next.js, React and Cloudflare Workers through the cloyes.com build with Claude Code";
+
+// Approved referee quotes, verbatim. All from the Luxury Presence team-lead period (2023).
+export const TESTIMONIALS = [
+  {
+    quote: "Leandro is an amazing frontend developer and team leader who is always there for his team and provides excellent support. He is very organized and has a great attitude",
+    name: "Melisa Brandao",
+    role: "Frontend Developer & WordPress Specialist",
+  },
+  {
+    quote: "Leandro was a wonderful leader, teacher, and a good person. He is always looking to help the team get better",
+    name: "Sebastián Fontana",
+    role: "Former teammate",
+  },
+  {
+    quote: "he has great development skills and also a lot of patience to help, teach and manage a team",
+    name: "Daniela Mastandrea",
+    role: "Web Builder, Launch Team, Luxury Presence",
+  },
 ];
+
+// Writing section removed until a real post exists. Kept as an empty list so the
+// legacy V3 variant (TerminalVariant) still compiles.
+export const WRITING = [];
 
 export const NAV = [
   { id: "hero", label: "Index" },
   { id: "about", label: "About" },
   { id: "work", label: "Work" },
   { id: "services", label: "Services" },
+  { id: "process", label: "Process" },
   { id: "stack", label: "Stack" },
-  { id: "writing", label: "Writing" },
+  { id: "testimonials", label: "Quotes" },
   { id: "contact", label: "Contact" },
 ];
 

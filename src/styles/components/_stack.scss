@@ -1,6 +1,6 @@
 @use '../abstracts/mixins' as *;
 
-// Technical stack — 4-column grid of category cards.
+// Technical stack — 3-column grid of category cards (6 groups, 2 rows).
 //
 // Markup:
 //   <section class="term-stack">
@@ -38,8 +38,17 @@
   &__grid {
     margin-top: 32px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+  }
+
+  // Small footnote under the grid (frameworks used only through AI-built work).
+  &__note {
+    margin: 18px 0 0;
+    font-family: var(--ls-font-mono);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ls-dim);
   }
   @media (max-width: 1024px){
     &__grid {
