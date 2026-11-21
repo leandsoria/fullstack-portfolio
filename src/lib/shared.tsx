@@ -42,7 +42,7 @@ export const WORK = [
     index: "01",
     client: "Cloyes",
     title: "A Webflow site and a catalog app on one domain",
-    summary: "Full rebuild for an automotive timing parts manufacturer. A Webflow marketing site in English and Spanish, plus a Webflow Cloud app in Next.js on Cloudflare Workers for the parts catalog, with live search by make, model, year, engine and category. I designed the search and data model (Algolia, Cloudflare D1, R2 and Cloudflare Images), directed the pipeline that normalizes the client's catalog exports, and ran the launch: redirect map from the old WordPress site, technical SEO, consent and CRM forms. Claude Code wrote most of the code; I owned the architecture, review, QA and delivery.",
+    summary: "Full rebuild for an automotive timing parts manufacturer. A Webflow marketing site in English and Spanish, plus a Webflow Cloud app in Next.js on Cloudflare Workers for the parts catalog, with live search by make, model, year, engine and category. I designed the search and data model (Cloudflare D1, R2 and Cloudflare Images), directed the pipeline that normalizes the client's catalog exports, and ran the launch: redirect map from the old WordPress site, technical SEO, consent and CRM forms. Claude Code wrote most of the code; I owned the architecture, review, QA and delivery.",
     year: "2026",
     role: "Primary developer",
     agency: "Marketwake",
