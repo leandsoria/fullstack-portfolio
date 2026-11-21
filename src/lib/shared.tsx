@@ -47,7 +47,7 @@ export const WORK = [
     role: "Primary developer",
     agency: "Marketwake",
     url: "cloyes.com",
-    stack: ["Webflow", "Webflow Cloud", "Algolia", "Cloudflare", "Claude Code"],
+    stack: ["Webflow", "Webflow Cloud", "Cloudflare", "Claude Code"],
     category: "Automotive parts",
     metric: "Live since Nov 2026, English and Spanish on one domain",
     swatch: "linear-gradient(135deg,#1c1a16 0%,#3a3226 50%,#8a6f45 100%)",
